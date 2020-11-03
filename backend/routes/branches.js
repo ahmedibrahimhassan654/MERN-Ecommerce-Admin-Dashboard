@@ -1,19 +1,11 @@
 const express = require('express')
 
 const {
-	getMyBranches,
-	getAllBranches,
-	createBranche,
-	getBranch,
-	updateBranch,
-	deleteBranch,
-	getBranchsInRadius,
-	uploadBranchImage,
-	activateBranch,
-	addManger,
-	deleteManger,
-	addEmployer,
-	deleteEmployer,
+
+   createBranch,
+   getBranches,
+   getBranche
+
 } = require('../controllers/branches')
 
 const productRouter = require('./products')
@@ -34,15 +26,18 @@ const router = express.Router()
 // //Owner Checks
 // router.get('/branches/owner', authCheck, ownerCheck, getMyBranches)
 
-// router.post('/branches/owner', authCheck, ownerCheck, createBranche)
-// //Admin Checks
-// router.post('/branches/admin', authCheck, adminCheck, createBranche)
+router.post('/branches/owner',  createBranch)
+//Admin Checks
+router.post('/branches/admin',  createBranch)
 // //mangers check
 
 // router.get('/branches/manger', authCheck, mangerCheck, getMyBranches)
 
 // //employess check
 
+
+router.get('/branches', getBranches)
+router.get('/branches/:id',getBranche)
 // router.get('/branches/employee', authCheck, employeeCheck, getMyBranches)
 
 // //Re-route into other resource routers
