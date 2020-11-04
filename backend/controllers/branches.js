@@ -54,3 +54,38 @@ exports.getBranche =asyncHandler( async (req, res) => {
 });
 
 
+//update branch
+//put/api/v1/branches/owner/:id
+//private owner
+exports.updateBranch =asyncHandler( async (req, res) => {
+
+   
+   const branch = await Branch.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators:true
+  })
+
+   res.status(200).json({
+      sucess: true,
+      msg: `Branch With id ${req.params.id} is updated`,
+      branch
+   })
+  
+});
+
+//delete branch
+//delete/api/v1/branches/owner/:id
+//private
+exports.deleteBranch =asyncHandler( async (req, res) => {
+
+   
+   await Branch.findByIdAndDelete(req.params.id)
+
+   res.status(200).json({
+      sucess: true,
+      msg: `Branch With id ${req.params.id} is deleted`,
+      branch:null
+   })
+
+  
+});
