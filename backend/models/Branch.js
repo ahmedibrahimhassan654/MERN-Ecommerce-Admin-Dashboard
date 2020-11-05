@@ -1,7 +1,13 @@
 const mongoose=require('mongoose')
 const {transliterate  ,slugify} = require('transliteration')
 
-const BranchSchema=new mongoose.Schema({
+const BranchSchema = new mongoose.Schema({
+   owner: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required:true
+   },
+
    name:{
       type:String,
       required:[true,'please add a name for branch'],

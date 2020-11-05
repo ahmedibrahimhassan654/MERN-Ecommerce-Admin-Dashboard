@@ -4,16 +4,21 @@ const asyncHandler = require('../middelware/async')
 //Post/api/v1/branches/owner
 //owners,mangers
 exports.createBranch =asyncHandler( async (req, res) => {
-
+   //add user to req.body
+   req.body.owner = req.user.id
    
-      const branch= await Branch.create(req.body)
+
+   const branchCreator=await Branch.findOne(req.user.id)
+   if (branchCreator && req.user.role === 'owner') {
+      const branch = await Branch.create(req.body)
+      console.log(branch);
       res.status(200).json({
-      
       sucess: true,
       msg: 'new branch created',
       branch
-      
       })
+}
+     
   
   	
 });
@@ -87,5 +92,6 @@ exports.deleteBranch =asyncHandler( async (req, res) => {
       branch:null
    })
 
+    
   
 });
