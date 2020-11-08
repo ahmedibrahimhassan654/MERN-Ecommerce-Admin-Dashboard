@@ -1,7 +1,7 @@
 const express = require('express')
 
 const {
-
+   getMyBranches,
    createBranch,
    getBranches,
    getBranche,
@@ -44,32 +44,15 @@ router.post('/branches/admin',  createBranch)
 
 
 router.get('/branches', getBranches)
-router.get('/branches/:id',getBranche)
-// router.get('/branches/employee', authCheck, employeeCheck, getMyBranches)
+router.get('/branches/:id', getBranche)
+
+
+ router.get('/mybranch', authCheck, getMyBranches)
 
 // //Re-route into other resource routers
 
 // router.use('/:branchId/products', productRouter)
 
-// //branches routes
-// router.route('/radius/:zipcode/:distance').get(getBranchsInRadius)
 
-// router
-// 	.route('/')
-// 	.get(advancedResults(Branch, 'products'), getAllBranches)
-// 	.post(protect,roleCheck('owner','admin') ,createBranche)
-
-// router
-// 	.route('/:id')
-// 	.get(getBranch)
-// 	.put(protect, updateBranch)
-// 	.delete(protect, deleteBranch)
-
-// router.route('/:id/photo').put(protect, uploadBranchImage)
-// router.route('/:id/activate').put(protect, activateBranch)
-// router.route('/:id/manger').put(protect, addManger)
-// router.route('/:id/emp').put(protect, addEmployer)
-// router.route('/:id/manger/:manger_id').delete(protect, deleteManger)
-// router.route('/:id/employer/:employer_id').delete(protect, deleteEmployer)
 
 module.exports = router

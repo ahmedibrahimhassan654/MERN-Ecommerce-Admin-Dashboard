@@ -1,27 +1,71 @@
-const Branch=require('../models/Branch')
-const asyncHandler = require('../middelware/async')
+const Branch = require('../models/Branch')
+const ErrorResponse = require('../utils/errorresponse')
+const asyncHandler = require('../middelware/async');
+const { json } = require('body-parser');
+const User = require('../models/User');
 //Create New Branch
 //Post/api/v1/branches/owner
-//owners,mangers
-exports.createBranch =asyncHandler( async (req, res) => {
-   //add user to req.body
-   req.body.owner = req.user.id
+//owners
+exports.createBranch =asyncHandler( async (req, res,next) => {
+ 
+   // IF YOU HAVE ALREADY APPLIED authCheck() MIDDLEWARE IN YOUR ROUTE, YOU WILL GET req.user
+   console.log('req.user from firebase authCheck ', req.user)
+   //get email from req.user
+   const { email } = req.user;
+   console.log(email);
    
-
-   const branchCreator=await Branch.findOne(req.user.id)
-   if (branchCreator && req.user.role === 'owner') {
+   // FIND USER FROM OUR DATABASE BY EMAIL
+   const userFromDb = await User.findOne({ email }).exec();
+  
+   // now you have user... it should have all props like name, email, role etc
+   console.log('userFromDb ', userFromDb)
+  
+   if (userFromDb.role === 'owner') {
+      req.body.owner=userFromDb
       const branch = await Branch.create(req.body)
       console.log(branch);
-      res.status(200).json({
+     res.status(200).json({
       sucess: true,
       msg: 'new branch created',
       branch
       })
-}
-     
-  
-  	
+    
+ }
 });
+ 
+//get my branches
+//get/api/v1/branches/me
+//owners
+exports.getMyBranches =asyncHandler( async (req, res,next) => {
+ 
+   // IF YOU HAVE ALREADY APPLIED authCheck() MIDDLEWARE IN YOUR ROUTE, YOU WILL GET req.user
+   console.log('req.user from firebase authCheck ', req.user)
+   //get email from req.user
+   const { email } = req.user;
+   console.log(email);
+   
+   // // FIND USER FROM OUR DATABASE BY EMAIL
+   const userFromDb = await User.findOne({ email }).exec();
+  
+   // // // now you have user... it should have all props like name, email, role etc
+   // // console.log('userFromDb ', userFromDb)
+  
+  
+     
+   const branches = await Branch.find({ owner: userFromDb }).populate('User', ['name', 'picture', 'email'])
+   
+   if (!branches) {
+         return res.status(400).json({msg:'there is no branches for you '})
+      }
+     res.status(200).json({
+      sucess: true,
+      msg: 'my branches are ',
+      number:branches.length,
+      branches
+      })
+    
+
+ });
 
 //get all Branches
 //get/api/v1/branches

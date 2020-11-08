@@ -1,11 +1,12 @@
 const mongoose=require('mongoose')
-const {transliterate  ,slugify} = require('transliteration')
+const { transliterate, slugify } = require('transliteration')
+
 
 const BranchSchema = new mongoose.Schema({
    owner: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
-      required:true
+      // required:true
    },
 
    name:{
