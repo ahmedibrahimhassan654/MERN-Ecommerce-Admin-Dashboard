@@ -16,7 +16,12 @@ const BranchSchema = new mongoose.Schema({
       trim:true,
       maxlength:[50,'name can not be more than 50 characters']
    },
-   slug: String,
+   slug: {
+      type: String,
+      lowercase: true,
+      index: true,
+      unique: true,
+   },
 
    description: {
       type:String,

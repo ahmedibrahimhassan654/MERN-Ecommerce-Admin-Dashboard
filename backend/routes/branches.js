@@ -6,7 +6,8 @@ const {
    getBranches,
    getBranche,
    updateBranch,
-   deleteBranch
+   deleteBranch,
+   AdminCreateBranch
 
 } = require('../controllers/branches')
 
@@ -31,11 +32,15 @@ const router = express.Router()
 
 router.post('/branches/owner', authCheck, ownerCheck, createBranch)
 
-router.put('/branches/owner/:id', updateBranch)
-router.delete('/branches/owner/:id', deleteBranch)
+router.put('/branches/owner/:slug', authCheck, ownerCheck, updateBranch)
+
+router.delete('/branches/owner/:slug',authCheck,ownerCheck, deleteBranch)
 
 //Admin Checks
-router.post('/branches/admin',  createBranch)
+router.post('/branche/admin', authCheck, adminCheck, AdminCreateBranch)
+router.put('/branches/admin/:slug', authCheck, adminCheck, updateBranch)
+router.delete('/branches/admin/:slug',authCheck,adminCheck, deleteBranch)
+
 // //mangers check
 
 // router.get('/branches/manger', authCheck, mangerCheck, getMyBranches)
