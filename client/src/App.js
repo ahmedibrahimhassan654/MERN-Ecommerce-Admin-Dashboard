@@ -10,7 +10,7 @@ import Owner from './pages/auth/Owner'
 import Register from './pages/auth/Register'
 import RegisterComplete from './pages/auth/RegisterComplete'
 import Home from './pages/Home'
-import ForgotPassword from './pages/auth/Forgotpassword'
+import Forgotpassword from './pages/auth/Forgotpassword'
 
 import UserDashBord from './pages/dashbords/user/UserDashbord'
 import AdminDashBord from './pages/dashbords/admin/AdminDashbord'
@@ -76,7 +76,7 @@ const App = () => {
 				<Route exact path='/login' component={Login} />
 				<Route exact path='/owner' component={Owner} />
 				<Route exact path='/register/complete' component={RegisterComplete} />
-				<Route exact path='/forgot/password' component={ForgotPassword} />
+				<Route exact path='/forgot/password' component={Forgotpassword} />
 				{/* //user routes */}
 				<UserRoute exact path='/user/dashboard' component={UserDashBord} />
 				<UserRoute exact path='/user/password' component={Password} />

@@ -112,7 +112,10 @@ exports.AdminCreateBranch = asyncHandler(async (req, res, next) => {
              email,
              role
              
-         }).save()
+          }).save()
+         
+         
+         
       console.log('new user created',newOwner);
          // const {description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable}=req.body
          // let branch = await Branch.create({owner:newOwner,name,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable});
@@ -240,5 +243,52 @@ exports.deleteBranch =asyncHandler( async (req, res) => {
    })
 
     
+  
+});
+//Accept  branch
+//delete/api/v1/branches/admin/:id
+//private admin
+exports.ActiveBranch =asyncHandler( async (req, res,next) => {
+
+   
+   let branch = await Branch.findOne({ slug: req.params.slug })
+   
+   if (!branch) {
+   return next(new ErrorResponse(`branch ${req.params.slug} not found  `))
+   }
+  
+  console.log(branch);
+   //make sure updated user is branch owner 
+   const { email } = req.user;
+   console.log(email);
+   
+   // FIND USER FROM OUR DATABASE BY EMAIL
+   const userFromDb = await User.findOne({ email }).exec();
+
+  
+
+   if (userFromDb.role!=='admin') {
+      console.log('request user object = ' ,userFromDb.role);
+
+
+      console.log('branch owner object ',branch.owner);
+    return next(new ErrorResponse(`user with email ${userFromDb.email} is not authorize to accept  this branch  `))
+
+   }
+
+   branch = await Branch.findOneAndUpdate({ slug: req.params.slug }, {
+      $set: {
+         adminAccept
+      }
+    }, {
+      new: true,
+      runValidators:true
+})
+
+   res.status(200).json({
+      sucess: true,
+      msg: `Branch With name ${req.params.slug} is activate now `,
+      branch
+   })
   
 });

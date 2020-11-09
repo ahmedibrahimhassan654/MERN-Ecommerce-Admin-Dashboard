@@ -5,7 +5,7 @@ import {toast}from 'react-toastify'
 import { Button } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 
-const Forgotpasswod = ({history}) => {
+const Forgotpassword = ({history}) => {
     const [email,setEmail]=useState('')
     const [loading,setLoding]=useState(false)
 
@@ -15,14 +15,15 @@ const Forgotpasswod = ({history}) => {
 			if (user && user.token) history.push('/')
 		}, [user, history])
     const handleSubmit =async (e) => {
-        e.preventDefault() 
+       e.preventDefault() 
+       
         setLoding(true)
 
-        const config={
-        url:process.env.REACT_APP_Forgot_password_URL,
-        handleCodeInApp:true
+       const config = {
+          url: process.env.REACT_APP_Forgot_password_REDIRECT,
+          handleCodeInApp: true
 
-    }
+       };
         await auth.sendPasswordResetEmail(email, config).then(() => {
                 setEmail('')
                 setLoding(true)
@@ -52,18 +53,18 @@ const Forgotpasswod = ({history}) => {
                     
                 />
                 <br />
-                <Button
-                    type="primary"
+                <button
+                    className="btn btn-raised btn-primary"
                     disabled={!email}
-                    block
+                  
                     shape="round"
                     icon={<CheckOutlined style={{ fontSize: '20px', color: 'white' ,justifyContent:"center "}}/>}
                 >
                     Submit
-                </Button>
+                </button>
             </form>
         </div>
     )
 }
 
-export default Forgotpasswod
+export default Forgotpassword
