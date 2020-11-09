@@ -84,29 +84,48 @@ exports.AdminCreateBranch = asyncHandler(async (req, res, next) => {
    console.log('userFromDb ', userFromDb);
   
    if (userFromDb.role === 'admin') {
-      const{name,email}=req.body.owner
-     owner  =await new User({
-         name,
-         email,
-         role:'owner'
-      })
 
-     
-     
-      const branch = await Branch.create(req.body);
 
-      console.log(branch);
+      const { name, email, role = 'owner' } = req.body.owner
+      
 
+
+    let owner  =await User.findOne({email})
+      console.log(owner);
+      if (owner) {
+         //create new branch
+         const {name,slug,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable}=req.body
+         let branch = await Branch.create({owner,name,slug,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable});
+         // console.log(branch);
+         res.status(200).json({
+                  sucess: true,
+                  msg: 'new branch created by admin',
+                  branch
+               });
+       } 
+      else {
+         //there is no owner 
+         //create new owner 
+           const { name, email, role = 'owner' } = req.body.owner
+          const newOwner  = await new User({
+             name,
+             email,
+             role
+             
+         }).save()
+      console.log('new user created',newOwner);
+         // const {description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable}=req.body
+         // let branch = await Branch.create({owner:newOwner,name,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable});
+         // console.log(branch);
+         // res.status(200).json({
+         //          sucess: true,
+         //          msg: 'new branch created by admin',
+         //          branch
+         //       });
      
-      return res.status(200).json({
-         sucess: true,
-         msg: 'new branch createdby admin',
-         branch
-      });
-    
-      //   res.status(400).json({msg:'there is a branch with the same information '})
+      }
  
-   }
+    }
 });
 
 //get all Branches
