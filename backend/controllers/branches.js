@@ -3,6 +3,10 @@ const ErrorResponse = require('../utils/errorresponse')
 const asyncHandler = require('../middelware/async');
 const { json } = require('body-parser');
 const User = require('../models/User');
+const admin = require('../firebase/index')
+
+
+
 //Create New Branch
 //Post/api/v1/branches/owner
 //owners
@@ -107,16 +111,37 @@ exports.AdminCreateBranch = asyncHandler(async (req, res, next) => {
          //there is no owner 
          //create new owner 
            const { name, email, role = 'owner' } = req.body.owner
-          const newOwner  = await new User({
+          let newOwner  = await new User({
              name,
              email,
              role
              
           }).save()
+          console.log('new user created in db',newOwner);
+
+          //create the same user in firebase
+          newOwner= await admin.auth().createUser({
+            email,           
+            name,
+            role,
+            disabled: false
+          })
+            .then(function(userRecord) {
+              // See the UserRecord reference doc for the contents of userRecord.
+              console.log('Successfully created new user: in firebase', userRecord);
+            })
+            .catch(function(error) {
+              console.log('Error creating new user:', error);
+            });
          
-         
-         
-      console.log('new user created',newOwner);
+            //const {name,slug,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable}=req.body
+            let branch = await Branch.create({owner:newOwner,name,slug,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable});
+            // console.log(branch);
+            res.status(200).json({
+                     sucess: true,
+                     msg: 'new branch created by admin',
+                     branch
+                  });
          // const {description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable}=req.body
          // let branch = await Branch.create({owner:newOwner,name,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable});
          // console.log(branch);
