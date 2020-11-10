@@ -137,20 +137,13 @@ exports.AdminCreateBranch = asyncHandler(async (req, res, next) => {
             //const {name,slug,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable}=req.body
             let branch = await Branch.create({owner:newOwner,name,slug,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable});
             // console.log(branch);
-            res.status(200).json({
+         res.status(200).json({
+               
                      sucess: true,
                      msg: 'new branch created by admin',
                      branch
                   });
-         // const {description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable}=req.body
-         // let branch = await Branch.create({owner:newOwner,name,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable});
-         // console.log(branch);
-         // res.status(200).json({
-         //          sucess: true,
-         //          msg: 'new branch created by admin',
-         //          branch
-         //       });
-     
+         
       }
  
     }
@@ -315,5 +308,68 @@ exports.ActiveBranch =asyncHandler( async (req, res,next) => {
       msg: `Branch With name ${req.params.slug} is activate now `,
       branch
    })
+  
+});
+
+//add manger to my branch  
+//put/api/v1/branches/owner/:slug/manger
+//private owner
+exports.addManger =asyncHandler( async (req, res,next) => {
+
+   const { name, email, role = 'manger' } = req.body
+  let newManger = await new User({
+     name,
+     email,
+     role
+  })
+   
+   
+   
+  newMangerInFirebase= await admin.auth().createUser({
+   email,           
+   name,
+   role,
+   disabled: false
+ })
+   .then(function(userRecord) {
+     // See the UserRecord reference doc for the contents of userRecord.
+     console.log('Successfully created new user: in firebase', userRecord);
+   })
+   .catch(function(error) {
+     console.log('Error creating new user:', error);
+   });
+   const branch = await Branch.findOne({ slug: req.params.slug })
+   
+   
+
+  
+   
+   // FIND USER FROM OUR DATABASE BY EMAIL
+   const userFromDb = await User.findOne({ email:req.user.email }).exec();
+ 
+  //check this branch is my branch or not
+ 
+   if (branch.owner.toString() !== userFromDb._id.toString() && userFromDb.role !== 'admin') {
+      return next(new ErrorResponse(`user with email ${req.user.email} is not authorize to add manger to this branch  `))
+
+   }
+   branch.mangers.unshift(newManger)
+
+
+    await Branch.findOneAndUpdate({slug:req.params.slug},{mangers:newManger},{
+      new: true,
+      runValidators:true
+})
+    res.status(200).json({
+      sucess: true,
+      msg: `new manger With name ${newManger} add to branch ${req.params.slug} `,
+      branch
+   })
+
+   
+   
+
+   
+   
   
 });

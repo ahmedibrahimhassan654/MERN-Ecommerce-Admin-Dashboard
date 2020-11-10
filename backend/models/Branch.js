@@ -72,7 +72,20 @@ const BranchSchema = new mongoose.Schema({
       default: false,
       required:true
    },
-   
+   mangers: [
+       {
+         _id: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'User',
+         }  ,
+         name: String,
+         email: String,
+         role: String
+        
+      }
+
+   ]
+
 
 }, { timestamps: true });
 

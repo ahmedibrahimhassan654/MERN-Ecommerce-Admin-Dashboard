@@ -2,7 +2,7 @@ import React ,{useState,useEffect}from 'react';
 import {auth}from '../../firbase'
 import { useSelector } from "react-redux";
 import {toast}from 'react-toastify'
-import { Button } from 'antd';
+
 import { CheckOutlined } from '@ant-design/icons';
 
 const Forgotpassword = ({history}) => {

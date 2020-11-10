@@ -8,7 +8,8 @@ const {
    updateBranch,
    deleteBranch,
    AdminCreateBranch,
-   ActiveBranch
+   ActiveBranch,
+   addManger
 
 } = require('../controllers/branches')
 
@@ -35,7 +36,8 @@ router.post('/branches/owner', authCheck, ownerCheck, createBranch)
 
 router.put('/branches/owner/:slug', authCheck, ownerCheck, updateBranch)
 
-router.delete('/branches/owner/:slug',authCheck,ownerCheck, deleteBranch)
+router.delete('/branches/owner/:slug', authCheck, ownerCheck, deleteBranch)
+router.put('/branches/owner/:slug/manger', authCheck, ownerCheck, addManger)
 
 //Admin Checks
 router.post('/branche/admin', authCheck, adminCheck, AdminCreateBranch)
