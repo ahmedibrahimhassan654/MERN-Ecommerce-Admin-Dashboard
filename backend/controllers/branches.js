@@ -323,27 +323,24 @@ exports.addManger =asyncHandler( async (req, res,next) => {
      role
   })
    
-   
-   
-  newMangerInFirebase= await admin.auth().createUser({
-   email,           
-   name,
-   role,
-   disabled: false
- })
-   .then(function(userRecord) {
-     // See the UserRecord reference doc for the contents of userRecord.
-     console.log('Successfully created new user: in firebase', userRecord);
-   })
-   .catch(function(error) {
-     console.log('Error creating new user:', error);
-   });
+//   newManger= await admin.auth().createUser({
+//    email,           
+//    name,
+//    role,
+//    disabled: false
+//  })
+//    .then(function(userRecord) {
+//      // See the UserRecord reference doc for the contents of userRecord.
+//      console.log('Successfully created new user: in firebase', userRecord);
+//    })
+//    .catch(function(error) {
+//      console.log('Error creating new user:', error);
+//    });
    const branch = await Branch.findOne({ slug: req.params.slug })
    
    
-
+  branch.mangers.push(newManger)
   
-   
    // FIND USER FROM OUR DATABASE BY EMAIL
    const userFromDb = await User.findOne({ email:req.user.email }).exec();
  
@@ -353,23 +350,19 @@ exports.addManger =asyncHandler( async (req, res,next) => {
       return next(new ErrorResponse(`user with email ${req.user.email} is not authorize to add manger to this branch  `))
 
    }
-   branch.mangers.unshift(newManger)
+console.log(branch);
 
 
-    await Branch.findOneAndUpdate({slug:req.params.slug},{mangers:newManger},{
-      new: true,
-      runValidators:true
-})
-    res.status(200).json({
-      sucess: true,
-      msg: `new manger With name ${newManger} add to branch ${req.params.slug} `,
-      branch
-   })
 
-   
-   
+//     await Branch.findOneAndUpdate({slug:req.params.slug},{mangers:newManger},{
+//       new: true,
+//       runValidators:true
+// })
+//     res.status(200).json({
+//       sucess: true,
+//       msg: `new manger With name ${newManger} add to branch ${req.params.slug} `,
+//       branch
+//    })
 
-   
-   
-  
+
 });

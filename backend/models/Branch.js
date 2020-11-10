@@ -83,6 +83,7 @@ const BranchSchema = new mongoose.Schema({
          role: String
         
       }
+      
 
    ]
 
