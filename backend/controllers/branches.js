@@ -321,25 +321,27 @@ exports.addManger =asyncHandler( async (req, res,next) => {
      name,
      email,
      role
-  })
+  }).save()
    
-//   newManger= await admin.auth().createUser({
-//    email,           
-//    name,
-//    role,
-//    disabled: false
-//  })
-//    .then(function(userRecord) {
-//      // See the UserRecord reference doc for the contents of userRecord.
-//      console.log('Successfully created new user: in firebase', userRecord);
-//    })
-//    .catch(function(error) {
-//      console.log('Error creating new user:', error);
-//    });
-   const branch = await Branch.findOne({ slug: req.params.slug })
+ 
+await admin.auth().createUser({
+   email,           
+   name,
+   role,
+   picture: String,
+   disabled: false
+ })
+   .then(function(userRecord) {
+     // See the UserRecord reference doc for the contents of userRecord.
+     console.log('Successfully created new user: in firebase', userRecord);
+   })
+   .catch(function(error) {
+     console.log('Error creating new user:', error);
+   });
+   let branch = await Branch.findOne({ slug: req.params.slug })
    
    
-  branch.mangers.push(newManger)
+   console.log(branch);
   
    // FIND USER FROM OUR DATABASE BY EMAIL
    const userFromDb = await User.findOne({ email:req.user.email }).exec();
@@ -350,19 +352,17 @@ exports.addManger =asyncHandler( async (req, res,next) => {
       return next(new ErrorResponse(`user with email ${req.user.email} is not authorize to add manger to this branch  `))
 
    }
-console.log(branch);
+  
+branch.mangers.unshift(newManger)
 
-
-
-//     await Branch.findOneAndUpdate({slug:req.params.slug},{mangers:newManger},{
-//       new: true,
-//       runValidators:true
-// })
-//     res.status(200).json({
-//       sucess: true,
-//       msg: `new manger With name ${newManger} add to branch ${req.params.slug} `,
-//       branch
-//    })
-
+   const updatedBranch = await Branch.findOneAndUpdate({ slug: req.params.slug }, { mangers: newManger }, {
+      new: true,
+   runValidators:true})
+ 
+   res.status(200).json({
+      sucess: true,
+      msg: `Branch With name ${req.params.slug} is add new manger`,
+      updatedBranch
+   })
 
 });
