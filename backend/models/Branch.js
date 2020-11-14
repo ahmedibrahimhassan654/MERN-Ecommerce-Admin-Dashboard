@@ -6,6 +6,7 @@ const BranchSchema = new mongoose.Schema({
    owner: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
+      autopopulate: { select: '_id name email', maxDepth: 1 },
       // required:true
    },
 
@@ -74,13 +75,18 @@ const BranchSchema = new mongoose.Schema({
    },
    mangers: [
       {
-         _id: {
-            type: mongoose.Schema.ObjectId,
-         ref: 'User',
-         },
         
+            type: mongoose.Schema.ObjectId,
+            ref: 'User',
+            autopopulate: { select: '_id name email', maxDepth: 1 },
+         
+         
       }
    ]
+   
+        
+      
+   
 
 
 }, { timestamps: true });
@@ -90,4 +96,6 @@ BranchSchema.pre('save', function (next) {
 	
 	next()
 })
+
+BranchSchema.plugin(require('mongoose-autopopulate'))
 module.exports = mongoose.model('Branch', BranchSchema);

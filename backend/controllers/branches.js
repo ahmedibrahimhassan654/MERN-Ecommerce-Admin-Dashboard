@@ -236,7 +236,8 @@ exports.deleteBranch =asyncHandler( async (req, res) => {
    
    const branch=await Branch.findOneAndDelete({
 		slug: req.params.slug,
-	})
+   })
+   console.log(branch);
   //make sure deleted branch  is branch owner 
   const { email } = req.user;
   console.log(email);
@@ -244,7 +245,6 @@ exports.deleteBranch =asyncHandler( async (req, res) => {
   // FIND USER FROM OUR DATABASE BY EMAIL
   const userFromDb = await User.findOne({ email }).exec();
 
- 
 
   if (branch.owner.toString() !== userFromDb._id.toString() && userFromDb.role!=='admin') {
      console.log('request user object = ' ,userFromDb.role);
@@ -257,7 +257,7 @@ exports.deleteBranch =asyncHandler( async (req, res) => {
    res.status(200).json({
       sucess: true,
       msg: `Branch With name ${req.params.slug } is deleted`,
-      branch:null
+      branch:{}
    })
 
     
@@ -316,53 +316,69 @@ exports.ActiveBranch =asyncHandler( async (req, res,next) => {
 //private owner
 exports.addManger =asyncHandler( async (req, res,next) => {
 
-   const { name, email, role = 'manger' } = req.body
-  let newManger = await new User({
-     name,
-     email,
-     role
-  }).save()
-   
- 
-await admin.auth().createUser({
-   email,           
-   name,
-   role,
-   picture: String,
-   disabled: false
- })
-   .then(function(userRecord) {
-     // See the UserRecord reference doc for the contents of userRecord.
-     console.log('Successfully created new user: in firebase', userRecord);
+   const { name, email, role = 'manger', picture } = req.body
+   let newManger = await new User({
+      name,
+      email,
+      role,
+      picture
    })
-   .catch(function(error) {
-     console.log('Error creating new user:', error);
-   });
-   let branch = await Branch.findOne({ slug: req.params.slug })
+ 
+// await admin.auth().createUser({
+//    email,           
+//    name,
+//    role,
+//    picture: String,
+//    disabled: false
+//  })
+//    .then(function(userRecord) {
+//      // See the UserRecord reference doc for the contents of userRecord.
+//      console.log('Successfully created new user: in firebase', userRecord);
+//    })
+//    .catch(function(error) {
+//      console.log('Error creating new user:', error);
+//    });
+   const branch = await Branch.findOne({ slug: req.params.slug })
+
+
+   if (!branch) {
+      return next(new ErrorResponse(`branch with  ${req.params.slug} is not found  `))
+    }
    
-   
-   console.log(branch);
+   console.log('befour add new manger',branch);
   
    // FIND USER FROM OUR DATABASE BY EMAIL
    const userFromDb = await User.findOne({ email:req.user.email }).exec();
  
+
+   // console.log(branch.owner._id.toString());
+   // console.log(userFromDb._id.toString());
   //check this branch is my branch or not
  
    if (branch.owner.toString() !== userFromDb._id.toString() && userFromDb.role !== 'admin') {
       return next(new ErrorResponse(`user with email ${req.user.email} is not authorize to add manger to this branch  `))
 
    }
-  
-branch.mangers.unshift(newManger)
+  branch.mangers=branch.mangers||[]
+const AllMAngers=branch.mangers.push(newManger)
 
-   const updatedBranch = await Branch.findOneAndUpdate({ slug: req.params.slug }, { mangers: newManger }, {
-      new: true,
-   runValidators:true})
- 
-   res.status(200).json({
-      sucess: true,
-      msg: `Branch With name ${req.params.slug} is add new manger`,
-      updatedBranch
-   })
+   
+  
+   
+
+   // const branchAfterUpdate= await Branch.findOneAndUpdate({ slug: req.params.slug }, { 
+   //    mangers
+   //   }, {
+   //    new: true,
+   // runValidators:true})
+   console.log('branch after add manger', branch);
+   console.log('all mangers', AllMAngers);
+   // console.log('branchAfterUpdate',branchAfterUpdate);
+   // res.status(200).json({
+   //    sucess: true,
+   //    msg: `Branch With name ${req.params.slug} is add new manger`,
+   //    branch
+   // })
+
 
 });
