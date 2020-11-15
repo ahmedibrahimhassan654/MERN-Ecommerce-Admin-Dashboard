@@ -76,12 +76,12 @@ const BranchSchema = new mongoose.Schema({
    mangers: [
       {
         
-            type: mongoose.Schema.ObjectId,
-            ref: 'User',
-            autopopulate: { select: '_id name email', maxDepth: 1 },
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      //autopopulate: { select: '_id name email', maxDepth: 1 }
+      },
          
-         
-      }
+      
    ]
    
         

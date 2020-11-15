@@ -26,7 +26,7 @@ const Forgotpassword = ({history}) => {
        };
         await auth.sendPasswordResetEmail(email, config).then(() => {
                 setEmail('')
-                setLoding(true)
+                setLoding(false)
                 toast.success('please check your mail for password reset link')
 
             }).catch((error) => {

@@ -25,7 +25,8 @@ exports.createBranch =asyncHandler( async (req, res,next) => {
    console.log('userFromDb ', userFromDb)
   
    if (userFromDb.role === 'owner') {
-      req.body.owner=userFromDb
+      req.body.owner = userFromDb
+     // const {name,slug,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable}=req.body
       const branch = await Branch.create(req.body)
       console.log(branch);
      res.status(200).json({
@@ -56,7 +57,7 @@ exports.getMyBranches =asyncHandler( async (req, res,next) => {
   
   
      
-   const branches = await Branch.find({ owner: userFromDb }).populate('owner', ['name', 'picture', 'email'])
+   const branches = await Branch.find({ owner: userFromDb }).populate('owner', ['name', 'picture', 'email']).populate("mangers",['name', 'picture', 'email'])
    
    if (!branches) {
          return res.status(400).json({msg:'there is no branches for you '})
@@ -322,12 +323,73 @@ exports.addManger =asyncHandler( async (req, res,next) => {
       email,
       role,
       picture
-   })
+   }).save()
  
-// await admin.auth().createUser({
+const newMangerinFirebase=await admin.auth().createUser({
+   email,           
+   name,
+  
+   picture: String,
+   disabled: false
+ })
+   .then(function(userRecord) {
+     // See the UserRecord reference doc for the contents of userRecord.
+     console.log('Successfully created new user: in firebase', userRecord);
+   })
+   .catch(function(error) {
+     console.log('Error creating new user:', error);
+   });
+   const branch = await Branch.findOne({ slug: req.params.slug }).populate("mangers",['name', 'picture', 'email'])
+
+
+   if (!branch) {
+      return next(new ErrorResponse(`branch with  ${req.params.slug} is not found  `))
+    }
+   
+  
+   // FIND USER FROM OUR DATABASE BY EMAIL
+   const userFromDb = await User.findOne({ email:req.user.email }).exec();
+ 
+
+  //check this branch is my branch or not
+ 
+   if (branch.owner.email === userFromDb.email||userFromDb.role==='admin') {
+
+      console.log('branch owner == userfromdatabase');
+      branch.mangers=branch.mangers||[]
+      branch.mangers.push(newManger)
+      
+         
+        
+      await branch.save()
+
+   res.status(200).json({
+      sucess: true,
+      msg: `Branch With name ${req.params.slug} is add new manger`,
+      branch
+   })
+   
+   }
+
+});
+
+//delete manger from my branch  
+//delete/api/v1/branches/owner/:slug/manger/:id
+//private owner
+exports.deleteManger =asyncHandler( async (req, res,next) => {
+
+//    const { name, email, role = 'manger', picture } = req.body
+//    let newManger = await new User({
+//       name,
+//       email,
+//       role,
+//       picture
+//    }).save()
+ 
+// const newMangerinFirebase=await admin.auth().createUser({
 //    email,           
 //    name,
-//    role,
+  
 //    picture: String,
 //    disabled: false
 //  })
@@ -342,43 +404,32 @@ exports.addManger =asyncHandler( async (req, res,next) => {
 
 
    if (!branch) {
-      return next(new ErrorResponse(`branch with  ${req.params.slug} is not found  `))
+       next(new ErrorResponse(`branch with  ${req.params.slug} is not found  `))
     }
    
-   console.log('befour add new manger',branch);
   
    // FIND USER FROM OUR DATABASE BY EMAIL
    const userFromDb = await User.findOne({ email:req.user.email }).exec();
  
 
-   // console.log(branch.owner._id.toString());
-   // console.log(userFromDb._id.toString());
   //check this branch is my branch or not
  
-   if (branch.owner.toString() !== userFromDb._id.toString() && userFromDb.role !== 'admin') {
-      return next(new ErrorResponse(`user with email ${req.user.email} is not authorize to add manger to this branch  `))
+   if (branch.owner.email === userFromDb.email||userFromDb.role==='admin') {
 
+    
+      
+      const removedIndex = branch.mangers.map(manger => manger.id).indexOf(req.params.id),
+       deletedManger=   branch.mangers.splice(removedIndex,1)  
+         
+        console.log(deletedManger);
+       await branch.save()
+
+  return res.status(200).json({
+      sucess: true,
+      msg: `manger with email ${req.params.id} is deleted from branch ${req.params.slug}`,
+      branch
+   })
+   
    }
-  branch.mangers=branch.mangers||[]
-const AllMAngers=branch.mangers.push(newManger)
-
-   
-  
-   
-
-   // const branchAfterUpdate= await Branch.findOneAndUpdate({ slug: req.params.slug }, { 
-   //    mangers
-   //   }, {
-   //    new: true,
-   // runValidators:true})
-   console.log('branch after add manger', branch);
-   console.log('all mangers', AllMAngers);
-   // console.log('branchAfterUpdate',branchAfterUpdate);
-   // res.status(200).json({
-   //    sucess: true,
-   //    msg: `Branch With name ${req.params.slug} is add new manger`,
-   //    branch
-   // })
-
 
 });

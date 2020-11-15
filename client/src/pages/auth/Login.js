@@ -60,7 +60,8 @@ const Login = ({ history }) => {
 								picture: res.data.picture,
 								_id: res.data._id,
 							},
-						})
+                  })
+                  
 						redirectBasedOnRole(res)
 					})
 					.catch((err) => console.log(err))
