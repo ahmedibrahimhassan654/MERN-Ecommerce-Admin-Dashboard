@@ -317,31 +317,10 @@ exports.ActiveBranch =asyncHandler( async (req, res,next) => {
 //private owner
 exports.addManger =asyncHandler( async (req, res,next) => {
 
-   const { name, email, role = 'manger', picture } = req.body
-   let newManger = await new User({
-      name,
-      email,
-      role,
-      picture
-   }).save()
  
-const newMangerinFirebase=await admin.auth().createUser({
-   email,           
-   name,
-  
-   picture: String,
-   disabled: false
- })
-   .then(function(userRecord) {
-     // See the UserRecord reference doc for the contents of userRecord.
-     console.log('Successfully created new user: in firebase', userRecord);
-   })
-   .catch(function(error) {
-     console.log('Error creating new user:', error);
-   });
    const branch = await Branch.findOne({ slug: req.params.slug }).populate("mangers",['name', 'picture', 'email'])
 
-
+console.log(branch);
    if (!branch) {
       return next(new ErrorResponse(`branch with  ${req.params.slug} is not found  `))
     }
@@ -354,8 +333,30 @@ const newMangerinFirebase=await admin.auth().createUser({
   //check this branch is my branch or not
  
    if (branch.owner.email === userFromDb.email||userFromDb.role==='admin') {
-
-      console.log('branch owner == userfromdatabase');
+      const { name, email, picture } = req.body
+      let newManger = await new User({
+         name,
+         email,
+         role:'manger',
+         picture
+      }).save()
+    
+   const newMangerinFirebase=await admin.auth().createUser({
+      email,           
+      name,
+      
+     
+      picture: String,
+      disabled: false
+    })
+      .then(function(userRecord) {
+        // See the UserRecord reference doc for the contents of userRecord.
+        console.log('Successfully created new user: in firebase', userRecord);
+      })
+      .catch(function(error) {
+        console.log('Error creating new user:', error);
+      });
+    
       branch.mangers=branch.mangers||[]
       branch.mangers.push(newManger)
       
@@ -417,11 +418,25 @@ exports.deleteManger =asyncHandler( async (req, res,next) => {
    if (branch.owner.email === userFromDb.email||userFromDb.role==='admin') {
 
     
+
       
-      const removedIndex = branch.mangers.map(manger => manger.id).indexOf(req.params.id),
-       deletedManger=   branch.mangers.splice(removedIndex,1)  
-         
-        console.log(deletedManger);
+      const removedIndex = branch.mangers.map(manger => manger.email).indexOf(req.params.email),
+         allmangers = branch.mangers.splice(removedIndex, 1)  
+      if (allmangers.length === 0) {
+            
+             return next(new ErrorResponse(`user with mail ${req.params.email} is not found  `))
+          }
+      await User.findOneAndDelete(req.params.email)
+    
+         // const removedEmail = branch.mangers.map(manger => manger.email===req.params.email).indexOf(req.params.email)
+      
+         //  allmangers = branch.mangers.splice(removedEmail, 1)  
+      
+      
+      
+         console.log('removed email',removedIndex);
+      console.log('all amngers', allmangers);
+     
        await branch.save()
 
   return res.status(200).json({

@@ -39,7 +39,7 @@ router.put('/branches/owner/:slug', authCheck, ownerCheck, updateBranch)
 
 router.delete('/branches/owner/:slug', authCheck, ownerCheck, deleteBranch)
 router.put('/branches/owner/:slug/manger', authCheck, ownerCheck, addManger)
-router.delete('/branches/owner/:slug/manger/:id', authCheck, ownerCheck, deleteManger)
+router.delete('/branches/owner/:slug/manger/:email', authCheck, ownerCheck, deleteManger)
 
 //Admin Checks
 router.post('/branche/admin', authCheck, adminCheck, AdminCreateBranch)
