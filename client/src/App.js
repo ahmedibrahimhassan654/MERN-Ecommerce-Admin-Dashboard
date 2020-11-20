@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -37,6 +37,7 @@ import store from './store'
 import { currentuser } from './function/auth'
 import SubCreate from './pages/dashbords/admin/ProductSubCategory/SubCreate'
 import SubUpdate from './pages/dashbords/admin/ProductSubCategory/SubUpdate'
+import AlertComp  from './pages/AlertComp';
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -69,10 +70,11 @@ const App = () => {
 	})
    return (
       <Provider store={store}>
-      <>
+      <Fragment>
      
 			<Header />
-			<ToastContainer />
+         <ToastContainer />
+         <AlertComp/>
 			<Switch>
 				<Route exact path='/' component={Home} />
 				<Route exact path='/register' component={Register} />
@@ -124,8 +126,8 @@ const App = () => {
 				/>
             </Switch>
          
-      </>
-         </Provider> 
+      </Fragment>
+    </Provider> 
 	)
 }
 export default App

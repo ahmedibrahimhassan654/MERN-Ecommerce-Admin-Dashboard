@@ -3,7 +3,8 @@ import { auth } from '../../firbase'
 import { toast } from 'react-toastify'
 import './register.css'
 import { useSelector ,connect} from 'react-redux'
-import {setAlert}from '../../actions/alert'
+import { setAlert } from '../../actions/alert'
+import PropTypes from 'prop-types';
 
 const Register = ({ history,setAlert}, ) => {
   const [email, setEmail] = useState('')
@@ -26,7 +27,7 @@ const Register = ({ history,setAlert}, ) => {
 		toast.success(
 			`Email is sent to ${email} ,click the link to complete your registeration`,
       )
-      setAlert(`Email is sent to ${email} ,click the link to complete your registeration`,'sucess')
+     setAlert(`Email is sent to ${email} ,click the link to complete your registeration`,'sucess')
 		//save user email in local storage
 		window.localStorage.setItem('emailForRegisteration', email)
 
@@ -48,12 +49,7 @@ const Register = ({ history,setAlert}, ) => {
 				onChange={(e) => setEmail(e.target.value)}
 				autoFocus
 			/>
-	  {/* <Checkbox 
-	  value='owner' 
-	  onChange={(e)=>{
-		console.log(setRole(e.target.value));
-		}}>
-		Checkbox</Checkbox> */}
+
     <br></br>
 			<button
 				type='submit'
@@ -82,5 +78,7 @@ const Register = ({ history,setAlert}, ) => {
 		</div>
 	)
 }
-
+Register.propTypes = {
+   setAlert:PropTypes.func.isRequired,
+}
 export default connect(null,{setAlert}) (Register);
