@@ -1,0 +1,152 @@
+/* Global Styles */
+:root {
+   --primary-color: #17a2b8;
+   --dark-color: #343a40;
+   --light-color: #f4f4f4;
+   --danger-color: #dc3545;
+   --success-color: #28a745;
+ }
+ 
+ * {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+ }
+ 
+ body {
+   font-family: 'Raleway', sans-serif;
+   font-size: 1rem;
+   line-height: 1.6;
+   background-color: #fff;
+   color: #333;
+ }
+ 
+ a {
+   color: var(--primary-color);
+   text-decoration: none;
+ }
+ 
+ ul {
+   list-style: none;
+ }
+ 
+ img {
+   width: 100%;
+ }
+ 
+ /* Utilities */
+ .container {
+   max-width: 1100px;
+   margin: auto;
+   overflow: hidden;
+   padding: 0 2rem;
+   margin-top: 6rem;
+   margin-bottom: 3rem;
+ }
+ 
+ /* Text Styles*/
+ .x-large {
+   font-size: 4rem;
+   line-height: 1.2;
+   margin-bottom: 1rem;
+ }
+ 
+ .large {
+   font-size: 3rem;
+   line-height: 1.2;
+   margin-bottom: 1rem;
+ }
+ 
+ .lead {
+   font-size: 1.5rem;
+   margin-bottom: 1rem;
+ }
+ 
+ .text-center {
+   text-align: center;
+ }
+ 
+ .text-primary {
+   color: var(--primary-color);
+ }
+ 
+ .text-dark {
+   color: var(--dark-color);
+ }
+ 
+
+ 
+ .alert {
+   padding: 0.8rem;
+   margin: 1rem 5rem;
+   opacity: 0.9;
+   background: var(--light-color);
+   color: #333;
+   text-align: center;
+ }
+
+ .alert-primary {
+   background: var(--primary-color);
+   color: #fff;
+ }
+ 
+
+ .alert-light {
+   background: var(--light-color);
+   color: #333;
+ }
+
+ .alert-dark {
+   background: var(--dark-color);
+   color: #fff;
+ }
+ 
+ 
+ .alert-danger {
+   background: var(--danger-color);
+   color: #fff;
+ }
+ 
+ 
+ .alert-success {
+   background: var(--success-color);
+   color: #fff;
+ }
+ 
+
+ .alert-white {
+   background: #fff;
+   color: #333;
+   border: #ccc solid 5px;
+ }
+
+ 
+
+ 
+ 
+ /* Mobile Styles */
+ @media (max-width: 700px) {
+   .container {
+     margin-top: 8rem;
+   }
+ 
+   .hide-sm {
+     display: none;
+   }
+ 
+   /* Text Styles */
+   .x-large {
+     font-size: 3rem;
+   }
+ 
+   .large {
+     font-size: 2rem;
+   }
+ 
+   .lead {
+     font-size: 1rem;
+   }
+ 
+
+ }
+ 

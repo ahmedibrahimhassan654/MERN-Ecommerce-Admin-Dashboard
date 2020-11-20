@@ -25,9 +25,9 @@ const Register = ({ history,setAlert}, ) => {
 		}
 		await auth.sendSignInLinkToEmail(email, config)
 		toast.success(
-			`Email is sent to ${email} ,click the link to complete your registeration`,
+			`Email is sent to ${email} ,click the link to complete your registeration`,'sucess'
       )
-     setAlert(`Email is sent to ${email} ,click the link to complete your registeration`,'sucess')
+     setAlert(`Email is sent to ${email} ,please check your mail to copmlete regesteration`,'success')
 		//save user email in local storage
 		window.localStorage.setItem('emailForRegisteration', email)
 
