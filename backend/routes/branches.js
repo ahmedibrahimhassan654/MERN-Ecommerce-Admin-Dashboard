@@ -31,7 +31,7 @@ const router = express.Router()
 
 // //Owner Checks
 
-// router.get('/branches/owner', authCheck, ownerCheck, getMyBranches)
+ router.get('/branches/owner', authCheck, ownerCheck, getMyBranches)
 
 router.post('/branches/owner', authCheck, ownerCheck, createBranch)
 
