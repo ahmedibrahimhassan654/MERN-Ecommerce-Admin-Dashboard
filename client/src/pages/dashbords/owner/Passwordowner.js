@@ -8,7 +8,7 @@ const { Content } = Layout
 
 const Passwordowner = () => {
 	const [password, setpassword] = useState('')
-
+	const [setRole] = useState('admin')
 	const [loading, setloading] = useState('')
 	const layout = {
 		labelCol: { span: 8 },
@@ -24,6 +24,7 @@ const Passwordowner = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		setloading(true)
+		setRole('admin')
 		console.log(password)
 		await auth.currentUser
 			.updatePassword(password)
@@ -44,6 +45,7 @@ const Passwordowner = () => {
 			name='basic'
 			initialValues={{ remember: true }}
 			onSubmitCapture={handleSubmit}
+			className='container'
 			// onFinishFailed={onFinishFailed}
 		>
 			<Form.Item
@@ -80,30 +82,22 @@ const Passwordowner = () => {
 
 	return (
 		<>
-			<div className='container-fluid'>
-				<div className='row'>
-					<div className='colmd-2'>
-						<OwnerNav />
+			<Layout className='site-layout' style={{ minHeight: '100vh' }}>
+				<OwnerNav />
+				<Content style={{ margin: '0 0px' }}>
+					<div
+						className='site-layout-background'
+						style={{ padding: 10, minHeight: '100vh', margin: 0 }}
+					>
+						{loading ? (
+							<h4 className='primary'>loading</h4>
+						) : (
+							<h4 className='primary'>update password</h4>
+						)}
+						{passwordUpdateForm()}
 					</div>
-					<div className='col'>
-						<Layout className='site-layout' style={{ minHeight: '100vh' }}>
-							<Content style={{ margin: '0 0px' }}>
-								<div
-									className='site-layout-background'
-									style={{ padding: 0, minHeight: '100vh', margin: 0 }}
-								>
-									{loading ? (
-										<h4 className='primary'>loading</h4>
-									) : (
-										<h4 className='primary'>update password</h4>
-									)}
-									{passwordUpdateForm()}
-								</div>
-							</Content>
-						</Layout>
-					</div>
-				</div>
-			</div>
+				</Content>
+			</Layout>
 		</>
 	)
 }

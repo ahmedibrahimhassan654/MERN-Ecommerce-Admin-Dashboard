@@ -86,17 +86,3 @@ export const currentOwner = async (authtoken) => {
 
 
 
-// //curent role /rolecheck
-
-
-// export const roleCheck = async (authtoken) => {
-// 	return await axios.post(
-// 		`${process.env.REACT_APP_API}/rolecheck`,
-// 		{},
-// 		{
-// 			headers: {
-// 				authtoken,
-// 			},
-// 		},
-// 	)
-// }
