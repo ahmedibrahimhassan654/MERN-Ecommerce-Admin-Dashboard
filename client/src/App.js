@@ -33,8 +33,11 @@ import CreateCategory from './pages/dashbords/admin/Product Category/CreateCateg
 import CtegoryUpdate from './pages/dashbords/admin/Product Category/CtegoryUpdate'
 
 import { auth } from './firbase'
-import { useDispatch, Provider } from 'react-redux'
-import store from './store'
+import {
+   useDispatch,
+   //Provider
+} from 'react-redux'
+// import store from './store'
 import { currentuser } from './function/auth'
 import SubCreate from './pages/dashbords/admin/ProductSubCategory/SubCreate'
 import SubUpdate from './pages/dashbords/admin/ProductSubCategory/SubUpdate'
@@ -70,12 +73,12 @@ const App = () => {
 		return () => unsubscribe()
 	})
    return (
-      <Provider store={store}>
+     
       <Fragment>
      
 			<Header />
          <ToastContainer />
-         <AlertComp/>
+        <AlertComp/>
 			<Switch>
 				<Route exact path='/' component={Home} />
 				<Route exact path='/register' component={Register} />
@@ -128,7 +131,7 @@ const App = () => {
             </Switch>
          
       </Fragment>
-    </Provider> 
+   
 	)
 }
 export default App

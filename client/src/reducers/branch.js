@@ -15,8 +15,8 @@ export default function (state = initialState, action) {
          return {
             ...state,
             myBranches: [payload],
-            branch: payload,
-            branches:[payload],
+            // branch: payload,
+            // branches:[payload],
             loading: false
          };
       case BRANCH_ERROR:
