@@ -7,6 +7,7 @@ import {
 	UserOutlined,
 	
    BranchesOutlined,
+   SafetyCertificateOutlined,
 } from '@ant-design/icons'
 import { Menu, Layout } from 'antd'
 import { useSelector } from 'react-redux'
@@ -64,23 +65,16 @@ const OwnerNav = () => {
 						icon={<BranchesOutlined />}
 						title='Branches'
 					>
-						{/* <Menu.Item
+						<Menu.Item
 							key='productCategory'
 							icon={<SafetyCertificateOutlined />}
 							title='ProductCategory'
 						>
-							Product Category
-							<Link className='nav-link' to='/admin/productCategory'></Link>
+							My Branches
+							<Link className='nav-link' to='/owner/branches'></Link>
 						</Menu.Item>
 
-						<Menu.Item
-							key='productSubCategory'
-							icon={<SubnodeOutlined />}
-							title='productSubCategory'
-						>
-							product Sub-Category
-							<Link className='nav-link' to='/admin/productSubCategory'></Link>
-						</Menu.Item> */}
+						
 					</SubMenu>
 
 					<SubMenu key='sub1' icon={<UserOutlined />} title='profile'>
