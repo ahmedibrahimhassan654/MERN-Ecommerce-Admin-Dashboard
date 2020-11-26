@@ -1,6 +1,6 @@
 import axios from 'axios';
 // import { useSelector } from 'react-redux';
-import { setAlert } from './alert';
+// import { setAlert } from './alert';
 
 import { GET_MYBRANCHES, BRANCH_ERROR } from './types';
 

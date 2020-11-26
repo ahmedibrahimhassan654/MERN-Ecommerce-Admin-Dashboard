@@ -12,11 +12,11 @@ const OwnerDashbord = ({getCurrentBranches,branch }) => {
 		...state,
 	}))
   
-   useEffect(() => {
-      getCurrentBranches(user.token,)
+   useEffect((token=user.token) => {
+      getCurrentBranches(token)
       // console.log(getCurrentBranches());
      
-   },[])
+   },[getCurrentBranches,user.token])
 	return (
 		<div>
 			<Layout style={{ minHeight: '100vh' }}>
@@ -42,13 +42,13 @@ const OwnerDashbord = ({getCurrentBranches,branch }) => {
 
 OwnerDashbord.propTypes = {
    getCurrentBranches: PropTypes.func.isRequired,
-   // user: PropTypes.object.isRequired,
+   user: PropTypes.object.isRequired,
    branch: PropTypes.object.isRequired,
    myBranches:PropTypes.array.isRequired,
 }
 
 const mapStateToProps = state => ({
-   // user: state.user,
+   user: state.user,
    branch: state.branch,
    myBranches:state.myBranches
 })

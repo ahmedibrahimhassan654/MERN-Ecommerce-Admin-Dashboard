@@ -30,7 +30,7 @@ const SubUpdate = ({ match, history }) => {
 	useEffect(() => {
 		loadCategories()
 		loadSub()
-	}, [match])
+	})
 
 	const loadCategories = () =>
 		getCategories().then((c) => setCategories(c.data))
