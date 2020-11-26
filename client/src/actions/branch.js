@@ -1,19 +1,22 @@
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { setAlert } from './alert';
 
 import { GET_MYBRANCHES, BRANCH_ERROR } from './types';
 
 //get Current owner branches
-export const getCurrentBranches = () => async dispatch => {
+export const getCurrentBranches = ( authtoken) => async dispatch => {
    try {
-      const { user } = useSelector((state) => ({
-         ...state,
-      }))
-      const res = await axios.get(`${process.env.REACT_APP_API}/branches/owner`);
+     
+      const res = await axios.get(`${process.env.REACT_APP_API}/branches/owner`,{
+         headers: {
+            authtoken,
+         },
+      });
+      //console.log('current branches for reqsted user',res.data);
       dispatch({
          type: GET_MYBRANCHES,
-         payload: [res.data],
+         payload: res.data,
         // user,
          
       })
@@ -22,8 +25,9 @@ export const getCurrentBranches = () => async dispatch => {
       dispatch({
          type: BRANCH_ERROR,
          payload: {
-            msg: err.response,
-          //  status: err.response.status
+            msg: err.response.statusText,
+            status:err.response.status,
+         
          }
       })
    }

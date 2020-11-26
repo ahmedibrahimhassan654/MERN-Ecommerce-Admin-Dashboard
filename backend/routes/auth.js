@@ -9,13 +9,16 @@ const {
 	adminCheck,
 	ownerCheck,
 	mangerCheck,
-   employeeCheck
+   employeeCheck,
+
    
    
 } = require('../middelware/auth')
 
 //import controler
 const { createOrUpdateUser, curentUser } = require('../controllers/auth')
+
+
 
 router.post('/create-or-update-user', authCheck, createOrUpdateUser)
 router.post('/curent-user', authCheck, curentUser)

@@ -14,7 +14,8 @@ export default function (state = initialState, action) {
       case GET_MYBRANCHES:
          return {
             ...state,
-            myBranches: [payload],
+            myBranches: payload,
+            // branch:payload,
             // branch: payload,
             // branches:[payload],
             loading: false

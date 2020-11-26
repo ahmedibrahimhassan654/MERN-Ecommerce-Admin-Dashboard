@@ -6,7 +6,11 @@ const User = require('../models/User')
 exports.authCheck = async (req, res, next) => {
 	console.log(req.headers) //token
 	try {
-		const firbaseUser = await admin.auth().verifyIdToken(req.headers.authtoken)
+      const firbaseUser = await admin.auth().verifyIdToken(req.headers.authtoken)
+      // .then((decodedToken) => {
+      //    decodedToken.uid;
+       
+      //  })
 		//console.log('firebase user is',firbaseUser);
 		req.user = firbaseUser
 		next()

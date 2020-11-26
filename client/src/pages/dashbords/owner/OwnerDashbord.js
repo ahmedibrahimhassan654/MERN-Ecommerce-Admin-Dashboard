@@ -7,13 +7,16 @@ import OwnerNav from '../../../components/nav/OwnerNav'
 
 const { Header, Content, Footer } = Layout
 
-const OwnerDashbord = ({getCurrentBranches,branch}) => {
-   // const { user } = useSelector((state) => ({
-	// 	...state,
-	// }))
+const OwnerDashbord = ({getCurrentBranches,branch }) => {
+   const { user } = useSelector((state) => ({
+		...state,
+	}))
+  
    useEffect(() => {
-      getCurrentBranches()
-   },[getCurrentBranches])
+      getCurrentBranches(user.token,)
+      // console.log(getCurrentBranches());
+     
+   },[])
 	return (
 		<div>
 			<Layout style={{ minHeight: '100vh' }}>
@@ -39,19 +42,16 @@ const OwnerDashbord = ({getCurrentBranches,branch}) => {
 
 OwnerDashbord.propTypes = {
    getCurrentBranches: PropTypes.func.isRequired,
-   user: PropTypes.object.isRequired,
-   branch:PropTypes.object.isRequired,
+   // user: PropTypes.object.isRequired,
+   branch: PropTypes.object.isRequired,
+   myBranches:PropTypes.array.isRequired,
 }
 
 const mapStateToProps = state => ({
-   user: state.user,
-   branch:state.branch
+   // user: state.user,
+   branch: state.branch,
+   myBranches:state.myBranches
 })
-export default
-    connect(mapStateToProps,
-   {
-     getCurrentBranches
-   }
-) (
+export default connect(mapStateToProps,{ getCurrentBranches}) (
    OwnerDashbord
 );

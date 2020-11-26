@@ -39,7 +39,7 @@ exports.createBranch =asyncHandler( async (req, res,next) => {
 });
  
 //get my branches
-//get/api/v1/branches/me
+//get/api/v1/branches/owner
 //owners
 exports.getMyBranches =asyncHandler( async (req, res,next) => {
  

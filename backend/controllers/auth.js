@@ -131,14 +131,15 @@ exports.curentUser = async (req, res) => {
 //   });
 // };
 
-// //@desc    get login user
-// //@route   Post/api/v1/auth/me
-// //@access  private
+//@desc    get login user
+//@route   Post/api/v1/auth/me
+//@access  private
 
 // exports.getMe = async (req, res, next) => {
-//  const user=await User.findById(req.user.id)
-//   res.status(200).json({
-//     success: true,
-//     user,
-//   });
+// console.log('1hsg');
+//    //  const user=await User.findById(req.user.id)
+// //   res.status(200).json({
+// //     success: true,
+// //     user,
+// //   });
 // };
