@@ -1,12 +1,13 @@
-import React , { useEffect} from 'react'
+import React , { Fragment, useEffect} from 'react'
 import OwnernNav from '../../../../components/nav/OwnerNav'
 import { connect, useSelector } from 'react-redux'
 import {getCurrentBranches} from '../../../../actions/branch'
+import Spiner from '../../../Spiner'
 import PropTypes from 'prop-types'
 import { Layout } from 'antd';
 const { Content, Footer } = Layout
 
-function Branches({ getCurrentBranches, branch }) {
+function Branches({ getCurrentBranches, branch:{loading,myBranches} }) {
    const { user } = useSelector((state) => ({
 		...state,
 	}))
@@ -15,9 +16,13 @@ function Branches({ getCurrentBranches, branch }) {
       getCurrentBranches(token)
       // console.log(getCurrentBranches());
      
-   },[getCurrentBranches,user.token])
+   }, [getCurrentBranches, user.token])
+   
+
    return (
-      <div>
+      loading && myBranches === null ? <Spiner /> :
+         <Fragment>
+         
          <Layout
 				className='site-layout'
 				style={{
@@ -43,8 +48,8 @@ function Branches({ getCurrentBranches, branch }) {
 					</Footer>
 				</Content>
          </Layout>
-         <h1> My Branches</h1>
-      </div>
+   </Fragment>
+      
    )
 }
 
