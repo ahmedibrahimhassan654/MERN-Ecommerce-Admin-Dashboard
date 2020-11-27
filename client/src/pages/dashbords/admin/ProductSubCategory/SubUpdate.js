@@ -24,23 +24,21 @@ const SubUpdate = ({ match, history }) => {
 	const [categories, setCategories] = useState([])
 	const [parent, setParent] = useState('')
 
-	//searching filtering
-	//step1
+   const loadCategories = () =>
+   getCategories().then((c) => setCategories(c.data))
+
+const loadSub = () =>
+   getSubCategory(match.params.slug).then((s) => {
+      setName(s.data.name)
+      setDescription(s.data.description)
+      setParent(s.data.parent)
+   })
 
 	useEffect(() => {
 		loadCategories()
 		loadSub()
-	})
+	},[])
 
-	const loadCategories = () =>
-		getCategories().then((c) => setCategories(c.data))
-
-	const loadSub = () =>
-		getSubCategory(match.params.slug).then((s) => {
-			setName(s.data.name)
-			setDescription(s.data.description)
-			setParent(s.data.parent)
-		})
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -61,7 +59,7 @@ const SubUpdate = ({ match, history }) => {
 				setName('')
 				setDescription('')
 				// setParent('')
-				toast.success(`"${res.data.name}" is updated`)
+				toast.success(`"${res.data.updated.name}" is updated`)
 				history.push('/admin/productSubCategory')
 			})
 			.catch((err) => {
@@ -106,7 +104,10 @@ const SubUpdate = ({ match, history }) => {
 								className='form-control'
 								onChange={(e) => setParent(e.target.value)}
 							>
-								<option>Please select</option>
+                        <option>
+                          {/* // Please select */}
+                            {parent.name}
+                           </option>
 								{categories.length > 0 &&
 									categories.map((c) => (
 										<option

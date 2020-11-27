@@ -5,6 +5,8 @@ import {getCurrentBranches} from '../../../../actions/branch'
 import Spiner from '../../../Spiner'
 import PropTypes from 'prop-types'
 import { Layout } from 'antd';
+import { Link } from 'react-router-dom';
+
 const { Content, Footer } = Layout
 
 function Branches({ getCurrentBranches, branch:{loading,myBranches} }) {
@@ -30,21 +32,36 @@ function Branches({ getCurrentBranches, branch:{loading,myBranches} }) {
 				}}
          >
             <OwnernNav />
-            <Content style={{ margin: '24 16px 0', overflow: 'initial' }}>
+               <Content style={{
+                  margin: '16px 16px',
+               
+               }}>
 					<div
 						className='site-layout-background'
 						style={{
-							padding: 24,
-							textAlign: 'center',
+							padding: 20,
+                     // textAlign: 'center',
+                     minHeight: '100%',
+                     margin: 0 
 						}}
 					>
                   <h1 className='text-primary pb-4 pt-5 '>
                      {user&& user.name} Branches
                   </h1>
                      {myBranches.number !== 0 ? (
-                        <Fragment><p>has</p></Fragment>
+                        <Fragment><p className=' h5'> {myBranches.number > 1 ? (<p>has<strong><mark>{myBranches.number}</mark> </strong>Branches</p>) : (<p> has <strong><mark>{myBranches.number}</mark> </strong>Branch</p>)}</p>
+                        <Link to='/create-branch' className='btn btn-primary my-5'>
+                                 Add More Branches
+                              </Link>
+                        </Fragment>
+                        
                      ) : (
-                        <Fragment><p>has not</p></Fragment>
+                           <Fragment>
+                              <p className=' h5'>you have not yet setup  branches,please create one</p>
+                              <Link to='/create-branch' className='btn btn-primary my-5'>
+                                 Create Branch
+                              </Link>
+                           </Fragment>
                     )} 
 								
 					</div>

@@ -14,6 +14,7 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import Meta from 'antd/lib/card/Meta'
 import { Link } from 'react-router-dom'
 import SearchForm from '../../../../components/forms/SearchForm'
+import Spiner from '../../../Spiner';
 const { Content, Footer } = Layout
 
 const CreateCategory = () => {
@@ -105,7 +106,8 @@ const CreateCategory = () => {
 						{!loading ? (
 							<h4 className='text-primary pb-4 pt-5 '>Create New Category</h4>
 						) : (
-							<h4 className='text-danger'> loading </h4>
+                     // <h4 className='text-danger'> loading </h4>
+                        <Spiner/>
 						)}
 						<CategoryForm
 							handleSubmit={handleSubmit}

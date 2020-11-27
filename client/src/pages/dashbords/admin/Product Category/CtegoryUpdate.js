@@ -31,8 +31,8 @@ const CategoryUpdate = ({ history, match }) => {
 
 	useEffect(() => {
 		console.log(match)
-		loadCategory()
-	})
+		 loadCategory  ()
+	},[])
 
 	const handleSubmit = (e) => {
 		e.preventDefault()

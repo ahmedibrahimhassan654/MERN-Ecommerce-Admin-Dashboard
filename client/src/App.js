@@ -43,6 +43,7 @@ import { currentuser } from './function/auth'
 import SubCreate from './pages/dashbords/admin/ProductSubCategory/SubCreate'
 import SubUpdate from './pages/dashbords/admin/ProductSubCategory/SubUpdate'
 import AlertComp  from './pages/AlertComp';
+import CreatBranch from './pages/dashbords/owner/branches/CreatBranch';
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -115,6 +116,8 @@ const App = () => {
 				<OwnerRoute exact path='/owner/password' component={PasswordOwner} />
             <OwnerRoute exact path='/owner/dashboard' component={OwnerDashBoard} />
             <OwnerRoute exact path='/owner/branches' component={OwnerBranches} />
+            <OwnerRoute exact path='/create-branch' component={CreatBranch} />
+            
 
 				{/* //manger routes */}
 				{/* <MangerRoute exact path='/manger/password' component={Password} /> */}

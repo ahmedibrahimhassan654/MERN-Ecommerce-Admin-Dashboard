@@ -1,7 +1,7 @@
 const Branch = require('../models/Branch')
 const ErrorResponse = require('../utils/errorresponse')
 const asyncHandler = require('../middelware/async');
-const { json } = require('body-parser');
+
 const User = require('../models/User');
 const admin = require('../firebase/index')
 
