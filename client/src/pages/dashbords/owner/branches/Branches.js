@@ -42,9 +42,9 @@ function Branches({ getCurrentBranches, branch:{loading,myBranches} }) {
                      {user&& user.name} Branches
                   </h1>
                      {myBranches.number !== 0 ? (
-                        <Fragment>has</Fragment>
+                        <Fragment><p>has</p></Fragment>
                      ) : (
-                        <Fragment>has not</Fragment>
+                        <Fragment><p>has not</p></Fragment>
                     )} 
 								
 					</div>
@@ -62,13 +62,13 @@ Branches.propTypes = {
    getCurrentBranches: PropTypes.func.isRequired,
    user: PropTypes.object.isRequired,
    branch: PropTypes.object.isRequired,
-   myBranches:PropTypes.array.isRequired,
+   // myBranches:PropTypes.array.isRequired,
 }
 
 const mapStateToProps = state => ({
    user: state.user,
    branch: state.branch,
-   myBranches:state.myBranches
+   // myBranches:state.myBranches
 })
 
 export default connect(mapStateToProps,{ getCurrentBranches}) (Branches)
