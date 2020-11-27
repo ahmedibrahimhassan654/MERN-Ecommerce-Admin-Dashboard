@@ -114,7 +114,6 @@ const App = () => {
 				{/* //owner rotes */}
 				<OwnerRoute exact path='/owner/password' component={PasswordOwner} />
             <OwnerRoute exact path='/owner/dashboard' component={OwnerDashBoard} />
-            
             <OwnerRoute exact path='/owner/branches' component={OwnerBranches} />
 
 				{/* //manger routes */}

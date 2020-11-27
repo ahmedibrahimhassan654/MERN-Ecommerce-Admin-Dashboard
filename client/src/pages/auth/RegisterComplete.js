@@ -14,8 +14,10 @@ const RegisterComplete = ({ history }) => {
 	useEffect(() => {
 		setEmail(window.localStorage.getItem('emailForRegisteration'))
 		setRole(window.localStorage.getItem('registerRole'))
-		console.log(role)
-	}, [role])
+   
+      console.log(window.localStorage.getItem('emailForRegisteration'));
+      console.log(window.localStorage.getItem('registerRole'));
+   }, [])
 
 	const layout = {
 		labelCol: { span: 8 },
@@ -69,7 +71,8 @@ const RegisterComplete = ({ history }) => {
 				//redirect
 				history.push('/')
 			}
-		} catch (error) {
+      } catch (error) {
+         console.log(error);
 			toast.warning(error.message)
 		}
 	}
@@ -85,11 +88,13 @@ const RegisterComplete = ({ history }) => {
 		>
 			<Form.Item
 				label='Email'
-				name='email'
-				rules={[{ required: true, message: 'Please input your username!' }]}
+            name='email'
+            value={email}
+				//rules={[{ required: true, message: 'Please input your username!' }]}
 			>
 				<Input type='email' value={email} disabled />
-			</Form.Item>
+         </Form.Item>
+         
 
 			<Form.Item
 				label='Password'

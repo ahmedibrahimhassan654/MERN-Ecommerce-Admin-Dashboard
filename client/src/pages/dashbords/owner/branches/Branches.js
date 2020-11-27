@@ -18,7 +18,7 @@ function Branches({ getCurrentBranches, branch:{loading,myBranches} }) {
      
    }, [getCurrentBranches, user.token])
    
-
+ 
    return (
       loading && myBranches === null ? <Spiner /> :
          <Fragment>
@@ -39,8 +39,13 @@ function Branches({ getCurrentBranches, branch:{loading,myBranches} }) {
 						}}
 					>
                   <h1 className='text-primary pb-4 pt-5 '>
-                     My Branches
+                     {user&& user.name} Branches
                   </h1>
+                     {myBranches.number !== 0 ? (
+                        <Fragment>has</Fragment>
+                     ) : (
+                        <Fragment>has not</Fragment>
+                    )} 
 								
 					</div>
 					<Footer style={{ textAlign: 'center' }}>
