@@ -81,7 +81,10 @@ const App = () => {
 			<Header />
          <ToastContainer />
         <AlertComp/>
-			<Switch>
+         <Switch>
+            
+
+            
 				<Route exact path='/' component={Home} />
 				<Route exact path='/register' component={Register} />
 				<Route exact path='/login' component={Login} />
@@ -132,8 +135,10 @@ const App = () => {
 					exact
 					path='/employee/dashboard'
 					component={EmployeeDashBoard}
-				/>
-            </Switch>
+            />
+            
+           
+         </Switch>
          
       </Fragment>
    
