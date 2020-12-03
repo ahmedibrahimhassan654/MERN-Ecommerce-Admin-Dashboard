@@ -32,7 +32,7 @@ import ResetPassword from './pages/dashbords/admin/auth/ResetPassword'
 import WishList from './pages/dashbords/user/WishList'
 import CreateCategory from './pages/dashbords/admin/Product Category/CreateCategory'
 import CtegoryUpdate from './pages/dashbords/admin/Product Category/CtegoryUpdate'
-
+import ProductCreate from './pages/dashbords/owner/products/ProductCreate'
 import { auth } from './firbase'
 import {
    useDispatch,
@@ -119,7 +119,8 @@ const App = () => {
 				<OwnerRoute exact path='/owner/password' component={PasswordOwner} />
             <OwnerRoute exact path='/owner/dashboard' component={OwnerDashBoard} />
             <OwnerRoute exact path='/owner/branches' component={OwnerBranches} />
-            <OwnerRoute exact path='/create-branch' component={CreatBranch} />
+			<OwnerRoute exact path='/create-branch' component={CreatBranch} />
+			<OwnerRoute exact path='/owner/create-product' component={ProductCreate} />
             
 
 				{/* //manger routes */}

@@ -78,17 +78,17 @@ const OwnerNav = () => {
 					</SubMenu>
 
 				<SubMenu
-						key='branches'
+						key='Products'
 						icon={<BranchesOutlined />}
-						title='Products'
+						title='products'
 					>
 						<Menu.Item
 							key='my branches'
 							icon={<SafetyCertificateOutlined />}
-							title='my branches'
+							title='Crete Product'
 						>
-							Products
-							{/* <Link className='nav-link' to='/owner/branches'></Link> */}
+							Create Product
+							<Link className='nav-link' to='/owner/create-product'></Link>
 						</Menu.Item>
 
 						

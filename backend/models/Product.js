@@ -56,15 +56,15 @@ const ProductSchema = new mongoose.Schema({
    type:Array,
   },
  
-  ratings: [
-    {
-  star:Number,
-  postedBy:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'User'
-  }
-  }
-],
+//   ratings: [
+//     {
+//   star:Number,
+//   postedBy:{
+//     type:mongoose.Schema.Types.ObjectId,
+//     ref:'User'
+//   }
+//   }
+// ],
   shipping: {
     type: String,
     enum:['Yes','No']
