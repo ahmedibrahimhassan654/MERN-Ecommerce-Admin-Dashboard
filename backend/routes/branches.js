@@ -10,7 +10,8 @@ const {
    AdminCreateBranch,
    ActiveBranch,
    addManger,
-   deleteManger
+   deleteManger,
+   uploade
 
 } = require('../controllers/branches')
 
@@ -36,6 +37,7 @@ const router = express.Router()
 router.post('/branches/owner', authCheck, ownerCheck, createBranch)
 
 router.put('/branches/owner/:slug', authCheck, ownerCheck, updateBranch)
+router.put('/branches/owner/:slug/uploade', authCheck, ownerCheck, uploade)
 
 router.delete('/branches/owner/:slug', authCheck, ownerCheck, deleteBranch)
 router.put('/branches/owner/:slug/manger', authCheck, ownerCheck, addManger)
@@ -59,7 +61,7 @@ router.get('/branches', getBranches)
 router.get('/branches/:id', getBranche)
 
 
- router.get('/mybranch', authCheck, getMyBranches)
+//  router.get('/mybranch', authCheck, getMyBranches)
 
 // //Re-route into other resource routers
 
