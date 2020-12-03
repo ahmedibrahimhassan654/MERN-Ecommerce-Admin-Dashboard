@@ -57,8 +57,12 @@ const BranchSchema = new mongoose.Schema({
         
       }
    },
-   images:[String] ,
-   documents: [String],
+   images:{
+      type:[String]
+   } ,
+   documents: {
+      type:[String]
+   },
    present: {
       type: String,
       enum: ['products', 'Services'],

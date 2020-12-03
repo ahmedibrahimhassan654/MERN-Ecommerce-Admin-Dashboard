@@ -553,9 +553,9 @@ const file= req.files.file
      }
    
     await Branch.findOneAndUpdate(req.params.slug,{
-      $set: {
+     
          documents:file.name
-      } 
+     
       })
      res.status(200).json({
         sucess:true,
