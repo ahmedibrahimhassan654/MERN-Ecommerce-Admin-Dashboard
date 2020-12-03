@@ -11,7 +11,8 @@ const {
    ActiveBranch,
    addManger,
    deleteManger,
-   uploade
+   uploade,
+   uploadeImage
 
 } = require('../controllers/branches')
 
@@ -37,7 +38,9 @@ const router = express.Router()
 router.post('/branches/owner', authCheck, ownerCheck, createBranch)
 
 router.put('/branches/owner/:slug', authCheck, ownerCheck, updateBranch)
+
 router.put('/branches/owner/:slug/uploade', authCheck, ownerCheck, uploade)
+router.put('/branches/owner/:slug/uploadeimg', authCheck, ownerCheck, uploadeImage)
 
 router.delete('/branches/owner/:slug', authCheck, ownerCheck, deleteBranch)
 router.put('/branches/owner/:slug/manger', authCheck, ownerCheck, addManger)

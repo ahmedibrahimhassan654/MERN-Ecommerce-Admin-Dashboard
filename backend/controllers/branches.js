@@ -452,6 +452,63 @@ exports.deleteManger =asyncHandler( async (req, res,next) => {
 });
 
 
+//uploade  images to branch
+//put/api/v1/branches/:slug/uploade
+//private owner and admin
+exports.uploadeImage =asyncHandler( async (req, res,next) => {
+
+   
+   let branch = await Branch.findOne({ slug: req.params.slug })
+   console.log(branch);
+   
+   if (!branch) {
+   return next(new ErrorResponse(`branch ${req.params.slug} not found  `,400))
+   }
+  
+ 
+   //make sure updated user is branch owner 
+   const { email } = req.user;
+   
+   
+   // FIND USER FROM OUR DATABASE BY EMAIL
+   const userFromDb = await User.findOne({ email }).exec();
+
+  
+
+   if (branch.owner._id.toString() !== userFromDb._id.toString() && userFromDb.role!=='admin') {
+      // console.log('request user object = ' ,userFromDb.role);
+
+
+      // console.log('branch owner object ',branch.owner);
+    return next(new ErrorResponse(`user with email ${userFromDb.email} is not authorize to uploade images to branch  `,400))
+
+   }
+if(!req.files){
+       return next(new ErrorResponse(` please uploade file or image  `,400))
+
+}
+const file= req.files.file
+console.log(file);
+//make sure the uploded file is images
+if(!file.mimetype.startsWith('image')){
+return next(new ErrorResponse(` please uploade an image file `,400))
+}
+  //create custome file name 
+  file.name=`image ${file.name} for branch ${branch.slug} ${path.parse(file.name).ext}`
+  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`,async err=>{
+     if(err){
+      return next(new ErrorResponse(` file doesn't uploaded`,500))
+     }
+   
+    await Branch.findOneAndUpdate(req.params.slug,{images:file.name})
+     res.status(200).json({
+        sucess:true,
+        data:file.name
+     })
+  
+   })
+});
+
 //uploade images or files to branch
 //put/api/v1/branches/:slug/uploade
 //private owner and admin
@@ -489,17 +546,23 @@ if(!req.files){
 }
 const file= req.files.file
   //create custome file name 
-  file.name=`document for branch ${branch.slug} ${path.parse(file.name).ext}`
+  file.name=`document ${file.name} for branch ${branch.slug} ${path.parse(file.name).ext}`
   file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`,async err=>{
      if(err){
       return next(new ErrorResponse(` file doesn't uploaded`,500))
      }
    
-    await Branch.findOneAndUpdate(req.params.slug,{images:file.name})
+    await Branch.findOneAndUpdate(req.params.slug,{
+      $set: {
+         documents:file.name
+      } 
+      })
      res.status(200).json({
         sucess:true,
-        data:file.name
+        data1:file.name,
+        data2:branch
      })
+
   
    })
 });
