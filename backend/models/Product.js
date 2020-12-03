@@ -3,56 +3,95 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const ProductSchema = new mongoose.Schema({
-  branch: {
+  branches: [
+    {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'branch',
-    required: true,
-  },
-  name: {
+    ref: 'Branch',
+  
+  }
+],
+  title: {
     type: String,
     required: [true, 'please add product name '],
     trim: true,
     maxlength: [50, 'name can not be more than 50 characters'],
+    text:true//used when use search
   },
-  slug: String,
+  slug: {
+    type: String,
+    unique:true,
+   lowercase:true,
+   index:true
+  },
 
   description: {
     type: String,
     required: [true, 'please add product description '],
-
     maxlength: [500, 'description can not be more than 50 characters'],
+    text:true //used when use search
   },
   price: {
     type: Number,
     required: true,
     trim: true,
+    maxlength: [32, 'price can not be more than 32 characters'],
   },
+  category:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'ProductCategory'
+  },
+   subs:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'ProductSub'
+  }],
+
   quantity: {
     type: Number,
   },
+  sold:{
+    type:Number,
+    default:0
+  },
 
-  photo: {
-    data: Buffer,
-    type: [String],
-    default: 'photo-img.jpg',
+  images: {
+   type:Array,
   },
  
-  averageRating: {
-    type: Number,
-    min: [1, 'Rating must be at lest 1'],
-    max: [10, 'Rating can not be more than 10 '],
+  ratings: [
+    {
+  star:Number,
+  postedBy:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'User'
+  }
+  }
+],
+  shipping: {
+    type: String,
+    enum:['Yes','No']
   },
-  transportationAvailable: {
-    type: Boolean,
-    default: false,
+ quality: {
+    type: String,
+    enum:['Original','Hieght Quality','Used']
   },
 
-  createdAt: {
-    type: Date,
-    default: Date.now,
+warrantyAvailable:{
+ type: String,
+   enum:['Yes','No']
+},
+
+  madeIn: {
+    type: String,
   },
+
+cratedBy:{
+type:mongoose.Schema.Types.ObjectId,
+ref:'User'
+},
   
-});
+},
+{ timestamps: true }
+);
 
 //create product slug from the name
 ProductSchema.pre('save', function (next) {
