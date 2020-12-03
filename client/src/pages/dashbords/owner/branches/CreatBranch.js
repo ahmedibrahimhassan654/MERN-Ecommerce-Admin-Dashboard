@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+// import { connect } from "react-redux";
+// import PropTypes from "prop-types";
 import OwnernNav from "../../../../components/nav/OwnerNav";
-import { UploadOutlined } from '@ant-design/icons';
+
 
 import { useState } from "react";
-import { Col, Layout, Row ,Form, Input, Button,Upload, message,Select } from "antd";
+import { Col, Layout, Row ,Form, Input, Button } from "antd";
 
 const { Content, Footer } = Layout;
-const { Option } = Select;
+
 const layout = {
    labelCol: {
      span: 8,
@@ -22,16 +22,16 @@ const layout = {
 };
  
 
- const validateMessages = {
-   required: '${label} is required!',
-   types: {
-     email: '${label} is not a valid email!',
-     number: '${label} is not a valid number!',
-   },
-   number: {
-     range: '${label} must be between ${min} and ${max}',
-   },
- };
+//  const validateMessages = {
+//    required: '${label} is required!,
+//    types: {
+//      email: '${label} is not a valid email!',
+//      number: '${label} is not a valid number!',
+//    },
+//    number: {
+//      range: '${label} must be between ${min} and ${max}',
+//    },
+//  };
 
 function onBlur() {
   console.log('blur');
@@ -62,7 +62,7 @@ function CreatBranch(props) {
     documents: "",
   });
    const [displayBranchUpload,toggleBranchUploade]=useState(false)
-  const [fileList, updateFileList] = useState([]); 
+
  const {
     name,
     description,
@@ -74,8 +74,8 @@ function CreatBranch(props) {
     province,
     trAvailable,
     present,
-    images,
-    documents,
+    // images,
+    // documents,
   } = formData;
    const onChange = e => {
       console.log(`selected ${ e.target.value }`);
@@ -84,20 +84,7 @@ function CreatBranch(props) {
 
 
    
-const propss = {
- fileList,
- beforeUpload: file => {
-  if (file.type !== '.jpg') {
-   message.error(`${ file.name } is not a png file`);
-  }
-  return file.type === '.jpg';
- },
- onChange: info => {
-  console.log(info.fileList);
-  // file.status is empty when beforeUpload return false
-  updateFileList(info.fileList.filter(file => !!file.status));
- }
-}
+
    return (
      
     <Layout
@@ -128,7 +115,7 @@ const propss = {
                  <Col span={20}>
          <Form {...layout} name="nest-messages"
          onFinish={onFinish}
-         validateMessages={validateMessages}
+        //  validateMessages={validateMessages}
          >
       <Form.Item
            name='name'
@@ -262,7 +249,7 @@ const propss = {
     placeholder="Your Branch Present ?"
     optionFilterProp="children"
    onChange={e => onChange(e)}
-   //onChange={value=>setFormData({...formData,[value.target.name]:value.target.value})}
+ 
     onFocus={onFocus}
     onBlur={onBlur}
     onSearch={onSearch}
@@ -286,13 +273,13 @@ const propss = {
         ]}
       >
 <select
-                              value={trAvailable}
-                               name='trAvailable' 
+  value={trAvailable}
+   name='trAvailable' 
     showSearch
     style={{ width: 200 }}
     placeholder="Your Branch have transportaion ?"
     optionFilterProp="children"
-   //  onChange={value=>setFormData({...formData,[value.target.name]:value.target.value})}
+   
       onChange={e=>onChange(e)}
     onFocus={onFocus}
     onBlur={onBlur}
@@ -316,17 +303,12 @@ const propss = {
 </Form.Item>
 {displayBranchUpload && <Fragment>
   <Form.Item name='images' label="Branch Images">
-         <Upload {...propss}>
-      <Button icon={<UploadOutlined />}>Upload png only</Button>
-    </Upload>
+     <p>uploade image comp</p>
       </Form.Item>
            
  
 <Form.Item name= 'documents' label="Branch Images">
-   
-        <Upload {...propss}>
-      <Button icon={<UploadOutlined />}>Upload png only</Button>
-    </Upload>
+       <p>uploade image files comp</p>
       </Form.Item>
      
   </Fragment>}  

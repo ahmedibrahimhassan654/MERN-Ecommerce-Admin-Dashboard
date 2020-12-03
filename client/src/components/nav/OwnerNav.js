@@ -59,16 +59,16 @@ const OwnerNav = () => {
 				>
 					Owner Dash Bord
 				</p>
-				<Menu theme='dark' defaultSelectedKeys={['1']} mode='inline'>
+				<Menu theme='dark' defaultSelectedKeys={['branches']} mode='inline'>
 					<SubMenu
-						key='Product Category'
+						key='branches'
 						icon={<BranchesOutlined />}
 						title='Branches'
 					>
 						<Menu.Item
-							key='productCategory'
+							key='my branches'
 							icon={<SafetyCertificateOutlined />}
-							title='ProductCategory'
+							title='my branches'
 						>
 							My Branches
 							<Link className='nav-link' to='/owner/branches'></Link>
@@ -77,6 +77,22 @@ const OwnerNav = () => {
 						
 					</SubMenu>
 
+				<SubMenu
+						key='branches'
+						icon={<BranchesOutlined />}
+						title='Products'
+					>
+						<Menu.Item
+							key='my branches'
+							icon={<SafetyCertificateOutlined />}
+							title='my branches'
+						>
+							Products
+							{/* <Link className='nav-link' to='/owner/branches'></Link> */}
+						</Menu.Item>
+
+						
+				</SubMenu>
 					<SubMenu key='sub1' icon={<UserOutlined />} title='profile'>
 					
 						<Menu.Item key='4'>
