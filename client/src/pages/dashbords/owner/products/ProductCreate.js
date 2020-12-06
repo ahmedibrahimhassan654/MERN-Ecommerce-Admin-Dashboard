@@ -28,12 +28,12 @@ const initialState={
     quantity: '',
     sold: '',
     images: [],
-    shipping: ['Yes', 'No'],
-    quality: ['Original', 'Hieght Quality', 'Used'],
-    warrantyAvailable: ['Yes', 'No'],
+    shipping: '',
+    qualities: ['Original', 'Hieght Quality', 'Used'],
+    warrantyAvailable: '',
     madeIn: '',
     branche: '',
-    branches:[],
+    myBranches:[],
     cratedBy:''
     
   }
@@ -56,7 +56,7 @@ const ProductCreate=(props) =>{
     images,
     shipping,
     quality,
-    singleQuality,
+    qualities,
     warrantyAvailable,
     madeIn,
     branches,
@@ -69,6 +69,7 @@ const ProductCreate=(props) =>{
 
   }
   const handleChange = (e) => {
+    
     setValues({ ...values, [e.target.name]: e.target.value })
     console.log(e.target.name,'-----',e.target.value);
   }
@@ -103,7 +104,7 @@ const ProductCreate=(props) =>{
           <h1 className="text-primary pb-4 pt-5 ">Create New Product</h1>
            <Form
             onSubmit={handleSubmit}
-             className='container'
+             className='container site-layout-background'
 
              labelCol={{
                       span: 4,
@@ -177,21 +178,21 @@ const ProductCreate=(props) =>{
                  label="quality"
                 className='text-primary'
                >
-                 <Select
+                 <select
                 
                  name='quality'
                  className='form-control  w-25'
                   
                    onChange={handleChange}
-                   allowClear
+                   
                  >
                 
-                  {quality.map((q) => (
-                   <Option key={q} value={q}>
+                  {qualities.map((q) => (
+                   <option key={q} value={q}>
                       {q}
-                   </Option>
+                   </option>
                  ))}
-                 </Select>
+                 </select>
                
         </Form.Item>
             
@@ -203,17 +204,17 @@ const ProductCreate=(props) =>{
                  label="shipping option"
                 className='text-primary'
                >
-                 <Select
+                 <select
                 
                  name='shipping'
                  className='form-control  w-25'
-                  allowClear
+                  
                    onChange={handleChange}
                  >
                 
-                 <Option value="No">No</Option>
-                <Option value="Yes">Yes</Option>
-                </Select>
+                 <option value="No">No</option>
+                <option value="Yes">Yes</option>
+                </select>
         </Form.Item>
             
              </div>
@@ -224,17 +225,17 @@ const ProductCreate=(props) =>{
                  label="warranty Available"
                 className='text-primary'
                >
-                 <Select
-                allowClear
+                 <select
+                
                  name='warrantyAvailable'
                  className='form-control  w-25'
                   
                    onChange={handleChange}
                  >
                  
-                 <Option value="No">No</Option>
-                <Option value="Yes">Yes</Option>
-                 </Select>
+                 <option value="No">No</option>
+                <option value="Yes">Yes</option>
+                 </select>
         </Form.Item>
             
              </div>

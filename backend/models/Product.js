@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 const ProductSchema = new mongoose.Schema({
-  branches: [
+  myBranches: [
     {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Branch',
