@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+ import { useSelector } from "react-redux";
 // import { connect } from "react-redux";
 // import PropTypes from "prop-types";
 import OwnernNav from "../../../../components/nav/OwnerNav";
@@ -17,33 +18,25 @@ const layout = {
      span: 16,
    },
  };
- const onFinish = (values) => {
-   console.log(values);
-};
+
  
 
-//  const validateMessages = {
-//    required: '${label} is required!,
-//    types: {
-//      email: '${label} is not a valid email!',
-//      number: '${label} is not a valid number!',
-//    },
-//    number: {
-//      range: '${label} must be between ${min} and ${max}',
-//    },
-//  };
+ const validateMessages = {
+   required: '${label} is required!',
+   types: {
+     text: '${label} is not a valid text!',
+     number: '${label} is not a valid number!',
+   },
+   number: {
+     range: '${label} must be between ${min} and ${max}',
+   },
+ };
 
-function onBlur() {
-  console.log('blur');
-}
 
-function onFocus() {
-  console.log('focus');
-}
 
-function onSearch(val) {
-  console.log('search:', val);
-}
+
+
+
 
 function CreatBranch(props) {
   
@@ -102,7 +95,7 @@ function CreatBranch(props) {
         }}
       >
         <Fragment
-          className="site-layout-background"
+      
           style={{
             padding: 20,
             // textAlign: 'center',
@@ -114,8 +107,8 @@ function CreatBranch(props) {
           <Row >
                  <Col span={20}>
          <Form {...layout} name="nest-messages"
-         onFinish={onFinish}
-        //  validateMessages={validateMessages}
+        
+          validateMessages={validateMessages}
          >
       <Form.Item
            name='name'
@@ -244,15 +237,15 @@ function CreatBranch(props) {
 <select
    value={present}
    name='present'                           
-    showSearch
+   // showSearch
     style={{ width: 200 }}
     placeholder="Your Branch Present ?"
-    optionFilterProp="children"
+    //optionFilterProp="children"
    onChange={e => onChange(e)}
  
-    onFocus={onFocus}
-    onBlur={onBlur}
-    onSearch={onSearch}
+    //onFocus={onFocus}
+    //onBlur={onBlur}
+    //onSearch={onSearch}
     filterOption={(input, option) =>
       option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
     }
@@ -281,9 +274,9 @@ function CreatBranch(props) {
     optionFilterProp="children"
    
       onChange={e=>onChange(e)}
-    onFocus={onFocus}
-    onBlur={onBlur}
-    onSearch={onSearch}
+    //onFocus={onFocus}
+   // onBlur={onBlur}
+    //onSearch={onSearch}
     filterOption={(input, option) =>
       option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
     }
@@ -330,6 +323,6 @@ function CreatBranch(props) {
   );
 }
 
-CreatBranch.propTypes = {};
+
 
 export default CreatBranch;

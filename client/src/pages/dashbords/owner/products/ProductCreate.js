@@ -1,16 +1,14 @@
-import React, { useState,useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
  import { useSelector } from "react-redux";
-// import PropTypes from "prop-types";
 import OwnernNav from '../../../../../src/components/nav/OwnerNav';
 import {createProduct} from '../../../../function/product'
-import { setAlert } from '../../../../actions/alert'
 
 
-import { Layout, Form,Input, Select, Button, } from "antd";
+import { Layout, Form,Input, Button, } from "antd";
 import { toast } from "react-toastify";
 
 const { Content, Footer } = Layout;
-const { Option } = Select;
+
 const layout = {
    labelCol: {
      span: 8,
@@ -46,7 +44,7 @@ const ProductCreate=(props) =>{
   const [values, setValues] = useState(initialState)
   //redux
   const {user}=useSelector((state)=>({...state}))
-  const cratedBy=user.email
+
   //destructure
   const
     {
@@ -98,6 +96,7 @@ const ProductCreate=(props) =>{
       style={{
         minHeight: "100vh",
         // textAlign: 'center',
+       
       }}
     >
       <OwnernNav />
@@ -108,8 +107,8 @@ const ProductCreate=(props) =>{
           // textAlign: 'center',
         }}
       >
-        <div
-          className="site-layout-background"
+        <Fragment
+          
           style={{
             padding: 20,
             // textAlign: 'center',
@@ -120,7 +119,7 @@ const ProductCreate=(props) =>{
           <h1 className="text-primary pb-4 pt-5 ">Create New Product</h1>
            <Form
             onSubmitCapture={handleSubmit}
-             className='container site-layout-background'
+             //className='container site-layout-background'
 
              labelCol={{
                       span: 4,
@@ -320,7 +319,7 @@ const ProductCreate=(props) =>{
            </Form>
    
 
-        </div>
+        </Fragment>
         <Footer style={{ textAlign: "center" }}>
           Ant Design ©2018 Created by Ant UED
         </Footer>

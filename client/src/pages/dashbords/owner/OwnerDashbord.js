@@ -1,22 +1,17 @@
 import React, { useEffect}from 'react'
 import { Layout } from 'antd'
-import { connect, useSelector } from 'react-redux'
-import {getCurrentBranches} from '../../../actions/branch'
- import PropTypes from 'prop-types'
+
 import OwnerNav from '../../../components/nav/OwnerNav'
+import { useSelector } from 'react-redux'
 
 const { Header, Content, Footer } = Layout
 
-const OwnerDashbord = ({getCurrentBranches,branch }) => {
+const OwnerDashbord = () => {
    const { user } = useSelector((state) => ({
 		...state,
 	}))
   
-   useEffect((token=user.token) => {
-      getCurrentBranches(token)
-      // console.log(getCurrentBranches());
-     
-   },[getCurrentBranches,user.token])
+ 
 	return (
 		<div>
 			<Layout style={{ minHeight: '100vh' }}>
@@ -40,18 +35,8 @@ const OwnerDashbord = ({getCurrentBranches,branch }) => {
 	)
 }
 
-OwnerDashbord.propTypes = {
-   getCurrentBranches: PropTypes.func.isRequired,
-   user: PropTypes.object.isRequired,
-   branch: PropTypes.object.isRequired,
-   myBranches:PropTypes.array.isRequired,
-}
 
-const mapStateToProps = state => ({
-   user: state.user,
-   branch: state.branch,
-   myBranches:state.myBranches
-})
-export default connect(mapStateToProps,{ getCurrentBranches}) (
-   OwnerDashbord
-);
+
+
+export default  OwnerDashbord
+;

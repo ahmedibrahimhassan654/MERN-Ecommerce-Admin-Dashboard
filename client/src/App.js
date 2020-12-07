@@ -16,7 +16,7 @@ import Forgotpassword from './pages/auth/Forgotpassword'
 import UserDashBord from './pages/dashbords/user/UserDashbord'
 import AdminDashBord from './pages/dashbords/admin/AdminDashbord'
 import OwnerDashBoard from './pages/dashbords/owner/OwnerDashbord'
-import OwnerBranches from './pages/dashbords/owner/branches/Branches'
+import CreateBranch from './pages/dashbords/owner/branches/CreatBranch'
 import MangerDashBoard from './pages/dashbords/manger/MangerDashbord'
 import EmployeeDashBoard from './pages/dashbords/employee/EmployeeDashbord'
 
@@ -118,7 +118,7 @@ const App = () => {
 				{/* //owner rotes */}
 				<OwnerRoute exact path='/owner/password' component={PasswordOwner} />
             <OwnerRoute exact path='/owner/dashboard' component={OwnerDashBoard} />
-            <OwnerRoute exact path='/owner/branches' component={OwnerBranches} />
+            {/* <OwnerRoute exact path='/owner/branches' component={CreateBranch} /> */}
 			<OwnerRoute exact path='/create-branch' component={CreatBranch} />
 			<OwnerRoute exact path='/owner/create-product' component={ProductCreate} />
             

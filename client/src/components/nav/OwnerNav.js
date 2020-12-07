@@ -71,7 +71,17 @@ const OwnerNav = () => {
 							title='my branches'
 						>
 							My Branches
+								
 							<Link className='nav-link' to='/owner/branches'></Link>
+						</Menu.Item>
+							<Menu.Item
+							key='my branches'
+							icon={<SafetyCertificateOutlined />}
+							title='my branches'
+						>
+							Create New Branch
+								
+							<Link className='nav-link' to='/create-branch'></Link>
 						</Menu.Item>
 
 						
