@@ -3,9 +3,11 @@ import React, { useState,useEffect, Fragment } from "react";
 // import PropTypes from "prop-types";
 import OwnernNav from '../../../../../src/components/nav/OwnerNav';
 import {createProduct} from '../../../../function/product'
+import { setAlert } from '../../../../actions/alert'
 
 
 import { Layout, Form,Input, Select, Button, } from "antd";
+import { toast } from "react-toastify";
 
 const { Content, Footer } = Layout;
 const { Option } = Select;
@@ -42,6 +44,9 @@ const initialState={
 
 const ProductCreate=(props) =>{
   const [values, setValues] = useState(initialState)
+  //redux
+  const {user}=useSelector((state)=>({...state}))
+  
   //destructure
   const
     {
@@ -66,12 +71,24 @@ const ProductCreate=(props) =>{
   const handleSubmit = (e) => {
     // send product to backend 
     e.preventDefault()
+    createProduct(values, user.token)
+      .then(res => {
+        console.log(res);
+        setAlert(` ${res} `,'success')
+      }).catch(err => {
+        console.log(err);
+         setAlert(` ${err.msg} `,'danger')
+        if (err.response.status === 4000) {
+          toast.error(err.response.data)
+        }
+        
+    })
 
   }
   const handleChange = (e) => {
     
     setValues({ ...values, [e.target.name]: e.target.value })
-    console.log(e.target.name,'-----',e.target.value);
+   // console.log(e.target.name,'-----',e.target.value);
   }
   
    return (
@@ -88,7 +105,8 @@ const ProductCreate=(props) =>{
       <OwnernNav />
       <Content
         style={{
-          margin: "16px 16px",
+           margin: "16px 16px",
+          background:"site-layout-background"
           // textAlign: 'center',
         }}
       >
@@ -103,7 +121,7 @@ const ProductCreate=(props) =>{
         >
           <h1 className="text-primary pb-4 pt-5 ">Create New Product</h1>
            <Form
-            onSubmit={handleSubmit}
+            onSubmitCapture={handleSubmit}
              className='container site-layout-background'
 
              labelCol={{
@@ -164,7 +182,7 @@ const ProductCreate=(props) =>{
                  <Input
                   type='number'
                  name='price'
-                 className='form-control  w-25'
+                 className='form-control  w-50'
                    value={price}
                    onChange={handleChange}
                  />
@@ -181,12 +199,12 @@ const ProductCreate=(props) =>{
                  <select
                 
                  name='quality'
-                 className='form-control  w-25'
+                 className='form-control  w-50'
                   
                    onChange={handleChange}
                    
                  >
-                
+                 <option >Please select</option>
                   {qualities.map((q) => (
                    <option key={q} value={q}>
                       {q}
@@ -207,11 +225,11 @@ const ProductCreate=(props) =>{
                  <select
                 
                  name='shipping'
-                 className='form-control  w-25'
+                 className='form-control  w-50'
                   
                    onChange={handleChange}
                  >
-                
+                 <option >Please select</option>
                  <option value="No">No</option>
                 <option value="Yes">Yes</option>
                 </select>
@@ -228,11 +246,11 @@ const ProductCreate=(props) =>{
                  <select
                 
                  name='warrantyAvailable'
-                 className='form-control  w-25'
+                 className='form-control  w-50'
                   
                    onChange={handleChange}
                  >
-                 
+                  <option >Please select</option>
                  <option value="No">No</option>
                 <option value="Yes">Yes</option>
                  </select>
@@ -248,7 +266,7 @@ const ProductCreate=(props) =>{
                <Input
                 type="number"
                 name="quantity"
-                className="form-control w-25"
+                className="form-control w-50"
                 value={quantity}
                 onChange={handleChange}
               /> 
@@ -259,21 +277,23 @@ const ProductCreate=(props) =>{
              <div className='form-group '>
                <Form.Item
                    
-                 label="madeIn"
+                 label="made In"
                 className='text-primary'
                >
                <Input
                 type="text"
                 name="madeIn"
-                className="form-control w-25"
+                className="form-control w-50"
                 value={madeIn}
                 onChange={handleChange}
               /> 
         </Form.Item>
             
              </div>
-     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset:8 }}>
-        <Button type="primary" htmlType="submit">
+     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset:4}}>
+               <Button type="primary"
+                 htmlType="submit"
+               >
           Submit
         </Button>
       </Form.Item>

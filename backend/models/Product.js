@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 
 
 const ProductSchema = new mongoose.Schema({
-  myBranches: [
-    {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Branch',
+//   myBranches: [
+//     {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Branch',
   
-  }
-],
+//   }
+// ],
   title: {
     type: String,
     required: [true, 'please add product name '],
@@ -19,6 +19,7 @@ const ProductSchema = new mongoose.Schema({
   slug: {
     type: String,
     unique:true,
+
    lowercase:true,
    index:true
   },
@@ -35,14 +36,14 @@ const ProductSchema = new mongoose.Schema({
     trim: true,
     maxlength: [32, 'price can not be more than 32 characters'],
   },
-  category:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'ProductCategory'
-  },
-   subs:[{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'ProductSub'
-  }],
+  // category:{
+  //   type:mongoose.Schema.Types.ObjectId,
+  //   ref:'ProductCategory'
+  // },
+  //  subs:[{
+  //   type:mongoose.Schema.Types.ObjectId,
+  //   ref:'ProductSub'
+  // }],
 
   quantity: {
     type: Number,
@@ -52,9 +53,9 @@ const ProductSchema = new mongoose.Schema({
     default:0
   },
 
-  images: {
-   type:Array,
-  },
+  // images: {
+  //  type:Array,
+  // },
  
 //   ratings: [
 //     {
