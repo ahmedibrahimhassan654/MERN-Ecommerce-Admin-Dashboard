@@ -46,7 +46,7 @@ const ProductCreate=(props) =>{
   const [values, setValues] = useState(initialState)
   //redux
   const {user}=useSelector((state)=>({...state}))
-  
+  const cratedBy=user.email
   //destructure
   const
     {
@@ -66,7 +66,7 @@ const ProductCreate=(props) =>{
     madeIn,
     branches,
     branche,
-    cratedBy
+    
     } = values
   const handleSubmit = (e) => {
     // send product to backend 
@@ -74,13 +74,11 @@ const ProductCreate=(props) =>{
     createProduct(values, user.token)
       .then(res => {
         console.log(res);
-        setAlert(` ${res} `,'success')
+        window.alert(`${res.data.title} is created`)
+        window.location.reload()
       }).catch(err => {
-        console.log(err);
-         setAlert(` ${err.msg} `,'danger')
-        if (err.response.status === 4000) {
-          toast.error(err.response.data)
-        }
+        console.log(err.response.data);
+       toast.warning(err.response.data.error)
         
     })
 
@@ -149,6 +147,28 @@ const ProductCreate=(props) =>{
                  name='title'
                  className='form-control'
                    value={title}
+                   onChange={handleChange}
+                 />
+        </Form.Item>
+            
+             </div>
+
+                 <div className='form-group'>
+               <Form.Item
+                   rules={[
+                      {
+                       required: true,
+                        type:Number
+                       },
+                          ]}
+                 label="Sold Value"
+                className='text-primary'
+               >
+                 <Input
+                  type='number'
+                 name='sold'
+                 className='form-control'
+                   value={sold}
                    onChange={handleChange}
                  />
         </Form.Item>
