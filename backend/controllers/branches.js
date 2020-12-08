@@ -4,7 +4,8 @@ const ErrorResponse = require('../utils/errorresponse')
 const asyncHandler = require('../middelware/async');
 
 const User = require('../models/User');
-const admin = require('../firebase/index')
+const admin = require('../firebase/index');
+const { slugify } = require('transliteration');
 
 
 
@@ -27,8 +28,9 @@ exports.createBranch =asyncHandler( async (req, res,next) => {
   
    if (userFromDb.role === 'owner') {
       req.body.owner = userFromDb
+      req.body.slug = slugify(req.body.name)
      // const {name,slug,description,email,phone,addressLine,district,country,province,location,images,present,documents,trAvailable}=req.body
-      const branch = await Branch.create(req.body)
+      const branch = await new Branch(req.body).save()
       console.log(branch);
      res.status(200).json({
       sucess: true,

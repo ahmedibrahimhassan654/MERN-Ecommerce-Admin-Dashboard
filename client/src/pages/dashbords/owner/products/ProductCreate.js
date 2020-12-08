@@ -14,7 +14,7 @@ const layout = {
      span: 8,
    },
    wrapperCol: {
-     span: 8,
+     span: 16,
    },
  };
 
@@ -218,7 +218,7 @@ const ProductCreate=(props) =>{
                  <select
                 
                  name='quality'
-                 className='form-control  w-50'
+                
                   
                    onChange={handleChange}
                    

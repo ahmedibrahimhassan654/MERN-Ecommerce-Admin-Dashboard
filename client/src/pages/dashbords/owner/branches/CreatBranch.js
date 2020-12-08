@@ -7,7 +7,8 @@ import OwnernNav from "../../../../components/nav/OwnerNav";
 
 import { useState } from "react";
 import { Col, Layout, Row ,Form, Input, Button } from "antd";
-
+import { toast } from "react-toastify";
+import {createBranch} from '../../../../function/branch'
 const { Content, Footer } = Layout;
 
 const layout = {
@@ -35,26 +36,36 @@ const layout = {
 
 
 
-
+const initialState={
+   
+    name:'',
+    description: '',
+    email: '',
+    phone: '',
+    addressLine: '',
+  district: '',
+    country: '',
+     provinceP:'',
+    images: [],
+    documents:[],
+  presents: ['products', 'services'],
+   present:'',
+  trAvailabilites:['Yes','No'],
+  // adminAccept: '',
+  
+    
+    
+  }
 
 
 function CreatBranch(props) {
   
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    email: "",
-    phone: "",
-    addressLine: "",
-    district: "",
-    country: "",
-    province: "",
-    trAvailable: "",
-    present: "",
-    images: "",
-    documents: "",
-  });
-   const [displayBranchUpload,toggleBranchUploade]=useState(false)
+  const [values, setValues] = useState(initialState);
+
+  //redux
+  const {user}=useSelector((state)=>({...state}))
+
+   
 
  const {
     name,
@@ -67,16 +78,34 @@ function CreatBranch(props) {
     province,
     trAvailable,
     present,
-    // images,
-    // documents,
-  } = formData;
-   const onChange = e => {
-      console.log(`selected ${ e.target.value }`);
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+    presents,
+    images,
+    documents,
+  } = values;
+  const handleSubmit = (e) => {
+    // send product to backend 
+    e.preventDefault()
+     createBranch(values, user.token)
+      .then(res => {
+        console.log(res.data.branch.name);
+       
+
+        window.alert(`${res.data.branch.name} is created`)
+        window.location.reload()
+      }).catch(err => {
+        console.log(err.response.data);
+       toast.warning(err.response.data.error)
+        
+    })
+
+  }
+   const handleChange = e => {
+       setValues({ ...values, [e.target.name]: e.target.value })
+
    }
 
 
-   
+   const [displayBranchUpload,toggleBranchUploade]=useState(false)
 
    return (
      
@@ -96,22 +125,24 @@ function CreatBranch(props) {
       >
         <Fragment
       
-          style={{
-            padding: 20,
-            // textAlign: 'center',
-            minHeight: "100%",
-            margin: 0,
-          }}
+          // style={{
+          //   padding: 20,
+          //   // textAlign: 'center',
+          //   minHeight: "100vh",
+          //   margin: 0,
+          // }}
         >
           <h1 className="text-primary pb-4 pt-5 ">Create New Branch</h1>
           <Row >
                  <Col span={20}>
-         <Form {...layout} name="nest-messages"
-        
-          validateMessages={validateMessages}
+               <Form {...layout}
+                 
+                 onSubmitCapture={handleSubmit}
+                  layout="horizontal"
+          // validateMessages={validateMessages}
          >
       <Form.Item
-           name='name'
+          
           
         label="Branch Name"
         rules={[
@@ -121,19 +152,30 @@ function CreatBranch(props) {
         ]}
       >
      <Input
-           value={name}  
-           onChange={e=>onChange(e)}
+        type='text'   
+       value={name}  
+         name='name'
+                     onChange={handleChange}
+                      className='form-control'
            />
    </Form.Item>
           <Form.Item
-           name='description' label="Description">
-           <Input.TextArea
+                 
+                   label="Description"
+                  rules={[
+                      {
+                      required: true,
+                        },
+                      ]}
+                 >
+                   <Input.TextArea
+                       name='description'
             value={description}  
-           onChange={e=>onChange(e)}
+            onChange={handleChange}
            />
       </Form.Item>
       <Form.Item
-        name= 'email'
+       
         label="Contact Email"
         rules={[
           {
@@ -141,13 +183,14 @@ function CreatBranch(props) {
           },
         ]}
       >
-           <Input
+                   <Input
+                      name= 'email'
            value={email}  
-           onChange={e=>onChange(e)}
+           onChange={handleChange}
            />
-                        </Form.Item>
-                        <Form.Item
-        name= 'phone'
+      </Form.Item>
+    <Form.Item
+        
         label="Contact phone"
         rules={[
           {
@@ -155,14 +198,15 @@ function CreatBranch(props) {
           },
         ]}
       >
-           <Input
+                   <Input
+                     name= 'phone'
            value={phone}  
-           onChange={e=>onChange(e)}
+            onChange={handleChange}
 
            />
-                        </Form.Item>
-                        <Form.Item
-        name= 'addressLine'
+      </Form.Item>
+    <Form.Item
+        
         label="Address line"
         rules={[
           {
@@ -170,14 +214,15 @@ function CreatBranch(props) {
           },
         ]}
       >
-           <Input
+                   <Input
+                     name= 'addressLine'
            value={addressLine}  
-           onChange={e=>onChange(e)}
+           onChange={handleChange}
 
            />
                         </Form.Item>
    <Form.Item
-        name='district'
+        
         label="district منطقه"
         rules={[
           {
@@ -185,14 +230,15 @@ function CreatBranch(props) {
           },
         ]}
       >
-           <Input
+                   <Input
+                     name='district'
             value={district}  
-           onChange={e=>onChange(e)}
+            onChange={handleChange}
 
            />
    </Form.Item>
    <Form.Item
-        name='country'
+      
         label="country البلد"
         rules={[
           {
@@ -200,16 +246,17 @@ function CreatBranch(props) {
           },
         ]}
       >
-           <Input
+                   <Input
+                       name='country'
             value={country}  
-           onChange={e=>onChange(e)}
+            onChange={handleChange}
 
            />
 </Form.Item>
        
 
   <Form.Item
-        name='province'
+      
         label="provience المحافظه"
         rules={[
           {
@@ -217,47 +264,44 @@ function CreatBranch(props) {
           },
         ]}
       >
-           <Input
+                   <Input
+                       name='province'
            value={province}  
-           onChange={e=>onChange(e)}
+            onChange={handleChange}
 
            />
        </Form.Item>                
     
                         
-                           <Form.Item
-        name='present'
+    <Form.Item
+       
         label="present "
-        rules={[
-          {
-            type: 'boolean',
-          },
-        ]}
+      className='text-primary'
       >
 <select
-   value={present}
+ 
    name='present'                           
    // showSearch
-    style={{ width: 200 }}
+     className='form-control  w-50'
     placeholder="Your Branch Present ?"
-    //optionFilterProp="children"
-   onChange={e => onChange(e)}
+  
+   onChange={handleChange}
  
-    //onFocus={onFocus}
-    //onBlur={onBlur}
-    //onSearch={onSearch}
-    filterOption={(input, option) =>
-      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-    }
+    
+   
   >
-    <option value="Products">Products</option>
-    <option value="services">services</option>
+   <option >Please select</option>
+    {presents.map((p) => (
+      <option key={p} value={p}>
+          {p}
+      </option>
+    ))}
     
   </select>,
 </Form.Item>  
                         
   <Form.Item
-        name='trAvailable'
+      
         label="Transportation availale "
         rules={[
           {
@@ -266,45 +310,22 @@ function CreatBranch(props) {
         ]}
       >
 <select
-  value={trAvailable}
+  
    name='trAvailable' 
-    showSearch
-    style={{ width: 200 }}
-    placeholder="Your Branch have transportaion ?"
-    optionFilterProp="children"
+ className='form-control  w-50'
    
-      onChange={e=>onChange(e)}
-    //onFocus={onFocus}
-   // onBlur={onBlur}
-    //onSearch={onSearch}
-    filterOption={(input, option) =>
-      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-    }
+    onChange={handleChange}
+  
+  
   >
-    <option value="true">true</option>
-    <option value="false">false</option>
+        <option >Please select</option>
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
     
   </select>,
 </Form.Item>  
       
-<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-   <Button
-   onClick={()=>toggleBranchUploade(!displayBranchUpload)}
-   type="primary" htmlType="submit">
-      uploade Branch Iamges
-   </Button>
-</Form.Item>
-{displayBranchUpload && <Fragment>
-  <Form.Item name='images' label="Branch Images">
-     <p>uploade image comp</p>
-      </Form.Item>
-           
- 
-<Form.Item name= 'documents' label="Branch Images">
-       <p>uploade image files comp</p>
-      </Form.Item>
-     
-  </Fragment>}  
+
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         <Button type="primary" htmlType="submit">
           Submit

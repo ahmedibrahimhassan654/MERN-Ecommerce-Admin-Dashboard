@@ -19,7 +19,6 @@ const ProductSchema = new mongoose.Schema({
   slug: {
     type: String,
     unique:true,
-
    lowercase:true,
    index:true
   },
@@ -28,7 +27,8 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: [true, 'please add product description '],
     maxlength: [500, 'description can not be more than 50 characters'],
-    text:true //used when use search
+    text: true ,//used when use search
+    trim:true,
   },
   price: {
     type: Number,

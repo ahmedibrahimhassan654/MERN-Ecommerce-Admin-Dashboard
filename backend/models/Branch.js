@@ -12,10 +12,11 @@ const BranchSchema = new mongoose.Schema({
 
    name:{
       type:String,
-      required:[true,'please add a name for branch'],
-      unique:true,
       trim:true,
-      maxlength:[50,'name can not be more than 50 characters']
+      maxlength: [50, 'name can not be more than 50 characters'],
+      text: true,//used when use search
+     required:true
+
    },
    slug: {
       type: String,
@@ -26,7 +27,7 @@ const BranchSchema = new mongoose.Schema({
 
    description: {
       type:String,
-      required:[true,'please add a name for branch'],
+      
       trim:true,
       maxlength: [500, 'name can not be more than 500 characters'],
       
@@ -44,49 +45,49 @@ const BranchSchema = new mongoose.Schema({
 	district: String,
    country:String,
    province: String,
-   location: {
-      type: {
-        type: String, 
-        enum: ['Point'], // 'location.type' must be 'Point'
-      //   required: true
-      },
-      coordinates: {
-        type: [Number],
-         // required: true,
-         index: '2dsphere'
+   // location: {
+   //    type: {
+   //      type: String, 
+   //      enum: ['Point'], // 'location.type' must be 'Point'
+   //    //   required: true
+   //    },
+   //    coordinates: {
+   //      type: [Number],
+   //       // required: true,
+   //       index: '2dsphere'
         
-      }
-   },
+   //    }
+   // },
    images:{
-      type:[String]
+      type:Array
    } ,
    documents: {
-      type:[String]
+     type:Array
    },
    present: {
       type: String,
-      enum: ['products', 'Services'],
+      enum: ['products', 'services'],
       default:'products'
    },
    trAvailable: {
-      type: Boolean,
-      default:false
+      type: String,
+       enum:['Yes','No']
    },
    adminAccept: {
       type: Boolean,
       default: false,
       required:true
    },
-   mangers: [
-      {
+   // mangers: [
+   //    {
         
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      //autopopulate: { select: '_id name email', maxDepth: 1 }
-      },
+   //    type: mongoose.Schema.ObjectId,
+   //    ref: 'User',
+   //    //autopopulate: { select: '_id name email', maxDepth: 1 }
+   //    },
          
       
-   ]
+   // ]
    
         
       
@@ -95,11 +96,11 @@ const BranchSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-BranchSchema.pre('save', function (next) {
-	this.slug = slugify(this.name, { lower: true })
+// BranchSchema.pre('save', function (next) {
+// 	this.slug = slugify(this.name, { lower: true })
 	
-	next()
-})
+// 	next()
+// })
 
 BranchSchema.plugin(require('mongoose-autopopulate'))
 module.exports = mongoose.model('Branch', BranchSchema);
