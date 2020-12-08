@@ -94,7 +94,7 @@ exports.AdminCreateBranch = asyncHandler(async (req, res, next) => {
    if (userFromDb.role === 'admin') {
 
 
-      const { name, email, role = 'owner' } = req.body.owner
+      const { email} = req.body.owner
       
 
 

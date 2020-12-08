@@ -139,7 +139,7 @@ function CreatBranch(props) {
                  
                  onSubmitCapture={handleSubmit}
                   layout="horizontal"
-          // validateMessages={validateMessages}
+           validateMessages={validateMessages}
          >
       <Form.Item
           

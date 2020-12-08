@@ -75,9 +75,9 @@ const OwnerNav = () => {
 							<Link className='nav-link' to='/owner/branches'></Link>
 						</Menu.Item>
 							<Menu.Item
-							key='my branches'
+							key='new branche'
 							icon={<SafetyCertificateOutlined />}
-							title='my branches'
+							title='new branch'
 						>
 							Create New Branch
 								
@@ -93,10 +93,11 @@ const OwnerNav = () => {
 						title='products'
 					>
 						<Menu.Item
-							key='my branches'
+							key='new product'
 							icon={<SafetyCertificateOutlined />}
 							title='Crete Product'
 						>
+							
 							Create Product
 							<Link className='nav-link' to='/owner/create-product'></Link>
 						</Menu.Item>

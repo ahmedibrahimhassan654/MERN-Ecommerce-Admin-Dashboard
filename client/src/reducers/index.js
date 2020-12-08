@@ -6,6 +6,6 @@ export const rootReducer=combineReducers({
 
    user: userReducer,
    alert,
-   branch
+   // branch
 
 })
