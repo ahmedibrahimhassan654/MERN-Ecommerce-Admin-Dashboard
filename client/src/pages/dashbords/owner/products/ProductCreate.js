@@ -4,7 +4,7 @@ import OwnernNav from '../../../../../src/components/nav/OwnerNav';
 import {createProduct} from '../../../../function/product'
 
 
-import { Layout, Form,Input, Button, } from "antd";
+import { Layout, Form,Input, Button, Row, Col, } from "antd";
 import { toast } from "react-toastify";
 
 const { Content, Footer } = Layout;
@@ -111,12 +111,15 @@ const ProductCreate=(props) =>{
        
         >
           <h1 className="text-primary pb-4 pt-5 ">Create New Product</h1>
-           <Form
+           <Row >
+
+             <Col span={20}>
+               <Form
             onSubmitCapture={handleSubmit}
              //className='container site-layout-background'
 
              labelCol={{
-                      span: 4,
+                      span: 7,
                       }}
         wrapperCol={{
           span: 14,
@@ -303,7 +306,7 @@ const ProductCreate=(props) =>{
         </Form.Item>
             
              </div>
-     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset:4}}>
+     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset:7}}>
                <Button type="primary"
                  htmlType="submit"
                >
@@ -311,6 +314,9 @@ const ProductCreate=(props) =>{
         </Button>
       </Form.Item>
            </Form>
+              </Col>
+           </Row>
+           
    
 
         </Fragment>

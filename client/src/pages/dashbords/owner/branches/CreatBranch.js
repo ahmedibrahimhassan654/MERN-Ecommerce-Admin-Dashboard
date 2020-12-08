@@ -125,12 +125,7 @@ function CreatBranch(props) {
       >
         <Fragment
       
-          // style={{
-          //   padding: 20,
-          //   // textAlign: 'center',
-          //   minHeight: "100vh",
-          //   margin: 0,
-          // }}
+         
         >
           <h1 className="text-primary pb-4 pt-5 ">Create New Branch</h1>
           <Row >
