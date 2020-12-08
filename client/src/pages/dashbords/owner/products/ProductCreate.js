@@ -4,20 +4,13 @@ import OwnernNav from '../../../../../src/components/nav/OwnerNav';
 import {createProduct} from '../../../../function/product'
 
 
-import { Layout, Form,Input, Button, Row, Col, } from "antd";
+import { Layout, Row, Col, } from "antd";
 import { toast } from "react-toastify";
 import ProductsForm from "../../../../components/forms/ProductsForm";
 
 const { Content, Footer } = Layout;
 
-const layout = {
-   labelCol: {
-     span: 8,
-   },
-   wrapperCol: {
-     span: 16,
-   },
- };
+
 
 const initialState={
     title: '',

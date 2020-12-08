@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Layout, Form,Input, Button, Row, Col, } from "antd";
+import {  Form,Input, Button,  } from "antd";
 const layout = {
    labelCol: {
      span: 8,
@@ -57,11 +57,11 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
                 className='text-primary'
                >
                  <Input
-                  type='text'
-                 name='title'
-                 className='form-control'
-                   value={title}
-                   onChange={handleChange}
+                type='text'
+                name='title'
+                className='form-control'
+                value={title}
+                onChange={handleChange}
                  />
         </Form.Item>
             
