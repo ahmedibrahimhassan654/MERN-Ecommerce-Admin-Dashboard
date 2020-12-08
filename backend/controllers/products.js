@@ -9,8 +9,7 @@ const User = require('../models/User')
 //@desc     creat product
 //@route   GET/api/v1/product
 //@access  owner
-exports.create =
-asyncHandler(
+exports.create =asyncHandler(
 
   async (req, res, next) => {
 
@@ -24,6 +23,24 @@ asyncHandler(
     req.body.cratedBy=userFromDb
   const newProduct = await new Product(req.body).save()
   res.json(newProduct)
+  
+  }
+)
+
+
+exports.getAllProducts =asyncHandler(
+
+  async (req, res, next) => {
+
+    const products = await Product.find()
+    console.log(products);
+   res.status(200).json({
+   number:products.length,
+   sucess: true,
+   msg: 'get All Products',
+   products
+   
+   })
   
   }
 )

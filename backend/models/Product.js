@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema({
 //   branch: 
-//     {
+//     [{
 //     type: mongoose.Schema.Types.ObjectId,
 //     ref: 'Branch',
   
-//   }
+//   }]
 // ,
   title: {
     type: String,
@@ -86,13 +86,14 @@ warrantyAvailable:{
 
 cratedBy:{
 type:mongoose.Schema.Types.ObjectId,
-ref:'User'
+  ref: 'User',
+autopopulate: { select: '_id name email', maxDepth: 1 }
 },
   
 },
 { timestamps: true }
 );
 
-
+ProductSchema.plugin(require('mongoose-autopopulate'))
 
 module.exports = Product = mongoose.model('product', ProductSchema);
