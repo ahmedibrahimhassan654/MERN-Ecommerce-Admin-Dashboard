@@ -33,7 +33,6 @@ const initialState={
     warrantyAvailable: '',
     madeIn: '',
     branche: '',
-    myBranches:[],
     cratedBy:''
     
   }
@@ -62,7 +61,7 @@ const ProductCreate=(props) =>{
     qualities,
     warrantyAvailable,
     madeIn,
-    branches,
+   
     branche,
     
     } = values
@@ -109,12 +108,7 @@ const ProductCreate=(props) =>{
       >
         <Fragment
           
-          style={{
-            padding: 20,
-            // textAlign: 'center',
-            minHeight: '100vh',
-            margin: 0,
-          }}
+       
         >
           <h1 className="text-primary pb-4 pt-5 ">Create New Product</h1>
            <Form
@@ -219,7 +213,7 @@ const ProductCreate=(props) =>{
                 
                  name='quality'
                 
-                  
+                   className='form-control  w-50'
                    onChange={handleChange}
                    
                  >
