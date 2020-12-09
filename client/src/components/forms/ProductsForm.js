@@ -23,18 +23,18 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 		shipping,
 		quality,
 		qualities,
-
 		warrantyAvailable,
-
 		madeIn,
-
 		branche,
 	} = values;
+
+	
+
 	return (
 		<Fragment>
 			<Form
 				onSubmitCapture={handleSubmit}
-				//className='container site-layout-background'
+			
 
 				labelCol={{
 					span: 7,
@@ -57,13 +57,24 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 						<Input
 							type="text"
 							name="title"
-							className="form-control"
+							className="form-control  "
 							value={title}
 							onChange={handleChange}
 						/>
 					</Form.Item>
 				</div>
 
+				<div className="form-group">
+					<Form.Item label="Description" className="text-primary">
+						<Input.TextArea
+							type="text"
+							name="description"
+							className="form-control  "
+							value={description}
+							onChange={handleChange}
+						/>
+					</Form.Item>
+				</div>
 				<div className="form-group">
 					<Form.Item
 						rules={[
@@ -78,25 +89,12 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 						<Input
 							type="number"
 							name="sold"
-							className="form-control"
+							className="form-control  w-50"
 							value={sold}
 							onChange={handleChange}
 						/>
 					</Form.Item>
 				</div>
-
-				<div className="form-group">
-					<Form.Item label="Description" className="text-primary">
-						<Input.TextArea
-							type="text"
-							name="description"
-							className="form-control"
-							value={description}
-							onChange={handleChange}
-						/>
-					</Form.Item>
-				</div>
-
 				<div className="form-group ">
 					<Form.Item label="Price" className="text-primary">
 						<Input
@@ -108,7 +106,6 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 						/>
 					</Form.Item>
 				</div>
-
 				<div className="form-group ">
 					<Form.Item label="quality" className="text-primary">
 						<select name="quality" className="form-control  w-50" onChange={handleChange}>
@@ -121,7 +118,6 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 						</select>
 					</Form.Item>
 				</div>
-
 				<div className="form-group ">
 					<Form.Item label="shipping option" className="text-primary">
 						<select name="shipping" className="form-control  w-50" onChange={handleChange}>
@@ -132,6 +128,24 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 					</Form.Item>
 				</div>
 
+				<div className="form-group ">
+					<Form.Item label="Chose Category" className="text-primary">
+						<select
+						
+							name="category"
+							className="form-control  w-50"
+							onChange={handleChange}
+						>
+							<option>Please select category</option>
+							{categories.length > 0 &&
+								categories.map((c) => (
+									<option key={c._id} value={c._id}>
+										{c.name}
+									</option>
+								))}
+						</select>
+					</Form.Item>
+				</div>
 				<div className="form-group ">
 					<Form.Item label="warranty Available" className="text-primary">
 						<select name="warrantyAvailable" className="form-control  w-50" onChange={handleChange}>
@@ -153,7 +167,6 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 						/>
 					</Form.Item>
 				</div>
-
 				<div className="form-group ">
 					<Form.Item label="made In" className="text-primary">
 						<Input

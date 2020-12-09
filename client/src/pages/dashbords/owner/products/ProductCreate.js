@@ -1,9 +1,9 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
  import { useSelector } from "react-redux";
 import OwnernNav from '../../../../../src/components/nav/OwnerNav';
 import {createProduct} from '../../../../function/product'
 
-
+import {  getCategories } from '../../../../function/productcategory';
 import { Layout, Row, Col, } from "antd";
 import { toast } from "react-toastify";
 import ProductsForm from "../../../../components/forms/ProductsForm";
@@ -38,29 +38,16 @@ const ProductCreate=(props) =>{
   //redux
   const {user}=useSelector((state)=>({...state}))
 
-  //destructure
-  const
-    {
-    title,
-    description,
-    price,
-    category,
-    categories,
-    subs,
-    quantity,
-    sold,
-    images,
-    shipping,
-    quality,
-    qualities,
+  useEffect(() => {
+		loadCategories();
+	}, []);
 
-    
-    warrantyAvailable,
-    
-    madeIn,
-    branche,
-    
-    } = values
+  const loadCategories = () => getCategories().then((c) =>{ 
+    setValues({ ...values, categories: c.data })
+  }
+  );
+
+
   const handleSubmit = (e) => {
     // send product to backend 
     e.preventDefault()
@@ -107,10 +94,13 @@ const ProductCreate=(props) =>{
        
         >
           <h1 className="text-primary pb-4 pt-5 ">Create New Product</h1>
-           <Row >
-
+           <Row  className='container'>
+              {/* {JSON.stringify(values.categories)} */}
              <Col span={20}>
-               <ProductsForm handleChange={handleChange} handleSubmit={handleSubmit} values={values }/>
+               <ProductsForm
+                 handleChange={handleChange}
+                 handleSubmit={handleSubmit}
+                 values={values} />
               </Col>
            </Row>
            

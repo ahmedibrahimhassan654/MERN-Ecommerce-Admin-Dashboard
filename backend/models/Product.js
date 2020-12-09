@@ -35,10 +35,11 @@ const ProductSchema = new mongoose.Schema({
     trim: true,
     maxlength: [32, 'price can not be more than 32 characters'],
   },
-  // category:{
-  //   type:mongoose.Schema.Types.ObjectId,
-  //   ref:'ProductCategory'
-  // },
+  category:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref: 'ProductCategory',
+    autopopulate: { select: '_id name ', maxDepth: 1 }
+  },
   //  subs:[{
   //   type:mongoose.Schema.Types.ObjectId,
   //   ref:'ProductSub'
