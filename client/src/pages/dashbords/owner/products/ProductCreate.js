@@ -53,9 +53,11 @@ const ProductCreate=(props) =>{
     shipping,
     quality,
     qualities,
+
+    
     warrantyAvailable,
+    
     madeIn,
-   
     branche,
     
     } = values

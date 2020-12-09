@@ -143,7 +143,7 @@ function BranchForm({ handleSubmit, handleChange, validateMessages, values }) {
 						<option value="No">No</option>
 						<option value="Yes">Yes</option>
 					</select>
-					,
+					
 				</Form.Item>
 
 				<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
