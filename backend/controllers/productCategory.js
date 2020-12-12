@@ -4,7 +4,7 @@ const { transliterate, slugify } = require('transliteration')
 // const slugify =require('slugify')
 
 const ProductCategory = require('../models/ProductCategory')
-
+const ProductSub = require('../models/ProductSub');
 //@desc     create  Product Category
 //@route    Post/api/v1/productcategory
 //@access   private
@@ -67,3 +67,20 @@ exports.remove = asyncHandler(async (req, res, next) => {
 
 	res.json(deltedcat)
 })
+
+//@desc     get product subs acording to category id 
+//@route   GET /productcategory/subs/:_id
+//@access   private
+exports.getsubs=asyncHandler(async (req, res, next) => {
+	const subs = await ProductSub.find(
+		{ parent: req.params._id }
+	)
+		//.exec((err, subs) => {
+		//if (err) console.log(err);
+		 res.status(200).json({
+				message: `ProductSubs for category parent ${req.params._id} is equal ${subs.length}`,
+				subs,
+			});
+		// res.json(subs);
+	});
+//})
