@@ -40,10 +40,10 @@ const ProductSchema = new mongoose.Schema({
     ref: 'ProductCategory',
     autopopulate: { select: '_id name ', maxDepth: 1 }
   },
-  //  subs:[{
-  //   type:mongoose.Schema.Types.ObjectId,
-  //   ref:'ProductSub'
-  // }],
+   subs:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'ProductSub'
+  }],
 
   quantity: {
     type: Number,
