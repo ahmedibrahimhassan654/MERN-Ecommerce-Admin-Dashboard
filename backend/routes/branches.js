@@ -32,12 +32,14 @@ const {
 const router = express.Router()
 
 // //Owner Checks
-
+// router.use()
  router.get('/branches/owner', authCheck, ownerCheck, getMyBranches)
 
 router.post('/branches/owner', authCheck, ownerCheck, createBranch)
 
 router.put('/branches/owner/:slug', authCheck, ownerCheck, updateBranch)
+
+
 
 router.put('/branches/owner/:slug/uploade', authCheck, ownerCheck, uploade)
 router.put('/branches/owner/:slug/uploadeimg', authCheck, ownerCheck, uploadeImage)

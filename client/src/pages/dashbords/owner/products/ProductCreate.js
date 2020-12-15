@@ -4,7 +4,7 @@ import OwnernNav from '../../../../../src/components/nav/OwnerNav';
 import {createProduct,} from '../../../../function/product'
 
 import { getCategories, getSubs } from '../../../../function/productcategory';
-import { getMyBranches} from '../../../../function/branch';
+import { getMyBranches,} from '../../../../function/branch';
 import { Layout, Row, Col, } from "antd";
 import { toast } from "react-toastify";
 import ProductsForm from "../../../../components/forms/ProductsForm";
@@ -36,67 +36,61 @@ const initialState={
 
 
 
-const ProductCreate=(props) =>{
-  const [values, setValues] = useState(initialState)
+const ProductCreate = (props) => {
+	const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
-  const [showSub,SetShowSub]=useState(false)
-  //redux
-  const {user}=useSelector((state)=>({...state}))
+  const [branches, setBranches] = useState([]);
+	const [showSub, SetShowSub] = useState(false);
+	//redux
+  const { user } = useSelector((state) => ({ ...state }));
+  
 
-  useEffect(() => {
-     	const loadCategories = () =>
-          getCategories().then((c) => {
-        // console.log(c);
-				setValues({ ...values, categories: c.data });
-			});
+	const loadCategories = () => {
+		getCategories().then((c) => setValues({ ...values, categories: c.data }));
+	};
 
-		const ownerBranches = () => {
-      getMyBranches(user.token).then((b) => {
-        console.log(b);
-				setValues({ ...values, branches: b.data.branches });
-			});
-		};
+	const ownerBranches = () =>
+		getMyBranches(user.token).then((b) => {
+			console.log(b);
+			setBranches({ ...values, branches: b.data.branches });
+    });
+  
+	useEffect(() => {
 		loadCategories();
 		ownerBranches();
-  }, []);
+	}, []);
 
-  
+	const handleSubmit = (e) => {
+		// send product to backend
+		e.preventDefault();
+		createProduct(values, user.token)
+			.then((res) => {
+				console.log(res);
+				window.alert(`${res.data.title} is created`);
+				window.location.reload();
+			})
+			.catch((err) => {
+				console.log(err.response.data);
+				toast.warning(err.response.data.error);
+			});
+	};
+	const handleChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
+		// console.log(e.target.name,'-----',e.target.value);
+	};
 
- 
-  const handleSubmit = (e) => {
-    // send product to backend 
-    e.preventDefault()
-    createProduct(values, user.token)
-      .then(res => {
-        console.log(res);
-        window.alert(`${res.data.title} is created`)
-        window.location.reload()
-      }).catch(err => {
-        console.log(err.response.data);
-       toast.warning(err.response.data.error)
-        
-    })
+	const handleCategoryChange = (e) => {
+		e.preventDefault();
+		console.log('Clicked Category _id', e.target.value);
+		setValues({ ...values, subs: [], category: e.target.value });
+		getSubs(e.target.value).then((res) => {
+			console.log(res);
+			setSubOptions(res.data.subs);
+		});
+		SetShowSub(true);
+	};
 
-  }
-  const handleChange = (e) => {
-    
-    setValues({ ...values, [e.target.name]: e.target.value })
-   // console.log(e.target.name,'-----',e.target.value);
-  }
-  
-  const handleCategoryChange = (e) => {
-    e.preventDefault()
-    console.log('Clicked Category _id', e.target.value);
-    setValues({ ...values, subs:[],category: e.target.value });
-    getSubs(e.target.value).then(res => {
-      console.log(res);
-      setSubOptions(res.data.subs)
-    });
-    SetShowSub(true);
-  }
-
-
-   return (
+	return (
 		<Layout
 			className="site-layout"
 			style={{
@@ -114,9 +108,10 @@ const ProductCreate=(props) =>{
 			>
 				<Fragment>
 					<h1 className="text-primary pb-4 pt-5 ">Create New Product</h1>
-					{JSON.stringify(values.subs)}
+					{/* {JSON.stringify(values.subs)} */}
 					<Row className="container">
 						{JSON.stringify(values.categories)}
+						<br />
 						{JSON.stringify(values.branches)}
 						<Col span={20}>
 							<ProductsForm
@@ -134,8 +129,8 @@ const ProductCreate=(props) =>{
 				<Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
 			</Content>
 		</Layout>
-   );
-}
+	);
+};
 
 
 
