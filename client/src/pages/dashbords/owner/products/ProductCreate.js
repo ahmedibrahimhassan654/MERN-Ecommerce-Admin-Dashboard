@@ -3,7 +3,8 @@ import React, { useState, Fragment, useEffect } from "react";
 import OwnernNav from '../../../../../src/components/nav/OwnerNav';
 import {createProduct,} from '../../../../function/product'
 
-import {  getCategories,getSubs } from '../../../../function/productcategory';
+import { getCategories, getSubs } from '../../../../function/productcategory';
+import { getMyBranches} from '../../../../function/branch';
 import { Layout, Row, Col, } from "antd";
 import { toast } from "react-toastify";
 import ProductsForm from "../../../../components/forms/ProductsForm";
@@ -19,6 +20,8 @@ const initialState={
     category: '',
     categories:[],
     subs: [],
+    branches: [],
+    branch:'',
     quantity: '',
    
     images: [],
@@ -41,15 +44,25 @@ const ProductCreate=(props) =>{
   const {user}=useSelector((state)=>({...state}))
 
   useEffect(() => {
+     	const loadCategories = () =>
+          getCategories().then((c) => {
+        // console.log(c);
+				setValues({ ...values, categories: c.data });
+			});
+
+		const ownerBranches = () => {
+      getMyBranches(user.token).then((b) => {
+        console.log(b);
+				setValues({ ...values, branches: b.data.branches });
+			});
+		};
 		loadCategories();
-	}, []);
+		ownerBranches();
+  }, []);
 
-  const loadCategories = () => getCategories().then((c) =>{ 
-    setValues({ ...values, categories: c.data })
-  }
-  );
+  
 
-
+ 
   const handleSubmit = (e) => {
     // send product to backend 
     e.preventDefault()
@@ -103,7 +116,8 @@ const ProductCreate=(props) =>{
 					<h1 className="text-primary pb-4 pt-5 ">Create New Product</h1>
 					{JSON.stringify(values.subs)}
 					<Row className="container">
-						{/* {JSON.stringify(values.categories)} */}
+						{JSON.stringify(values.categories)}
+						{JSON.stringify(values.branches)}
 						<Col span={20}>
 							<ProductsForm
 								handleChange={handleChange}

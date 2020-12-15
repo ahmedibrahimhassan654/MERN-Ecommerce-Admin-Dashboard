@@ -6,3 +6,11 @@ export const createBranch = async (branch, authtoken) =>
 			authtoken,
 		},
 	})
+
+
+	export const getMyBranches = async ( authtoken) =>
+		await axios.get(`${process.env.REACT_APP_API}/branches/owner`, {
+			headers: {
+				authtoken,
+			},
+		});

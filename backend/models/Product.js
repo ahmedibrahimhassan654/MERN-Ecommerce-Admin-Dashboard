@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 
 const ProductSchema = new mongoose.Schema({
-//   branch: [{
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'Branch',
+  branches: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Branch',
   
-//   }]
-// ,
+  }]
+,
   title: {
     type: String,
     required: [true, 'please add product name '],
