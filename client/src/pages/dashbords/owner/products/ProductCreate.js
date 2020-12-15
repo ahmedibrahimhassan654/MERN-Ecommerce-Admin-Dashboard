@@ -74,11 +74,12 @@ const ProductCreate=(props) =>{
   const handleCategoryChange = (e) => {
     e.preventDefault()
     console.log('Clicked Category _id', e.target.value);
-    setValues({ ...values, category: e.target.value });
+    setValues({ ...values, subs:[],category: e.target.value });
     getSubs(e.target.value).then(res => {
       console.log(res);
-      setSubOptions(res.data)
+      setSubOptions(res.data.subs)
     });
+    SetShowSub(true);
   }
 
 
@@ -101,14 +102,14 @@ const ProductCreate=(props) =>{
 				<Fragment>
 					<h1 className="text-primary pb-4 pt-5 ">Create New Product</h1>
 					{JSON.stringify(values.subs)}
-           <Row className="container">
+					<Row className="container">
 						{/* {JSON.stringify(values.categories)} */}
 						<Col span={20}>
 							<ProductsForm
 								handleChange={handleChange}
 								handleSubmit={handleSubmit}
-                 values={values}
-                 setValues={setValues}
+								values={values}
+								setValues={setValues}
 								handleCategoryChange={handleCategoryChange}
 								subOptions={subOptions}
 								showSub={showSub}

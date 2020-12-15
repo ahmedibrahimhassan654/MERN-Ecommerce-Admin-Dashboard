@@ -30,8 +30,7 @@ function ProductsForm({ handleSubmit, handleChange, values, setValues, handleCat
 		madeIn,
 		branche,
 	} = values;
-	const options = [{ value: 'gold' }, { value: 'lime' }, { value: 'green' }, { value: 'cyan' }, { value: 'red' }];
-
+	//const options = [{ value: 'gold' }, { value: 'lime' }, { value: 'green' }, { value: 'cyan' }, { value: 'red' }];
 
 	return (
 		<Fragment>
@@ -124,32 +123,26 @@ function ProductsForm({ handleSubmit, handleChange, values, setValues, handleCat
 					</Form.Item>
 				</div>
 
-				<div className="form-group ">
+				{showSub&&(<div className="form-group ">
 					<Form.Item label="Chose Sub Category" className="text-primary">
 						<Select
 							mode="multiple"
-							showArrow
+							// showArrow
 							// defaultValue={[]}
-							style={{ width: '100%' }}
+							style={{ width: '50%' }}
 							value={subs}
 							// name="subs"
 							onChange={(value) => setValues({ ...values, subs: value })}
 						>
-							{subs.map((sub) => (
-								<Option value="sub._id">{sub}</Option>
-							))}
-							{/* <Option value="SubCategory1">Please select SubCategory1</Option>
-							<Option value="SubCategory">Please select SubCategory</Option>
-							<Option value="SubCategory3">Please select SubCategory3</Option> */}
-							{/* {categories.length > 0 &&
-								categories.map((c) => (
-									<option key={c._id} value={c._id}>
-										{c.name}
-									</option>
-								))} */}
+							{subOptions.length &&
+								subOptions.map((sub) => (
+									<Option key={sub._id} value={sub._id}>
+										{sub.name}
+									</Option>
+								))}
 						</Select>
 					</Form.Item>
-				</div>
+				</div>)}
 
 				<div className="form-group ">
 					<Form.Item label="warranty Available" className="text-primary">
@@ -183,7 +176,7 @@ function ProductsForm({ handleSubmit, handleChange, values, setValues, handleCat
 						/>
 					</Form.Item>
 				</div>
-
+<br/>
 				<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 7 }}>
 					<Button type="primary" htmlType="submit">
 						Submit
