@@ -8,23 +8,26 @@ const ProductSub = require('../models/ProductSub')
 //@desc     create  Product Category
 //@route    Post/api/v1/productcategory
 //@access   private
-exports.create = async (req, res) => {
-	try {
-		const { name, description, parent } = req.body
+exports.create = asyncHandler(async (req, res) => {
+	
+	const { name, description, parent } = req.body;
 
-		res.json(
-			await new ProductSub({
-				name,
-				description,
-				slug: slugify(name),
-				parent,
-			}).save(),
-		)
-	} catch (err) {
-		console.log(err)
-		res.status(400).send('Create sub category  failed')
-	}
-}
+	res.json(
+		await new ProductSub({
+			name,
+			description,
+			slug: slugify(name),
+			parent,
+		}).save()
+	);
+	// try {
+		
+	// }
+	// catch (err) {
+	// 	console.log(err);
+	// 	res.status(400).send('Create sub category  failed');
+	// }
+});
 //@desc     get  all sub category
 //@route    get/api/v1/productcategory
 //@access   puplic

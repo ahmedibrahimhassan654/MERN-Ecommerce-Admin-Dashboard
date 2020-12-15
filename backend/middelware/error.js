@@ -25,7 +25,11 @@ const errorHandler = (err, req, res, next) => {
   if (err.value === 'ca') {
 		const message = `the ${err.path} is ${err.kind} please change it  `
 		error = new ErrorResponse(message, 400)
-	}
+  }
+   if (err.value === 'd') {
+		const message = `the ${err.path} is ${err.kind} please change it  `;
+		error = new ErrorResponse(message, 400);
+   }
 
   res.status(error.statusCode || 500).json({
     success: false,

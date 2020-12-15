@@ -1,5 +1,8 @@
 import React, { Fragment } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Select, Tag } from 'antd';
+;
+
+const { Option } = Select;
 const layout = {
 	labelCol: {
 		span: 8,
@@ -8,7 +11,7 @@ const layout = {
 		span: 16,
 	},
 };
-function ProductsForm({ handleSubmit, handleChange, values }) {
+function ProductsForm({ handleSubmit, handleChange, values, setValues, handleCategoryChange, subOptions, showSub }) {
 	//destructure
 	const {
 		title,
@@ -27,15 +30,13 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 		madeIn,
 		branche,
 	} = values;
+	const options = [{ value: 'gold' }, { value: 'lime' }, { value: 'green' }, { value: 'cyan' }, { value: 'red' }];
 
-	
 
 	return (
 		<Fragment>
 			<Form
 				onSubmitCapture={handleSubmit}
-			
-
 				labelCol={{
 					span: 7,
 				}}
@@ -75,26 +76,7 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 						/>
 					</Form.Item>
 				</div>
-				<div className="form-group">
-					<Form.Item
-						rules={[
-							{
-								required: true,
-								type: Number,
-							},
-						]}
-						label="Sold Value"
-						className="text-primary"
-					>
-						<Input
-							type="number"
-							name="sold"
-							className="form-control  w-50"
-							value={sold}
-							onChange={handleChange}
-						/>
-					</Form.Item>
-				</div>
+
 				<div className="form-group ">
 					<Form.Item label="Price" className="text-primary">
 						<Input
@@ -130,12 +112,7 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 
 				<div className="form-group ">
 					<Form.Item label="Chose Category" className="text-primary">
-						<select
-						
-							name="category"
-							className="form-control  w-50"
-							onChange={handleChange}
-						>
+						<select name="category" className="form-control  w-50" onChange={handleCategoryChange}>
 							<option>Please select category</option>
 							{categories.length > 0 &&
 								categories.map((c) => (
@@ -146,6 +123,34 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 						</select>
 					</Form.Item>
 				</div>
+
+				<div className="form-group ">
+					<Form.Item label="Chose Sub Category" className="text-primary">
+						<Select
+							mode="multiple"
+							showArrow
+							// defaultValue={[]}
+							style={{ width: '100%' }}
+							value={subs}
+							// name="subs"
+							onChange={(value) => setValues({ ...values, subs: value })}
+						>
+							{subs.map((sub) => (
+								<Option value="sub._id">{sub}</Option>
+							))}
+							{/* <Option value="SubCategory1">Please select SubCategory1</Option>
+							<Option value="SubCategory">Please select SubCategory</Option>
+							<Option value="SubCategory3">Please select SubCategory3</Option> */}
+							{/* {categories.length > 0 &&
+								categories.map((c) => (
+									<option key={c._id} value={c._id}>
+										{c.name}
+									</option>
+								))} */}
+						</Select>
+					</Form.Item>
+				</div>
+
 				<div className="form-group ">
 					<Form.Item label="warranty Available" className="text-primary">
 						<select name="warrantyAvailable" className="form-control  w-50" onChange={handleChange}>
@@ -178,9 +183,11 @@ function ProductsForm({ handleSubmit, handleChange, values }) {
 						/>
 					</Form.Item>
 				</div>
+
 				<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 7 }}>
 					<Button type="primary" htmlType="submit">
 						Submit
+						{/* {subOptions ? subOptions.length : 'no subs yet'} */}
 					</Button>
 				</Form.Item>
 			</Form>
