@@ -51,13 +51,15 @@ const ProductCreate = (props) => {
 
 	const ownerBranches = () =>
 		getMyBranches(user.token).then((b) => {
-			console.log(b);
-			setBranches({ ...values, branches: b.data.branches });
+			
+			const branches = b.data.branches;
+			console.log(branches);
+			setBranches(branches);
     });
   
 	useEffect(() => {
 		loadCategories();
-		ownerBranches();
+			ownerBranches();
 	}, []);
 
 	const handleSubmit = (e) => {
@@ -89,7 +91,10 @@ const ProductCreate = (props) => {
 		});
 		SetShowSub(true);
 	};
-
+	const handleBranchChange = (e) => {
+		e.preventDefault();
+		console.log('Clicked branch _id', e.target.value);
+}
 	return (
 		<Layout
 			className="site-layout"
@@ -112,7 +117,7 @@ const ProductCreate = (props) => {
 					<Row className="container">
 						{JSON.stringify(values.categories)}
 						<br />
-						{JSON.stringify(values.branches)}
+						{JSON.stringify(branches)}
 						<Col span={20}>
 							<ProductsForm
 								handleChange={handleChange}
@@ -120,6 +125,9 @@ const ProductCreate = (props) => {
 								values={values}
 								setValues={setValues}
 								handleCategoryChange={handleCategoryChange}
+								handleBranchChange={handleBranchChange}
+								branches={branches}
+								setBranches={setBranches}
 								subOptions={subOptions}
 								showSub={showSub}
 							/>

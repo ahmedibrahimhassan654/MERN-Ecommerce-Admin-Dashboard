@@ -11,7 +11,18 @@ const layout = {
 		span: 16,
 	},
 };
-function ProductsForm({ handleSubmit, handleChange, values, setValues, handleCategoryChange, subOptions, showSub }) {
+function ProductsForm({
+	handleSubmit,
+	handleChange,
+	values,
+	setValues,
+	handleCategoryChange,
+	subOptions,
+	showSub,
+	handleBranchChange,
+	branches,
+	setBranches,
+}) {
 	//destructure
 	const {
 		title,
@@ -21,7 +32,8 @@ function ProductsForm({ handleSubmit, handleChange, values, setValues, handleCat
 		categories,
 		subs,
 		quantity,
-		branches,
+	
+
 		sold,
 		images,
 		shipping,
@@ -146,7 +158,19 @@ function ProductsForm({ handleSubmit, handleChange, values, setValues, handleCat
 						</Form.Item>
 					</div>
 				)}
-
+				<div className="form-group ">
+					<Form.Item label="branch" className="text-primary">
+						<select name="branch" className="form-control" onChange={handleBranchChange}>
+							<option>Please select</option>
+							{branches.length > 0 &&
+								branches.map((b) => (
+									<option key={b._id} value={b._id}>
+										{b.name}
+									</option>
+								))}
+						</select>
+					</Form.Item>
+				</div>
 				<div className="form-group ">
 					<Form.Item label="warranty Available" className="text-primary">
 						<select name="warrantyAvailable" className="form-control  w-50" onChange={handleChange}>
