@@ -87,7 +87,14 @@ const BranchSchema = new mongoose.Schema(
 		//    //autopopulate: { select: '_id name email', maxDepth: 1 }
 		//    },
 
-		// ]
+		// ],
+		products: [
+			{
+				type: mongoose.Schema.ObjectId,
+				ref: 'Product',
+				autopopulate: { select: '_id name ', maxDepth: 1 },
+			},
+		],
 	},
 	{ timestamps: true }
 );

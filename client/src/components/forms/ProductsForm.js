@@ -41,7 +41,7 @@ function ProductsForm({
 		qualities,
 		warrantyAvailable,
 		madeIn,
-		branche,
+		branch,
 	} = values;
 	//const options = [{ value: 'gold' }, { value: 'lime' }, { value: 'green' }, { value: 'cyan' }, { value: 'red' }];
 

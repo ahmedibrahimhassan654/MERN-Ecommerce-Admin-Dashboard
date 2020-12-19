@@ -14,3 +14,10 @@ export const createBranch = async (branch, authtoken) =>
 				authtoken,
 			},
 		});
+
+		export const createProductForBranch = async (slug, authtoken) =>
+			await axios.put(`${process.env.REACT_APP_API}/branches/owner/${slug}/products`, {
+				headers: {
+					authtoken,
+				},
+			});

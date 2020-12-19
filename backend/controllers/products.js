@@ -28,33 +28,7 @@ exports.create =asyncHandler(
   }
 )
 
-//@desc    creat product for specific branch
-//@route   put /branches/owner/:slug/products
-//@access  owner
-exports.createProductForBranch = asyncHandler(async (req, res, next) => {
-  
-  // res.send('hello from branch');
-  const { email } = req.user;
 
-	// FIND USER FROM OUR DATABASE BY EMAIL
-	const userFromDb = await User.findOne({ email }).exec();
-
-	req.body.slug = slugify(req.body.title);
-  req.body.cratedBy = userFromDb;
-  req.body.branches = req.params.slug
-  
-  const branch = await Branch.findOne({ slug: req.params.slug })
-  
-  if (!branch) {
-    return next(new ErrorResponse(` file doesn't uploaded`, 500));
-  }
-
-	const newProduct = await new Product(req.body).save();
-  res.status(200).json({
-    sucess:true,
-    newProduct
-  });
-});
 
 
 

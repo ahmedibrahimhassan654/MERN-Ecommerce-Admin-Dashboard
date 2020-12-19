@@ -1,26 +1,21 @@
 const express = require('express')
 
 const {
-   getMyBranches,
-   createBranch,
-   getBranches,
-   getBranche,
-   updateBranch,
-   deleteBranch,
-   AdminCreateBranch,
-   ActiveBranch,
-   addManger,
-   deleteManger,
-   uploade,
-   uploadeImage
+	getMyBranches,
+	createBranch,
+	getBranches,
+	getBranche,
+	updateBranch,
+	deleteBranch,
+	AdminCreateBranch,
+	ActiveBranch,
+	addManger,
+	deleteManger,
+	uploade,
+	uploadeImage,
+	createProductForBranch,
+} = require('../controllers/branches');
 
-} = require('../controllers/branches')
-
-const productRouter = require('./products')
-
-// const Branch = require('../models/Branch.js')
-
-const advancedResults = require('../middelware/advancedResult.js')
 const {
 	authCheck,
 	adminCheck,
@@ -38,7 +33,7 @@ const router = express.Router()
 router.post('/branches/owner', authCheck, ownerCheck, createBranch)
 
 router.put('/branches/owner/:slug', authCheck, ownerCheck, updateBranch)
-
+router.put('/branches/owner/:slug/products', authCheck, ownerCheck, createProductForBranch);
 
 
 router.put('/branches/owner/:slug/uploade', authCheck, ownerCheck, uploade)

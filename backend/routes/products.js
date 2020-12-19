@@ -12,6 +12,6 @@ router.post('/product', authCheck, ownerCheck, create)
 router.get('/products', getAllProducts)
 
 //for owner 
-router.put('/branches/owner/:slug/products', authCheck, ownerCheck, createProductForBranch);
+
 
 module.exports = router

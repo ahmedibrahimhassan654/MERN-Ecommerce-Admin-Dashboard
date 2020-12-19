@@ -4,7 +4,11 @@ import OwnernNav from '../../../../../src/components/nav/OwnerNav';
 import {createProduct,} from '../../../../function/product'
 
 import { getCategories, getSubs } from '../../../../function/productcategory';
-import { getMyBranches,} from '../../../../function/branch';
+import { getMyBranches, } from '../../../../function/branch';
+import { createProductForBranch } from '../../../../function/branch';
+
+
+
 import { Layout, Row, Col, } from "antd";
 import { toast } from "react-toastify";
 import ProductsForm from "../../../../components/forms/ProductsForm";
@@ -29,7 +33,7 @@ const initialState={
     qualities: ['Original', 'Hieght Quality', 'Used'],
     warrantyAvailable: '',
     madeIn: '',
-    branche: '',
+   
     cratedBy:''
     
   }
@@ -94,6 +98,15 @@ const ProductCreate = (props) => {
 	const handleBranchChange = (e) => {
 		e.preventDefault();
 		console.log('Clicked branch _id', e.target.value);
+		setValues({ ...values, branch: e.target.value });
+		createProductForBranch(e.target.value, user.token).then((res) => {
+			console.log(res);
+		}).catch((err) => {
+			console.log(err);
+				console.log(err.response.data.error);
+				// toast.warning(err.response.data.error);
+			});;
+	
 }
 	return (
 		<Layout
