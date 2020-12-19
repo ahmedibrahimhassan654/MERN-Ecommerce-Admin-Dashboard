@@ -23,9 +23,9 @@ const {
 	employeeCheck,
 	ownerCheck,
 } = require('../middelware/auth')
-
+const productRouter=require('./products')
 const router = express.Router()
-
+router.use('/branches/owner/:_id/products',productRouter);
 // //Owner Checks
 // router.use()
  router.get('/branches/owner', authCheck, ownerCheck, getMyBranches)
@@ -33,7 +33,7 @@ const router = express.Router()
 router.post('/branches/owner', authCheck, ownerCheck, createBranch)
 
 router.put('/branches/owner/:slug', authCheck, ownerCheck, updateBranch)
-router.put('/branches/owner/:slug/products', authCheck, ownerCheck, createProductForBranch);
+
 
 
 router.put('/branches/owner/:slug/uploade', authCheck, ownerCheck, uploade)

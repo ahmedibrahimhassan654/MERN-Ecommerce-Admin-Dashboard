@@ -1,6 +1,7 @@
 const express = require('express')
 
-const router = express.Router({mergeParams:true})
+const router = express.Router({ mergeParams: true })
+
 const { authCheck, adminCheck ,ownerCheck} = require('../middelware/auth')
 const {
 	create,
@@ -12,6 +13,6 @@ router.post('/product', authCheck, ownerCheck, create)
 router.get('/products', getAllProducts)
 
 //for owner 
-
+router.post('/products', authCheck, ownerCheck, createProductForBranch);
 
 module.exports = router
