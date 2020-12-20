@@ -158,6 +158,9 @@ function ProductsForm({
 						</Form.Item>
 					</div>
 				)}
+
+
+
 				<div className="form-group ">
 					<Form.Item label="branch" className="text-primary">
 						<select name="branch" className="form-control" onChange={handleBranchChange}>

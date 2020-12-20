@@ -23,9 +23,9 @@ const {
 	employeeCheck,
 	ownerCheck,
 } = require('../middelware/auth')
-const productRouter=require('./products')
+
 const router = express.Router()
-router.use('/branches/owner/:_id/products',productRouter);
+
 // //Owner Checks
 // router.use()
  router.get('/branches/owner', authCheck, ownerCheck, getMyBranches)

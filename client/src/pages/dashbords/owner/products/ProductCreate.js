@@ -99,13 +99,13 @@ const ProductCreate = (props) => {
 		e.preventDefault();
 		console.log('Clicked branch _id', e.target.value);
 		setValues({ ...values, branch: e.target.value });
-		createProductForBranch(e.target.value, user.token).then((res) => {
-			console.log(res);
-		}).catch((err) => {
-			console.log(err);
-				console.log(err.response.data.error);
-				// toast.warning(err.response.data.error);
-			});;
+		// createProductForBranch(e.target.value, user.token).then((res) => {
+		// 	console.log(res);
+		// }).catch((err) => {
+		// 	console.log(err);
+		// 		console.log(err.response.data.error);
+		// 		// toast.warning(err.response.data.error);
+		// 	});;
 	
 }
 	return (

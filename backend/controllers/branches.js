@@ -61,7 +61,8 @@ exports.getMyBranches =asyncHandler( async (req, res,next) => {
   
   
      
-   const branches = await Branch.find({ owner: userFromDb }).populate('owner', ['name', 'picture', 'email']).populate("mangers",['name', 'picture', 'email'])
+   const branches = await Branch.find({ owner: userFromDb }).populate('products')
+		
    
    if (!branches) {
          return res.status(400).json({msg:'there is no branches for you '})
@@ -160,7 +161,7 @@ exports.AdminCreateBranch = asyncHandler(async (req, res, next) => {
 exports.getBranches =asyncHandler( async (req, res) => {
 
    
-   const branches= await Branch.find()
+   const branches = await Branch.find().populate('products');
    res.status(200).json({
    number:branches.length,
    sucess: true,
