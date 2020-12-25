@@ -34,6 +34,8 @@ router.post('/branches/owner', authCheck, ownerCheck, createBranch)
 
 router.put('/branches/owner/:slug', authCheck, ownerCheck, updateBranch)
 
+router.post('/branches/owner/product',authCheck, ownerCheck,createProductForBranch)
+
 
 
 router.put('/branches/owner/:slug/uploade', authCheck, ownerCheck, uploade)

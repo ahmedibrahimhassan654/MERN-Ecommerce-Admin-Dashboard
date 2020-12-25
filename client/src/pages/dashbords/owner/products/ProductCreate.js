@@ -44,6 +44,8 @@ const ProductCreate = (props) => {
 	const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
   const [branches, setBranches] = useState([]);
+const[branch,setBranch]=useState('')
+
 	const [showSub, SetShowSub] = useState(false);
 	//redux
   const { user } = useSelector((state) => ({ ...state }));
@@ -69,6 +71,8 @@ const ProductCreate = (props) => {
 	const handleSubmit = (e) => {
 		// send product to backend
 		e.preventDefault();
+		ownerBranches()
+
 		createProduct(values, user.token)
 			.then((res) => {
 				console.log(res);
@@ -141,6 +145,8 @@ const ProductCreate = (props) => {
 								handleBranchChange={handleBranchChange}
 								branches={branches}
 								setBranches={setBranches}
+								branch={branch}
+								setBranch={setBranch}
 								subOptions={subOptions}
 								showSub={showSub}
 							/>
