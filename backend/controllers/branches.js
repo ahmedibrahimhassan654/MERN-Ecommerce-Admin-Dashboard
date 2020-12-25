@@ -590,18 +590,25 @@ let {slug,cratedBy,branches,title,description,price,quantity,shipping,quality,wa
   
      if (!branch) {
     return next(new ErrorResponse(` no branch `, 400));
+
   }
-   if (branch.owner.email === userFromDb.email || userFromDb.role === 'admin') {
-        console.log(branch.products);
-//      const newProduct = await Product.create(slug,cratedBy,branches,title,description,price,quantity,shipping,quality,warrantyAvailable,madeIn)
-// console.log(newProduct);
-     //   branch.products.push(newProduct)
-   // res.status(200).json({
-	// 	message: `new product created for branch with id ${req.params._id}`,
-	// 	sucess: true,
-	// 	branch,
-   // });
-}
+   console.log('branch product',branch.products);
+   const newProduct = await Product.create({slug,cratedBy,branches,title,description,price,quantity,shipping,quality,warrantyAvailable,madeIn})
+ 
+ branch.products.push(newProduct)
+
+ 
+ console.log('new product is ',newProduct);
+//    if (branch.owner.email === userFromDb.email || userFromDb.role === 'admin') {
+//       //  
+// //      
+//      //   branch.products.push(newProduct)
+//    // res.status(200).json({
+// 	// 	message: `new product created for branch with id ${req.params._id}`,
+// 	// 	sucess: true,
+// 	// 	branch,
+//    // });
+// }
 
  })
 
