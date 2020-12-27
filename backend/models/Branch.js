@@ -92,7 +92,9 @@ const BranchSchema = new mongoose.Schema(
 			{
 				type: mongoose.Schema.ObjectId,
 				ref: 'Product',
-				// autopopulate: { select: '_id name', maxDepth: 1 },
+				autopopulate: { select: '_id title', maxDepth: 1 },
+				
+
 			},
 		],
 	},

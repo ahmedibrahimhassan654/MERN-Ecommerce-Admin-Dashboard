@@ -572,3 +572,50 @@ const file= req.files.file
    })
 });
 
+//@desc    creat product for specific branch
+//@route   put /branches/owner/:slug/product
+//@access  owner
+exports.createProductForBranch = asyncHandler(async (req, res, next) => {
+
+  const { email } = req.user;
+
+	// FIND USER FROM OUR DATABASE BY EMAIL
+	const userFromDb = await User.findOne({ email }).exec();
+let {slug,cratedBy,branches,title,description,price,quantity,shipping,quality,warrantyAvailable,madeIn}=req.body
+	 slug = slugify(req.body.title);
+  cratedBy = userFromDb;
+  
+ branches.map(async (b)=>{
+     branch=await Branch.find({_id:b})
+  
+     if (!branch) {
+    return next(new ErrorResponse(` no branch `, 400));
+
+  }
+   console.log('branch product',branch.products);
+   const newProduct = await Product.create({slug,cratedBy,branches,title,description,price,quantity,shipping,quality,warrantyAvailable,madeIn})
+ 
+ branch.products.push(newProduct)
+
+ 
+ console.log('new product is ',newProduct);
+//    if (branch.owner.email === userFromDb.email || userFromDb.role === 'admin') {
+//       //  
+// //      
+//      //   branch.products.push(newProduct)
+//    // res.status(200).json({
+// 	// 	message: `new product created for branch with id ${req.params._id}`,
+// 	// 	sucess: true,
+// 	// 	branch,
+//    // });
+// }
+
+ })
+
+   // const allbranches = await Branch.find({branches})
+   
+// console.log(branches);
+  
+
+	
+});

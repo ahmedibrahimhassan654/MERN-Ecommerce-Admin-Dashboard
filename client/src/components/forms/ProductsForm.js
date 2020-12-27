@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Form, Input, Button, Select, Tag } from 'antd';
+import { Form, Input, Button, Select, Tag ,Checkbox } from 'antd';
 ;
 
 const { Option } = Select;
@@ -40,9 +40,14 @@ function ProductsForm({
 		quality,
 		qualities,
 		warrantyAvailable,
+<<<<<<< HEAD
       madeIn,
      
 		
+=======
+		madeIn,
+	
+>>>>>>> a2d24dbd4140c5240f4dd5cceb86b7e74d0bf386
 	} = values;
 	//const options = [{ value: 'gold' }, { value: 'lime' }, { value: 'green' }, { value: 'cyan' }, { value: 'red' }];
 
@@ -160,7 +165,13 @@ function ProductsForm({
 					</div>
 				)}
 
+<<<<<<< HEAD
 				<div className="form-group ">
+=======
+
+
+				{/* <div className="form-group ">
+>>>>>>> a2d24dbd4140c5240f4dd5cceb86b7e74d0bf386
 					<Form.Item label="branch" className="text-primary">
 						<Select
                       mode="multiple"
@@ -186,6 +197,11 @@ function ProductsForm({
                         )
                         )}
 						</Select>
+					</Form.Item>
+				</div> */}
+				<div className="form-group ">
+					<Form.Item label="branch" className="text-primary">
+					<Checkbox value={branch} onChange={(e)=>setBranch(e.target.value)}>Checkbox</Checkbox>
 					</Form.Item>
 				</div>
 				<div className="form-group ">

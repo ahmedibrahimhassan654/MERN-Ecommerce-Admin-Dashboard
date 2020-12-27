@@ -10,6 +10,7 @@ const {
 } = require('../controllers/products')
 
 router.post('/product', authCheck, ownerCheck, create)
+
 router.get('/products', getAllProducts)
 
 //for owner 
