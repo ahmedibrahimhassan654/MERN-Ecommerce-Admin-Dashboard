@@ -5,7 +5,7 @@ import {createProduct,} from '../../../../function/product'
 
 import { getCategories, getSubs } from '../../../../function/productcategory';
 import { getMyBranches, } from '../../../../function/branch';
-import { createProductForBranch } from '../../../../function/branch';
+
 
 
 
@@ -17,6 +17,7 @@ const { Content, Footer } = Layout;
 
 
 
+
 const initialState={
     title: '',
     description: '',
@@ -25,7 +26,7 @@ const initialState={
     categories:[],
     subs: [],
     branches: [],
-    branch:'',
+    branch:{},
     quantity: '',
    
     images: [],
@@ -43,7 +44,8 @@ const initialState={
 const ProductCreate = (props) => {
 	const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
-  const [branches, setBranches] = useState([]);
+	const [branches, setBranches] = useState([]);
+	const [branch,setBranch]=useState({})
 	const [showSub, SetShowSub] = useState(false);
 	//redux
   const { user } = useSelector((state) => ({ ...state }));
@@ -95,17 +97,13 @@ const ProductCreate = (props) => {
 		});
 		SetShowSub(true);
 	};
-	const handleBranchChange = (e) => {
-		e.preventDefault();
-		console.log('Clicked branch _id', e.target.value);
-		setValues({ ...values, branch: e.target.value });
-		// createProductForBranch(e.target.value, user.token).then((res) => {
-		// 	console.log(res);
-		// }).catch((err) => {
-		// 	console.log(err);
-		// 		console.log(err.response.data.error);
-		// 		// toast.warning(err.response.data.error);
-		// 	});;
+   const handleBranchChange = (e) => {
+      
+     console.log('branch id ',e);
+    //   e.preventDefault();
+      setBranch([e]);
+      console.log('setBranch', setBranch());
+     
 	
 }
 	return (
@@ -140,6 +138,8 @@ const ProductCreate = (props) => {
 								handleCategoryChange={handleCategoryChange}
 								handleBranchChange={handleBranchChange}
 								branches={branches}
+								branch={branch}
+								setBranch={setBranch}
 								setBranches={setBranches}
 								subOptions={subOptions}
 								showSub={showSub}

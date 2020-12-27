@@ -20,13 +20,7 @@ exports.create = asyncHandler(async (req, res) => {
 			parent,
 		}).save()
 	);
-	// try {
-		
-	// }
-	// catch (err) {
-	// 	console.log(err);
-	// 	res.status(400).send('Create sub category  failed');
-	// }
+
 });
 //@desc     get  all sub category
 //@route    get/api/v1/productcategory

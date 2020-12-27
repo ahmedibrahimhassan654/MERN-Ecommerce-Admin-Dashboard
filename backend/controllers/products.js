@@ -18,11 +18,11 @@ exports.create =asyncHandler(
    
    // FIND USER FROM OUR DATABASE BY EMAIL
    const userFromDb = await User.findOne({ email }).exec();
- 
+
     req.body.slug = slugify(req.body.title)
     req.body.cratedBy = userFromDb
-   
-  const newProduct = await new Product(req.body).save()
+   req.body.branches=[]
+  const newProduct = await new Product(req.body,branches).save()
   res.json(newProduct)
   
   }

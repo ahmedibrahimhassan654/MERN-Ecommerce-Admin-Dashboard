@@ -22,6 +22,8 @@ function ProductsForm({
 	handleBranchChange,
 	branches,
 	setBranches,
+	branch,
+	setBranch
 }) {
 	//destructure
 	const {
@@ -32,16 +34,15 @@ function ProductsForm({
 		categories,
 		subs,
 		quantity,
-	
-
 		sold,
 		images,
 		shipping,
 		quality,
 		qualities,
 		warrantyAvailable,
-		madeIn,
-		branch,
+      madeIn,
+     
+		
 	} = values;
 	//const options = [{ value: 'gold' }, { value: 'lime' }, { value: 'green' }, { value: 'cyan' }, { value: 'red' }];
 
@@ -145,7 +146,7 @@ function ProductsForm({
 								// defaultValue={[]}
 								style={{ width: '50%' }}
 								value={subs}
-								// name="subs"
+								
 								onChange={(value) => setValues({ ...values, subs: value })}
 							>
 								{subOptions.length &&
@@ -159,19 +160,32 @@ function ProductsForm({
 					</div>
 				)}
 
-
-
 				<div className="form-group ">
 					<Form.Item label="branch" className="text-primary">
-						<select name="branch" className="form-control" onChange={handleBranchChange}>
-							<option>Please select</option>
-							{branches.length > 0 &&
-								branches.map((b) => (
-									<option key={b._id} value={b._id}>
-										{b.name}
-									</option>
-								))}
-						</select>
+						<Select
+                      mode="multiple"
+                     // showArrow
+                     // defaultValue={[]}
+                     style={{ width: '50%' }}
+                  
+                     value={branches._id}
+                     onChange={handleBranchChange}
+						>
+							<Option>Please select</Option>
+                     {
+                       
+                         branches.length > 0 &&
+                        branches.map((b) =>
+                        (
+                          
+                           <Option key={b._id}
+                              value={b._id}
+                           >
+                              {b.name}
+									</Option>
+                        )
+                        )}
+						</Select>
 					</Form.Item>
 				</div>
 				<div className="form-group ">
