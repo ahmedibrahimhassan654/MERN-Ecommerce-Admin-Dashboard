@@ -44,14 +44,14 @@ const initialState={
 const ProductCreate = (props) => {
 	const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
-<<<<<<< HEAD
+
 	const [branches, setBranches] = useState([]);
 	const [branch,setBranch]=useState({})
-=======
-  const [branches, setBranches] = useState([]);
-const[branch,setBranch]=useState('')
 
->>>>>>> a2d24dbd4140c5240f4dd5cceb86b7e74d0bf386
+  
+
+
+
 	const [showSub, SetShowSub] = useState(false);
 	//redux
   const { user } = useSelector((state) => ({ ...state }));

@@ -40,14 +40,8 @@ function ProductsForm({
 		quality,
 		qualities,
 		warrantyAvailable,
-<<<<<<< HEAD
-      madeIn,
-     
-		
-=======
-		madeIn,
-	
->>>>>>> a2d24dbd4140c5240f4dd5cceb86b7e74d0bf386
+		madeIn
+
 	} = values;
 	//const options = [{ value: 'gold' }, { value: 'lime' }, { value: 'green' }, { value: 'cyan' }, { value: 'red' }];
 
@@ -164,15 +158,8 @@ function ProductsForm({
 						</Form.Item>
 					</div>
 				)}
-
-<<<<<<< HEAD
-				<div className="form-group ">
-=======
-
-
-				{/* <div className="form-group ">
->>>>>>> a2d24dbd4140c5240f4dd5cceb86b7e74d0bf386
-					<Form.Item label="branch" className="text-primary">
+		<div className="form-group ">
+			<Form.Item label="branch" className="text-primary">
 						<Select
                       mode="multiple"
                      // showArrow
@@ -198,12 +185,8 @@ function ProductsForm({
                         )}
 						</Select>
 					</Form.Item>
-				</div> */}
-				<div className="form-group ">
-					<Form.Item label="branch" className="text-primary">
-					<Checkbox value={branch} onChange={(e)=>setBranch(e.target.value)}>Checkbox</Checkbox>
-					</Form.Item>
-				</div>
+				</div> 
+			
 				<div className="form-group ">
 					<Form.Item label="warranty Available" className="text-primary">
 						<select name="warrantyAvailable" className="form-control  w-50" onChange={handleChange}>
