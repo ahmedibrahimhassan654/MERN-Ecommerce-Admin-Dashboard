@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Form, Input, Button, Select, Tag ,Checkbox } from 'antd';
+import { Form, Input, Button, Select } from 'antd';
 ;
 
 const { Option } = Select;
@@ -20,10 +20,8 @@ function ProductsForm({
 	subOptions,
 	showSub,
 	handleBranchChange,
-	branches,
-	setBranches,
-	branch,
-	setBranch
+	
+	
 }) {
 	//destructure
 	const {
@@ -40,7 +38,9 @@ function ProductsForm({
 		quality,
 		qualities,
 		warrantyAvailable,
-		madeIn
+		madeIn,
+		branches,
+		branch,
 
 	} = values;
 	//const options = [{ value: 'gold' }, { value: 'lime' }, { value: 'green' }, { value: 'cyan' }, { value: 'red' }];
@@ -134,6 +134,7 @@ function ProductsForm({
 								))}
 						</select>
 					</Form.Item>
+					{categories.length}
 				</div>
 
 				{showSub && (
@@ -160,31 +161,33 @@ function ProductsForm({
 				)}
 		<div className="form-group ">
 			<Form.Item label="branch" className="text-primary">
-						<Select
+						<select
                       mode="multiple"
                      // showArrow
                      // defaultValue={[]}
                      style={{ width: '50%' }}
                   
-                     value={branches._id}
+					//  value={branches._id}
+					name="branch"
                      onChange={handleBranchChange}
 						>
-							<Option>Please select</Option>
+							<option>Please select</option>
                      {
                        
                          branches.length > 0 &&
                         branches.map((b) =>
                         (
                           
-                           <Option key={b._id}
+                           <option key={b._id}
                               value={b._id}
                            >
                               {b.name}
-									</Option>
+									</option>
                         )
                         )}
-						</Select>
+						</select>
 					</Form.Item>
+					{branches.length}
 				</div> 
 			
 				<div className="form-group ">

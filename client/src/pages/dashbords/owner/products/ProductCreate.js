@@ -12,6 +12,7 @@ import { getMyBranches, } from '../../../../function/branch';
 import { Layout, Row, Col, } from "antd";
 import { toast } from "react-toastify";
 import ProductsForm from "../../../../components/forms/ProductsForm";
+import branch from "../../../../reducers/branch";
 
 const { Content, Footer } = Layout;
 
@@ -26,7 +27,7 @@ const initialState={
     categories:[],
     subs: [],
     branches: [],
-    branch:{},
+ 	branch:{},
     quantity: '',
    
     images: [],
@@ -34,7 +35,6 @@ const initialState={
     qualities: ['Original', 'Hieght Quality', 'Used'],
     warrantyAvailable: '',
     madeIn: '',
-   
     cratedBy:''
     
   }
@@ -44,14 +44,6 @@ const initialState={
 const ProductCreate = (props) => {
 	const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
-
-	const [branches, setBranches] = useState([]);
-	const [branch,setBranch]=useState({})
-
-  
-
-
-
 	const [showSub, SetShowSub] = useState(false);
 	//redux
   const { user } = useSelector((state) => ({ ...state }));
@@ -59,20 +51,24 @@ const ProductCreate = (props) => {
 
 	const loadCategories = () => {
 		getCategories().then((c) => setValues({ ...values, categories: c.data }));
+		
 	};
 
 	const ownerBranches = () =>
 		getMyBranches(user.token).then((b) => {
+			setValues({ ...values, branches: b.data.branches})
 			
-			const branches = b.data.branches;
-			console.log(branches);
-			setBranches(branches);
     });
   
 	useEffect(() => {
-		loadCategories();
-			ownerBranches();
-	}, []);
+	loadCategories();
+	ownerBranches();
+		
+	},[]);
+
+	
+
+
 
 	const handleSubmit = (e) => {
 		// send product to backend
@@ -107,10 +103,11 @@ const ProductCreate = (props) => {
 	};
    const handleBranchChange = (e) => {
       
-     console.log('branch id ',e);
-    //   e.preventDefault();
-      setBranch([e]);
-      console.log('setBranch', setBranch());
+    //  console.log('branch id ',e);
+	  e.preventDefault();
+	  console.log('Clicked branch _id', e.target.value);
+    setValues({ ...values, branch: e.target.value });
+    //   console.log('setBranch', setBranch());
      
 	
 }
@@ -136,7 +133,7 @@ const ProductCreate = (props) => {
 					<Row className="container">
 						{JSON.stringify(values.categories)}
 						<br />
-						{JSON.stringify(branches)}
+						{JSON.stringify(values.branches)}
 						<Col span={20}>
 							<ProductsForm
 								handleChange={handleChange}
@@ -145,12 +142,12 @@ const ProductCreate = (props) => {
 								setValues={setValues}
 								handleCategoryChange={handleCategoryChange}
 								handleBranchChange={handleBranchChange}
-								branches={branches}
-								branch={branch}
-								setBranch={setBranch}
-								setBranches={setBranches}
-								branch={branch}
-								setBranch={setBranch}
+								// branches={branches}
+								// branch={branch}
+								// setBranch={setBranch}
+								// setBranches={setBranches}
+								// branch={branch}
+								// setBranch={setBranch}
 								subOptions={subOptions}
 								showSub={showSub}
 							/>
