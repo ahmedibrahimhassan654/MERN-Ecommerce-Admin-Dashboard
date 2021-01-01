@@ -88,15 +88,15 @@ const BranchSchema = new mongoose.Schema(
 		//    },
 
 		// ],
-		products: [
-			{
-				type: mongoose.Schema.ObjectId,
-				ref: 'Product',
-				autopopulate: { select: '_id title', maxDepth: 1 },
+		// products: [
+		// 	{
+		// 		type: mongoose.Schema.ObjectId,
+		// 		ref: 'Product',
+		// 		autopopulate: { select: '_id title', maxDepth: 1 },
 				
 
-			},
-		],
+		// 	},
+		// ],
 	},
 	{ timestamps: true }
 );

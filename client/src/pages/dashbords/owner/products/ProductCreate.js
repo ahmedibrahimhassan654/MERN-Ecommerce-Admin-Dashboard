@@ -49,6 +49,19 @@ const ProductCreate = (props) => {
   const { user } = useSelector((state) => ({ ...state }));
   
 
+  
+	useEffect(() => {
+	  loadCategories();
+	
+	// ownerBranches();
+
+// return values.categories
+	console.log(values.categories);
+	},[]);
+
+	
+
+
 	const loadCategories = () => {
 		getCategories().then((c) => setValues({ ...values, categories: c.data }));
 		
@@ -58,22 +71,14 @@ const ProductCreate = (props) => {
 		getMyBranches(user.token).then((b) => {
 			setValues({ ...values, branches: b.data.branches})
 			
-    });
-  
-	useEffect(() => {
-	loadCategories();
-	ownerBranches();
-		
-	},[]);
-
-	
-
-
+	}
+	)
+	;
 
 	const handleSubmit = (e) => {
 		// send product to backend
 		e.preventDefault();
-		ownerBranches()
+		
 
 		createProduct(values, user.token)
 			.then((res) => {
@@ -104,9 +109,9 @@ const ProductCreate = (props) => {
    const handleBranchChange = (e) => {
       
     //  console.log('branch id ',e);
-	  e.preventDefault();
-	  console.log('Clicked branch _id', e.target.value);
-    setValues({ ...values, branch: e.target.value });
+	//  e.preventDefault();
+	  console.log('Clicked branch _id', e);
+    setValues({ ...values, branch: e});
     //   console.log('setBranch', setBranch());
      
 	

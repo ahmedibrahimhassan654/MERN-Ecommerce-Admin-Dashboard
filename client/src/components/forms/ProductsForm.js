@@ -161,14 +161,14 @@ function ProductsForm({
 				)}
 		<div className="form-group ">
 			<Form.Item label="branch" className="text-primary">
-						<select
+						<Select
                       mode="multiple"
                      // showArrow
                      // defaultValue={[]}
                      style={{ width: '50%' }}
                   
-					//  value={branches._id}
-					name="branch"
+					 value={branches._id}
+					// name="branch"
                      onChange={handleBranchChange}
 						>
 							<option>Please select</option>
@@ -178,14 +178,14 @@ function ProductsForm({
                         branches.map((b) =>
                         (
                           
-                           <option key={b._id}
+                           <Option key={b._id}
                               value={b._id}
                            >
                               {b.name}
-									</option>
+									</Option>
                         )
                         )}
-						</select>
+						</Select>
 					</Form.Item>
 					{branches.length}
 				</div> 
