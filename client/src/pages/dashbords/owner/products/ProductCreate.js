@@ -51,27 +51,26 @@ const ProductCreate = (props) => {
 
   
 	useEffect(() => {
-	  loadCategories();
-	
-	// ownerBranches();
+	 loadCategories()
 
-// return values.categories
-	console.log(values.categories);
+		ownerBranches()
+
+
+ 
 	},[]);
 
 	
 
-
 	const loadCategories = () => {
-		getCategories().then((c) => setValues({ ...values, categories: c.data }));
 		
+	getCategories().then((c)=>	setValues(prevValues => ({ ...prevValues, categories: c.data })));
 	};
 
 	const ownerBranches = () =>
 		getMyBranches(user.token).then((b) => {
-			setValues({ ...values, branches: b.data.branches})
-			
-	}
+
+			setValues(prevValues => ({ ...prevValues, branches: b.data.branches }));
+		}
 	)
 	;
 
