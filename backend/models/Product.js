@@ -5,10 +5,13 @@ const ProductSchema = new mongoose.Schema(
 	{
 		branches: [
 			{
+			branch:{	
 				type: mongoose.Schema.Types.ObjectId,
 				ref: 'Branch',
 				autopopulate: { select: '_id name', maxDepth: 1 },
+			},
 			
+		
 			}
 		],
 		title: {
@@ -32,6 +35,9 @@ const ProductSchema = new mongoose.Schema(
 			text: true, //used when use search
 			trim: true,
 		},
+		quantity: {
+					type: Number,
+				},
 		price: {
 			type: Number,
 			required: true,
@@ -49,9 +55,6 @@ const ProductSchema = new mongoose.Schema(
 				ref: 'ProductSub',
 			},
 		],
-		quantity: {
-					type: Number,
-				},
 		
 
 		// images: {

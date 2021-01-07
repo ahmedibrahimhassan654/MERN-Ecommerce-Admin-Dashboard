@@ -45,7 +45,7 @@ const ProductCreate = (props) => {
 	const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
 	const [showSub, SetShowSub] = useState(false);
-	const [showQuantity,setShowQuantity]=useState(false)
+
 	//redux
   const { user } = useSelector((state) => ({ ...state }));
   
@@ -110,8 +110,8 @@ const ProductCreate = (props) => {
       
 
 	  console.log('Clicked branch _id', e);
-    setValues({ ...values, quantity: '',branch: e});
-     	setShowQuantity(true);
+	setValues({ ...values,branch: e});
+     
 	
 }
 
@@ -149,7 +149,7 @@ const ProductCreate = (props) => {
 							
 								subOptions={subOptions}
 								showSub={showSub}
-								showQuantity={showQuantity}
+								
 							/>
 						</Col>
 					</Row>

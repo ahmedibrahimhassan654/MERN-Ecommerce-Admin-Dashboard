@@ -20,7 +20,7 @@ function ProductsForm({
 	subOptions,
 	showSub,
 	handleBranchChange,
-	showQuantity
+	
 	
 	
 }) {
@@ -192,7 +192,7 @@ function ProductsForm({
 				</div> 
 			
 
-				{showQuantity&&(<div className="form-group ">
+				<div className="form-group ">
 					<Form.Item label="Quantity" className="text-primary">
 						<Input
 							type="number"
@@ -202,7 +202,7 @@ function ProductsForm({
 							onChange={handleChange}
 						/>
 					</Form.Item>
-				</div>)}
+				</div>
 
 
 
