@@ -178,11 +178,11 @@ function ProductsForm({
                         branches.map((b) =>
                         (
                           
-                           <Option key={b._id}
+                    	<Option key={b._id}
                               value={b._id}
                            >
                               {b.name}
-									</Option>
+						</Option>
                         )
                         )}
 						</Select>
@@ -190,6 +190,24 @@ function ProductsForm({
 					{branches.length}
 				</div> 
 			
+
+				{/* <div className="form-group ">
+					<Form.Item label="Chose branch" className="text-primary">
+						<select name="branch" className="form-control" onChange={handleBranchChange}>
+							<option>Please select</option>
+							{branches.length > 0 &&
+								branches.map((b) => (
+									<option key={b._id} value={b._id}>
+										{b.name}
+									</option>
+								))}
+						</select>
+					</Form.Item>
+					{branches.length}
+				</div> */}
+
+
+
 				<div className="form-group ">
 					<Form.Item label="warranty Available" className="text-primary">
 						<select name="warrantyAvailable" className="form-control  w-50" onChange={handleChange}>

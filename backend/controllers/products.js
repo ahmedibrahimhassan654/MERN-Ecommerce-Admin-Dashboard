@@ -21,7 +21,7 @@ exports.create =asyncHandler(
 
     req.body.slug = slugify(req.body.title)
     req.body.cratedBy = userFromDb
-   req.body.branches=[]
+  
   const newProduct = await new Product(req.body).save()
   res.json(newProduct)
   
