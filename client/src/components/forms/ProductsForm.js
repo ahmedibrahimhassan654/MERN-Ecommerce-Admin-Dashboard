@@ -20,6 +20,7 @@ function ProductsForm({
 	subOptions,
 	showSub,
 	handleBranchChange,
+	showQuantity
 	
 	
 }) {
@@ -191,20 +192,17 @@ function ProductsForm({
 				</div> 
 			
 
-				{/* <div className="form-group ">
-					<Form.Item label="Chose branch" className="text-primary">
-						<select name="branch" className="form-control" onChange={handleBranchChange}>
-							<option>Please select</option>
-							{branches.length > 0 &&
-								branches.map((b) => (
-									<option key={b._id} value={b._id}>
-										{b.name}
-									</option>
-								))}
-						</select>
+				{showQuantity&&(<div className="form-group ">
+					<Form.Item label="Quantity" className="text-primary">
+						<Input
+							type="number"
+							name="quantity"
+							className="form-control w-50"
+							value={quantity}
+							onChange={handleChange}
+						/>
 					</Form.Item>
-					{branches.length}
-				</div> */}
+				</div>)}
 
 
 
@@ -218,17 +216,7 @@ function ProductsForm({
 						</select>
 					</Form.Item>
 				</div>
-				<div className="form-group ">
-					<Form.Item label="Quantity" className="text-primary">
-						<Input
-							type="number"
-							name="quantity"
-							className="form-control w-50"
-							value={quantity}
-							onChange={handleChange}
-						/>
-					</Form.Item>
-				</div>
+				
 				<div className="form-group ">
 					<Form.Item label="made In" className="text-primary">
 						<Input

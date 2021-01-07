@@ -45,6 +45,7 @@ const ProductCreate = (props) => {
 	const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
 	const [showSub, SetShowSub] = useState(false);
+	const [showQuantity,setShowQuantity]=useState(false)
 	//redux
   const { user } = useSelector((state) => ({ ...state }));
   
@@ -107,14 +108,13 @@ const ProductCreate = (props) => {
 	};
    const handleBranchChange = (e) => {
       
-    //  console.log('branch id ',e);
-	//  e.preventDefault();
+
 	  console.log('Clicked branch _id', e);
-    setValues({ ...values, branch: e});
-    //   console.log('setBranch', setBranch());
-     
+    setValues({ ...values, quantity: '',branch: e});
+     	setShowQuantity(true);
 	
 }
+
 	return (
 		<Layout
 			className="site-layout"
@@ -146,14 +146,10 @@ const ProductCreate = (props) => {
 								setValues={setValues}
 								handleCategoryChange={handleCategoryChange}
 								handleBranchChange={handleBranchChange}
-								// branches={branches}
-								// branch={branch}
-								// setBranch={setBranch}
-								// setBranches={setBranches}
-								// branch={branch}
-								// setBranch={setBranch}
+							
 								subOptions={subOptions}
 								showSub={showSub}
+								showQuantity={showQuantity}
 							/>
 						</Col>
 					</Row>

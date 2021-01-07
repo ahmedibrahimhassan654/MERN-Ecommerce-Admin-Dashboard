@@ -8,7 +8,8 @@ const ProductSchema = new mongoose.Schema(
 				type: mongoose.Schema.Types.ObjectId,
 				ref: 'Branch',
 				autopopulate: { select: '_id name', maxDepth: 1 },
-			},
+			
+			}
 		],
 		title: {
 			type: String,
@@ -48,10 +49,10 @@ const ProductSchema = new mongoose.Schema(
 				ref: 'ProductSub',
 			},
 		],
-
 		quantity: {
-			type: Number,
-		},
+					type: Number,
+				},
+		
 
 		// images: {
 		//  type:Array,
