@@ -5,7 +5,7 @@ import {createProduct,} from '../../../../function/product'
 
 import { getCategories, getSubs } from '../../../../function/productcategory';
 import { getMyBranches, } from '../../../../function/branch';
-
+import FileUpload from '../../../../components/forms/FileUpload'
 
 
 
@@ -139,6 +139,10 @@ const ProductCreate = (props) => {
 						<br />
 						{JSON.stringify(values.branches)}
 						<Col span={20}>
+							<div className="p-3 m-3">
+								<FileUpload/>
+							</div>
+							
 							<ProductsForm
 								handleChange={handleChange}
 								handleSubmit={handleSubmit}

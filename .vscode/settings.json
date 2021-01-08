@@ -1,3 +1,9 @@
 {
-   "editor.formatOnPaste": true
+   "editor.fontSize": 14,
+   "editor.formatOnSave": false,
+   "editor.autoIndent": "advanced",
+   "window.zoomLevel": 1,
+
+ 
+
 }
