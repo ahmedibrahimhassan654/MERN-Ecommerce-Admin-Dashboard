@@ -26,9 +26,11 @@ exports.create =asyncHandler(async (req, res, next) => {
 }) 
 
 exports.remove = (req, res, next) => {
-let image_id=req.body.puplic_id
-cloudinary.uploader.destroy(image_id,(err,result)=>{
-    if(err)return res.json({sucess:false,err})
-    res.send('ok')
-})
+  let image_id = req.body.public_id;
+
+
+  cloudinary.uploader.destroy(image_id, (err, result) => {
+    if (err) return res.json({ success: false, err });
+    res.send("ok");
+  });
 }

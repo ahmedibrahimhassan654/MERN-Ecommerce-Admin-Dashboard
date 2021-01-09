@@ -52,6 +52,7 @@ if (process.env.NODE_ENV === 'development') {
 //add body barser
 app.use(bodyParser.json({limit:'20mb'}))
 
+
 app.use(cors())
 
 
