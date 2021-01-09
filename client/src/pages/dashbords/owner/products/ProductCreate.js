@@ -28,7 +28,7 @@ const initialState={
     categories:[],
     subs: [],
     branches: [],
- 	branch:{},
+ 	branch:'',
     quantity: '',
    
     images: [],
@@ -109,9 +109,9 @@ const ProductCreate = (props) => {
 	};
    const handleBranchChange = (e) => {
       
-
-	  console.log('Clicked branch _id', e);
-	setValues({ ...values,branch: e});
+//e.preventDefault();
+console.log('Clicked branch _id', e);
+setValues({ ...values,branch: e});
      
 	
 }

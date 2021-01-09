@@ -13,17 +13,18 @@ exports.create =asyncHandler(
 
   async (req, res, next) => {
 
-   const { email } = req.user;
+  const { email } = req.user;
    
    
    // FIND USER FROM OUR DATABASE BY EMAIL
-   const userFromDb = await User.findOne({ email }).exec();
-
-    req.body.slug = slugify(req.body.title)
+  const userFromDb = await User.findOne({ email }).exec();
+    // req.body.slug = slugify(req.body.title)
     req.body.cratedBy = userFromDb
-  // req.body.branches.quantity=req.body.quantity 
+  //  req.body.branches.map(())
+  //  //req.body.quantity 
   const newProduct = await new Product(req.body).save()
   res.json(newProduct)
+
   
   }
 )

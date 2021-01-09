@@ -163,13 +163,13 @@ function ProductsForm({
 		<div className="form-group ">
 			<Form.Item label="branch" className="text-primary">
 						<Select
-                      mode="multiple"
+                    //   mode="multiple"
                      // showArrow
                      // defaultValue={[]}
                      style={{ width: '50%' }}
                   
-					 value={branches._id}
-					// name="branch"
+					//  value={branches._id}
+					 name="branch"
                      onChange={handleBranchChange}
 						>
 							<option>Please select</option>

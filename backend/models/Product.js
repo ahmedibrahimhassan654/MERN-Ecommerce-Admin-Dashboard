@@ -2,18 +2,21 @@ const mongoose = require('mongoose');
 
 
 const ProductSchema = new mongoose.Schema(
-	{
-		branches: [
-			{
-			branch:{	
+	{	
+		branch:{	
 				type: mongoose.Schema.Types.ObjectId,
 				ref: 'Branch',
 				autopopulate: { select: '_id name', maxDepth: 1 },
 			},
-			
+		// branches: [
+		// 	{
 		
-			}
-		],
+			
+		// 	// quantity:{
+		// 	// 	type:Number
+		// 	// }
+		// 	}
+		// ],
 		title: {
 			type: String,
 			required: [true, 'please add product name '],
@@ -23,7 +26,7 @@ const ProductSchema = new mongoose.Schema(
 		},
 		slug: {
 			type: String,
-			unique: true,
+			unique: false,
 			lowercase: true,
 			index: true,
 		},
@@ -35,8 +38,9 @@ const ProductSchema = new mongoose.Schema(
 			text: true, //used when use search
 			trim: true,
 		},
+	
 		quantity: {
-					type: Number,
+			type: Number,
 				},
 		price: {
 			type: Number,
@@ -56,6 +60,7 @@ const ProductSchema = new mongoose.Schema(
 			},
 		],
 		
+
 
 		images: {
 		 type:Array,

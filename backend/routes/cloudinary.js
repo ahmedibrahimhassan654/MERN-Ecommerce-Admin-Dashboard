@@ -11,7 +11,9 @@ const {
 
 router.post('/addimages', authCheck, ownerCheck, create)
 
-router.delete('/deleteimag', authCheck, ownerCheck, remove)
+
+
+router.post('/deleteimage', authCheck, ownerCheck, remove)
 
 //for owner 
 

@@ -66,6 +66,34 @@ if(files){
 //set url to images [] in the parent compomenent state-product create 
 
 }
+
+  const handleImageRemove = (public_id) => {
+    setLoading(true);
+    // console.log("remove image", public_id);
+    axios
+      .post(
+        `${process.env.REACT_APP_API}/deleteimage`,
+        { public_id },
+        {
+          headers: {
+            authtoken: user ? user.token : "",
+          },
+        }
+      )
+      .then((res) => {
+        setLoading(false);
+        const { images } = values;
+        let filteredImages = images.filter((item) => {
+          return item.public_id !== public_id;
+        });
+        setValues({ ...values, images: filteredImages });
+      })
+      .catch((err) => {
+
+        console.log(err);
+        setLoading(false);
+      });
+  };
 return(
     <>
     <div className="row">
@@ -74,7 +102,7 @@ return(
             <Badge
               count="X"
               key={image.public_id}
-             // onClick={() => handleImageRemove(image.public_id)}
+              onClick={() => handleImageRemove(image.public_id)}
               style={{ cursor: "pointer" }}
             >
               <Avatar
