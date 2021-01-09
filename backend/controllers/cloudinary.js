@@ -13,7 +13,8 @@ cloudinary.config({
 
 exports.create =asyncHandler(async (req, res, next) => {
     let result=await cloudinary.uploader.upload(req.body.image,{
-        puplic_id:`${Date.now()}`,
+        // puplic_id:`${Date.now()}`,
+        public_id: "carcarefolders/productimages",
         resource_type:'auto'
     })
     res.json({
@@ -22,13 +23,12 @@ exports.create =asyncHandler(async (req, res, next) => {
     })
 
 
-}
-)
-exports.remove =asyncHandler( (req, res, next) => {
+}) 
+
+exports.remove = (req, res, next) => {
 let image_id=req.body.puplic_id
 cloudinary.uploader.destroy(image_id,(err,result)=>{
     if(err)return res.json({sucess:false,err})
     res.send('ok')
 })
 }
-)

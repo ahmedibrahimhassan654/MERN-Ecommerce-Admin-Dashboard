@@ -13,6 +13,7 @@ import { Layout, Row, Col, } from "antd";
 import { toast } from "react-toastify";
 import ProductsForm from "../../../../components/forms/ProductsForm";
 import branch from "../../../../reducers/branch";
+import {  LoadingOutlined } from "@ant-design/icons";
 
 const { Content, Footer } = Layout;
 
@@ -45,6 +46,7 @@ const ProductCreate = (props) => {
 	const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
 	const [showSub, SetShowSub] = useState(false);
+	const [loading,setLoading]=useState(false)
 
 	//redux
   const { user } = useSelector((state) => ({ ...state }));
@@ -53,8 +55,7 @@ const ProductCreate = (props) => {
   
 	useEffect(() => {
 	 loadCategories()
-
-		ownerBranches()
+	ownerBranches()
 
 
  
@@ -132,15 +133,21 @@ const ProductCreate = (props) => {
 				}}
 			>
 				<Fragment>
-					<h1 className="text-primary pb-4 pt-5 ">Create New Product</h1>
+		{loading ? (
+            <LoadingOutlined className="text-danger h1" />
+          ) : (
+            <h1 className="text-primary m-4 ">Create New Product</h1>
+          )}
+          <hr />
+					
 					{/* {JSON.stringify(values.subs)} */}
 					<Row className="container">
-						{JSON.stringify(values.categories)}
+						{/* {JSON.stringify(values.categories)}
 						<br />
-						{JSON.stringify(values.branches)}
+						{JSON.stringify(values.branches)} */}
 						<Col span={20}>
 							<div className="p-3 m-3">
-								<FileUpload/>
+								<FileUpload values={values} setValues={setValues} setLoading={setLoading}/>
 							</div>
 							
 							<ProductsForm

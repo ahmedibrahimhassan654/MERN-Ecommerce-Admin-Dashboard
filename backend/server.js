@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors')
-const fs=require('fs')
+const { readdirSync } = require("fs");
 require('dotenv').config();
 
 
@@ -48,28 +48,25 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 //init Middilware body parser
-app.use(express.json());
+//app.use(express.json());
 //add body barser
-// app.use(bodyParser.json({limit:'2mb'}))
+app.use(bodyParser.json({limit:'20mb'}))
 
 app.use(cors())
 
+
 //Add cookie parser
 app.use(cookieParser());
-//add fileupload
-app.use(fileUploade());
+
 
 //set static folder
 
-app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/api/v1/users', users);
-// app.use('/api/v1/auth', auth);
-// app.use('/api/v1/branches', branches);
-// app.use('/api/v1/products', products);
+
+
 
 //instead of importing every route we will use this idea
-fs.readdirSync("./routes").map((r) =>
+readdirSync("./routes").map((r) =>
 app.use('/api/v1',require('./routes/'+r))
 )
 
