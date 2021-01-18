@@ -92,5 +92,5 @@ process.on('unhandledRejection', (err, Promise) => {
    console.log(`Error:${err.message}`.red);
    
 
-  server.close(() => process.exit(1));
+ // server.close(() => process.exit(1));
 });

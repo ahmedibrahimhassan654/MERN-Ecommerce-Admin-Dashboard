@@ -68,31 +68,31 @@ if(files){
 }
 
   const handleImageRemove = (public_id) => {
-   // setLoading(true);
-    console.log("remove image", public_id);
-    // axios
-    //   .post(
-    //     `${process.env.REACT_APP_API}/deleteimage`,
-    //     { public_id },
-    //     {
-    //       headers: {
-    //         authtoken: user ? user.token : "",
-    //       },
-    //     }
-    //   )
-    //   .then((res) => {
-    //     setLoading(false);
-    //     const { images } = values;
-    //     let filteredImages = images.filter((item) => {
-    //       return item.public_id !== public_id;
-    //     });
-    //     setValues({ ...values, images: filteredImages });
-    //   })
-    //   .catch((err) => {
+    setLoading(true);
+    console.log("removed image", public_id);
+    axios
+      .post(
+        `${process.env.REACT_APP_API}/deleteimage`,
+        { public_id },
+        {
+          headers: {
+            authtoken: user ? user.token : "",
+          },
+        }
+      )
+      .then((res) => {
+        setLoading(false);
+        const { images } = values;
+        let filteredImages = images.filter((item) => {
+          return item.public_id !== public_id;
+        });
+        setValues({ ...values, images: filteredImages });
+      })
+      .catch((err) => {
 
-    //     console.log(err);
-    //     setLoading(false);
-    //   });
+        console.log(err);
+        setLoading(false);
+      });
   };
 return(
     <>

@@ -13,12 +13,12 @@ cloudinary.config({
 
 exports.create =asyncHandler(async (req, res, next) => {
     let result=await cloudinary.uploader.upload(req.body.image,{
-        // puplic_id:`${Date.now()}`,
-        public_id: "carcarefolders/productimages",
-        resource_type:'auto'
+       public_id:`${Date.now()}`,
+        //public_id: "carcarefolders/productimages",
+        resource_type:'auto'//jpeg,png
     })
     res.json({
-        puplic_id:result.puplic_id,
+        public_id:result.public_id,
         url:result.secure_url
     })
 
