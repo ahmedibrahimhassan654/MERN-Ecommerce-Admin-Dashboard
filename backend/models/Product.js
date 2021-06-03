@@ -104,4 +104,4 @@ const ProductSchema = new mongoose.Schema(
 
 ProductSchema.plugin(require('mongoose-autopopulate'))
 
-module.exports = Product = mongoose.model('product', ProductSchema);
+module.exports = Product = mongoose.model('Product', ProductSchema);
