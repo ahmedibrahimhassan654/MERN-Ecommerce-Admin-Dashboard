@@ -8,15 +8,7 @@ const ProductSchema = new mongoose.Schema(
 				ref: 'Branch',
 				autopopulate: { select: '_id name', maxDepth: 1 },
 			},
-		// branches: [
-		// 	{
-		
-			
-		// 	// quantity:{
-		// 	// 	type:Number
-		// 	// }
-		// 	}
-		// ],
+	
 		title: {
 			type: String,
 			required: [true, 'please add product name '],
