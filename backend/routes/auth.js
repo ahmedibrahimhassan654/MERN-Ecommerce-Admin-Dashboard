@@ -23,7 +23,6 @@ const { createOrUpdateUser, curentUser } = require('../controllers/auth')
 router.post('/create-or-update-user', authCheck, createOrUpdateUser)
 router.post('/curent-user', authCheck, curentUser)
 
-
 router.post('/curent-admin', authCheck, adminCheck, curentUser)
 router.post('/curent-owner', authCheck, ownerCheck, curentUser)
 router.post('/curent-manger', authCheck, mangerCheck, curentUser)

@@ -25,6 +25,8 @@ exports.create =asyncHandler(
   const newProduct = await new Product(req.body).save()
   res.json(newProduct)
 
+    
+    
   
   }
 )

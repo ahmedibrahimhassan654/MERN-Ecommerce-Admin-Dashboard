@@ -27,7 +27,7 @@ const Register = ({ history,setAlert}, ) => {
 		toast.success(
 			`Email is sent to ${email} ,click the link to complete your registeration`,'sucess'
       )
-     setAlert(`Email is sent to ${email} ,please check your mail to copmlete regesteration`,'success')
+   
 		//save user email in local storage
 		window.localStorage.setItem('emailForRegisteration', email)
 
@@ -78,7 +78,7 @@ const Register = ({ history,setAlert}, ) => {
 		</div>
 	)
 }
-Register.propTypes = {
-   setAlert:PropTypes.func.isRequired,
-}
+// Register.propTypes = {
+//    setAlert:PropTypes.func.isRequired,
+// }
 export default connect(null,{setAlert}) (Register);

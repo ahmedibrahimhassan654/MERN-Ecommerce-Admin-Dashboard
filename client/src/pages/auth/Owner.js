@@ -18,6 +18,7 @@ const Owner = ({ history }) => {
 	const handelSubmit = async (e) => {
 		e.preventDefault()
 		setRole(role)
+
 		const config = {
 			url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
 			handleCodeInApp: true,
