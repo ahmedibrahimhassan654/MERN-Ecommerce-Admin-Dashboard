@@ -44,7 +44,7 @@ function ProductsForm({
 		branch,
 
 	} = values;
-	//const options = [{ value: 'gold' }, { value: 'lime' }, { value: 'green' }, { value: 'cyan' }, { value: 'red' }];
+
 
 	return (
 		<Fragment>

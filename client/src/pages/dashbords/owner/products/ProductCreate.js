@@ -116,6 +116,7 @@ setValues({ ...values,branch: e});
 	
 }
 
+const currentYear = new Date().getFullYear()
 	return (
 		<Layout
 			className="site-layout"
@@ -133,13 +134,13 @@ setValues({ ...values,branch: e});
 				}}
 			>
 				<Fragment>
-		{loading ? (
-            <LoadingOutlined className="text-danger h1" />
-          ) : (
-            <h1 className="text-primary m-4 ">Create New Product</h1>
-          )}
-          <hr />
-					
+					{loading ? (
+						<LoadingOutlined className="text-danger h1" />
+					) : (
+						<h1 className="text-primary m-4 ">Create New Product</h1>
+					)}
+					<hr />
+
 					{/* {JSON.stringify(values.subs)} */}
 					<Row className="container">
 						{/* {JSON.stringify(values.categories)}
@@ -147,9 +148,9 @@ setValues({ ...values,branch: e});
 						{JSON.stringify(values.branches)} */}
 						<Col span={20}>
 							<div className="p-3 m-3">
-								<FileUpload values={values} setValues={setValues} setLoading={setLoading}/>
+								<FileUpload values={values} setValues={setValues} setLoading={setLoading} />
 							</div>
-							
+
 							<ProductsForm
 								handleChange={handleChange}
 								handleSubmit={handleSubmit}
@@ -157,15 +158,13 @@ setValues({ ...values,branch: e});
 								setValues={setValues}
 								handleCategoryChange={handleCategoryChange}
 								handleBranchChange={handleBranchChange}
-							
 								subOptions={subOptions}
 								showSub={showSub}
-								
 							/>
 						</Col>
 					</Row>
 				</Fragment>
-				<Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+				<Footer style={{ textAlign: 'center' }}>Ant Design {currentYear} Created by Ant UED</Footer>
 			</Content>
 		</Layout>
 	);

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import './register.css'
 import { useSelector ,connect} from 'react-redux'
 import { setAlert } from '../../actions/alert'
-import PropTypes from 'prop-types';
+
 
 const Register = ({ history,setAlert}, ) => {
   const [email, setEmail] = useState('')
@@ -78,7 +78,5 @@ const Register = ({ history,setAlert}, ) => {
 		</div>
 	)
 }
-// Register.propTypes = {
-//    setAlert:PropTypes.func.isRequired,
-// }
+
 export default connect(null,{setAlert}) (Register);
