@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema(
 	{	
-		branch:{	
+		branches:{	
 				type: mongoose.Schema.Types.ObjectId,
 				ref: 'Branch',
-				autopopulate: { select: '_id name', maxDepth: 1 },
+				
 			},
 	
 		title: {
@@ -80,12 +80,12 @@ const ProductSchema = new mongoose.Schema(
 		cratedBy: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
-			autopopulate: { select: '_id name email', maxDepth: 1 },
+		
 		},
 	},
 	{ timestamps: true }
 );
 
-ProductSchema.plugin(require('mongoose-autopopulate'))
+
 
 module.exports = Product = mongoose.model('Product', ProductSchema);

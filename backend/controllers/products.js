@@ -20,8 +20,7 @@ exports.create =asyncHandler(
   const userFromDb = await User.findOne({ email }).exec();
     // req.body.slug = slugify(req.body.title)
     req.body.cratedBy = userFromDb
-  //  req.body.branches.map(())
-  //  //req.body.quantity 
+  
   const newProduct = await new Product(req.body).save()
   res.json(newProduct)
 
@@ -32,13 +31,21 @@ exports.create =asyncHandler(
 )
 
 
-
+// '/products/:count'
 
 exports.getAllProducts =asyncHandler(
 
   async (req, res, next) => {
 
-    const products = await Product.find()
+  const products = await Product.find()
+   .limit(parseInt(req.params.count))
+   .populate('branches')
+   .populate('category')
+   .populate('subs')
+   .populate('cratedBy')
+   .sort()
+   .exec()
+  
     console.log(products);
    res.status(200).json({
    number:products.length,

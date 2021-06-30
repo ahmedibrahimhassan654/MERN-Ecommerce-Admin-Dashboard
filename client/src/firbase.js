@@ -1,5 +1,6 @@
-import * as firebase from 'firebase'
-  
+//import * as firebase from 'firebase'
+  import firebase from "firebase/app"
+import "firebase/auth"
   
   // Your web app's Firebase configuration
   
@@ -17,4 +18,4 @@ import * as firebase from 'firebase'
 
   export const auth = firebase.auth()
 
-  export const googleAuthProvider=  new firebase.auth.GoogleAuthProvider()
+  export const googleAuthProvider =  new firebase.auth.GoogleAuthProvider()

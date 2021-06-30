@@ -1,8 +1,8 @@
 {
    "editor.fontSize": 14,
-   "editor.formatOnSave": false,
+   "editor.formatOnSave": true,
    "editor.autoIndent": "advanced",
-   "window.zoomLevel": 1,
+   "window.zoomLevel": 0,
 
  
 

@@ -11,7 +11,7 @@ const {
 
 router.post('/product', authCheck, ownerCheck, create)
 
-router.get('/products', getAllProducts)
+router.get('/products/:count', getAllProducts) //product/100
 
 //for owner 
 
