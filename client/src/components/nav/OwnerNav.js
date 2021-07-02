@@ -5,9 +5,11 @@ import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import {
 	UserOutlined,
-	
-   BranchesOutlined,
-   SafetyCertificateOutlined,
+
+	BranchesOutlined,
+	SafetyCertificateOutlined,
+	SubnodeOutlined,
+	SelectOutlined,
 } from '@ant-design/icons'
 import { Menu, Layout } from 'antd'
 import { useSelector } from 'react-redux'
@@ -22,7 +24,7 @@ const OwnerNav = () => {
 
 	let history = useHistory()
 	const redirectToRoleDashbord = (e) => {
-		console.log(e)
+
 		if (user.role === 'admin') {
 			history.push('/admin/dashboard')
 		} else if (user.role === 'employee') {
@@ -60,7 +62,7 @@ const OwnerNav = () => {
 					Owner Dash Bord
 				</p>
 				<Menu theme='dark' defaultSelectedKeys={['branches']} mode='inline'>
-					<SubMenu
+					{/* <SubMenu
 						key='branches'
 						icon={<BranchesOutlined />}
 						title='Branches'
@@ -71,23 +73,47 @@ const OwnerNav = () => {
 							title='my branches'
 						>
 							My Branches
-								
+
 							<Link className='nav-link' to='/owner/branches'></Link>
 						</Menu.Item>
-							<Menu.Item
+						<Menu.Item
 							key='new branche'
 							icon={<SafetyCertificateOutlined />}
 							title='new branch'
 						>
 							Create New Branch
-								
+
 							<Link className='nav-link' to='/create-branch'></Link>
 						</Menu.Item>
 
-						
+
+					</SubMenu> */}
+					<SubMenu
+						key='Product Category'
+						icon={<SelectOutlined />}
+						title='Product Category'
+					>
+						<Menu.Item
+							key='productCategory'
+							icon={<SafetyCertificateOutlined />}
+							title='ProductCategory'
+						>
+							Product Category
+							<Link className='nav-link' to='/owner/productCategory'></Link>
+						</Menu.Item>
+
+						<Menu.Item
+							key='productSubCategory'
+							icon={<SubnodeOutlined />}
+							title='productSubCategory'
+
+						>
+							product Sub-Category
+							<Link className='nav-link' to='/owner/productSubCategory'></Link>
+						</Menu.Item>
 					</SubMenu>
 
-				<SubMenu
+					<SubMenu
 						key='Products'
 						icon={<BranchesOutlined />}
 						title='products'
@@ -97,15 +123,15 @@ const OwnerNav = () => {
 							icon={<SafetyCertificateOutlined />}
 							title='Crete Product'
 						>
-							
+
 							Create Product
 							<Link className='nav-link' to='/owner/create-product'></Link>
 						</Menu.Item>
 
-						
-				</SubMenu>
+
+					</SubMenu>
 					<SubMenu key='sub1' icon={<UserOutlined />} title='profile'>
-					
+
 						<Menu.Item key='4'>
 							<Link className='nav-link' to='/owner/password'>
 								Password

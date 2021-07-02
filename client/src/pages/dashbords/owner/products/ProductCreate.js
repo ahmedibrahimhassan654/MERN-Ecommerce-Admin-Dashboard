@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
- import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import OwnernNav from '../../../../../src/components/nav/OwnerNav';
-import {createProduct,} from '../../../../function/product'
+import { createProduct, } from '../../../../function/product'
 
 import { getCategories, getSubs } from '../../../../function/productcategory';
 import { getMyBranches, } from '../../../../function/branch';
@@ -13,73 +13,73 @@ import { Layout, Row, Col, } from "antd";
 import { toast } from "react-toastify";
 import ProductsForm from "../../../../components/forms/ProductsForm";
 import branch from "../../../../reducers/branch";
-import {  LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const { Content, Footer } = Layout;
 
 
 
 
-const initialState={
-    title: '',
-    description: '',
-    price: '',
-    category: '',
-    categories:[],
-    subs: [],
-    branches: [],
- 	branch:'',
-    quantity: '',
-   
-    images: [],
-    shipping: '',
-    qualities: ['Original', 'Hieght Quality', 'Used'],
-    warrantyAvailable: '',
-    madeIn: '',
-    cratedBy:''
-    
-  }
+const initialState = {
+	title: '',
+	description: '',
+	price: '',
+	category: '',
+	categories: [],
+	subs: [],
+	branches: [],
+	branch: '',
+	quantity: '',
+
+	images: [],
+	shipping: '',
+	qualities: ['Original', 'Hieght Quality', 'Used'],
+	warrantyAvailable: '',
+	madeIn: '',
+	cratedBy: ''
+
+}
 
 
 
 const ProductCreate = (props) => {
 	const [values, setValues] = useState(initialState);
-  const [subOptions, setSubOptions] = useState([]);
+	const [subOptions, setSubOptions] = useState([]);
 	const [showSub, SetShowSub] = useState(false);
-	const [loading,setLoading]=useState(false)
+	const [loading, setLoading] = useState(false)
 
 	//redux
-  const { user } = useSelector((state) => ({ ...state }));
-  
+	const { user } = useSelector((state) => ({ ...state }));
 
-  
+
+
 	useEffect(() => {
-	 loadCategories()
-	ownerBranches()
+		loadCategories()
+		ownerBranches()
 
 
- 
-	},[]);
 
-	
+	}, []);
+
+
 
 	const loadCategories = () => {
-		
-	getCategories().then((c)=>	setValues(prevValues => ({ ...prevValues, categories: c.data })));
+
+		getCategories().then((c) => setValues(prevValues => ({ ...prevValues, categories: c.data })));
 	};
 
 	const ownerBranches = () =>
 		getMyBranches(user.token).then((b) => {
 
-			setValues(prevValues => ({ ...prevValues, branches: b.data.branches }));
+			setValues(prevValues => ({ ...prevValues, branches: b.data.branch }));
 		}
-	)
-	;
+		)
+		;
 
 	const handleSubmit = (e) => {
 		// send product to backend
 		e.preventDefault();
-		
+
 
 		createProduct(values, user.token)
 			.then((res) => {
@@ -107,16 +107,16 @@ const ProductCreate = (props) => {
 		});
 		SetShowSub(true);
 	};
-   const handleBranchChange = (e) => {
-      
-//e.preventDefault();
-console.log('Clicked branch _id', e);
-setValues({ ...values,branch: e});
-     
-	
-}
+	const handleBranchChange = (e) => {
 
-const currentYear = new Date().getFullYear()
+		//e.preventDefault();
+		console.log('Clicked branch _id', e);
+		setValues({ ...values, branch: e });
+
+
+	}
+
+	const currentYear = new Date().getFullYear()
 	return (
 		<Layout
 			className="site-layout"

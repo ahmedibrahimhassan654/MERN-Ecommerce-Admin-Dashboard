@@ -3,6 +3,7 @@
    "editor.formatOnSave": true,
    "editor.autoIndent": "advanced",
    "window.zoomLevel": 0,
+   "git.ignoreLimitWarning": true,
 
  
 

@@ -5,9 +5,7 @@ import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import {
 	UserOutlined,
-	SafetyCertificateOutlined,
-	SubnodeOutlined,
-	SelectOutlined,
+
 } from '@ant-design/icons'
 import { Menu, Layout } from 'antd'
 import { useSelector } from 'react-redux'
@@ -60,30 +58,7 @@ const AdminNav = () => {
 					Admin Dash Bord
 				</p>
 				<Menu theme='dark' defaultSelectedKeys={['1']} mode='inline'>
-					<SubMenu
-						key='Product Category'
-						icon={<SelectOutlined />}
-						title='Product Category'
-					>
-						<Menu.Item
-							key='productCategory'
-							icon={<SafetyCertificateOutlined />}
-							title='ProductCategory'
-						>
-							Product Category
-							<Link className='nav-link' to='/admin/productCategory'></Link>
-						</Menu.Item>
 
-						<Menu.Item
-							key='productSubCategory'
-							icon={<SubnodeOutlined />}
-							title='productSubCategory'
-							
-						>
-							product Sub-Category
-							<Link className='nav-link' to='/admin/productSubCategory'></Link>
-						</Menu.Item>
-					</SubMenu>
 
 					<SubMenu key='sub1' icon={<UserOutlined />} title='profile'>
 						<Menu.Item key='3'>

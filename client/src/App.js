@@ -35,14 +35,14 @@ import CtegoryUpdate from './pages/dashbords/admin/Product Category/CtegoryUpdat
 import ProductCreate from './pages/dashbords/owner/products/ProductCreate'
 import { auth } from './firbase'
 import {
-   useDispatch,
-   //Provider
+	useDispatch,
+	//Provider
 } from 'react-redux'
 // import store from './store'
 import { currentuser } from './function/auth'
 import SubCreate from './pages/dashbords/admin/ProductSubCategory/SubCreate'
 import SubUpdate from './pages/dashbords/admin/ProductSubCategory/SubUpdate'
-import AlertComp  from './pages/AlertComp';
+import AlertComp from './pages/AlertComp';
 import CreatBranch from './pages/dashbords/owner/branches/CreatBranch';
 
 const App = () => {
@@ -74,17 +74,17 @@ const App = () => {
 		//cleanup
 		return () => unsubscribe()
 	})
-   return (
-     
-      <Fragment>
-     
-			<Header />
-         <ToastContainer />
-        <AlertComp/>
-         <Switch>
-            
+	return (
 
-            
+		<Fragment>
+
+			<Header />
+			<ToastContainer />
+			<AlertComp />
+			<Switch>
+
+
+
 				<Route exact path='/' component={Home} />
 				<Route exact path='/register' component={Register} />
 				<Route exact path='/login' component={Login} />
@@ -98,30 +98,30 @@ const App = () => {
 				{/* //admin routes */}
 				<AdminRoute exact path='/admin/dashboard' component={AdminDashBord} />
 				<AdminRoute exact path='/admin/password' component={ResetPassword} />
-				<AdminRoute
-					exact
-					path='/admin/productCategory'
-					component={CreateCategory}
-				/>
-				<AdminRoute
-					exact
-					path='/admin/productcategory/:slug'
-					component={CtegoryUpdate}
-				/>
-				<AdminRoute
-					exact
-					path='/admin/productSubCategory'
-					component={SubCreate}
-				/>
-				<AdminRoute exact path='/admin/sub/:slug' component={SubUpdate} />
+
 
 				{/* //owner rotes */}
 				<OwnerRoute exact path='/owner/password' component={PasswordOwner} />
-            <OwnerRoute exact path='/owner/dashboard' component={OwnerDashBoard} />
-            {/* <OwnerRoute exact path='/owner/branches' component={CreateBranch} /> */}
-			<OwnerRoute exact path='/create-branch' component={CreatBranch} />
-			<OwnerRoute exact path='/owner/create-product' component={ProductCreate} />
-            
+				<OwnerRoute exact path='/owner/dashboard' component={OwnerDashBoard} />
+				{/* <OwnerRoute exact path='/owner/branches' component={CreateBranch} /> */}
+				<OwnerRoute exact path='/create-branch' component={CreatBranch} />
+				<OwnerRoute exact path='/owner/create-product' component={ProductCreate} />
+				<OwnerRoute
+					exact
+					path='/owner/productCategory'
+					component={CreateCategory}
+				/>
+				<OwnerRoute
+					exact
+					path='/owner/productcategory/:slug'
+					component={CtegoryUpdate}
+				/>
+				<OwnerRoute
+					exact
+					path='/owner/productSubCategory'
+					component={SubCreate}
+				/>
+				<OwnerRoute exact path='/owner/sub/:slug' component={SubUpdate} />
 
 				{/* //manger routes */}
 				{/* <MangerRoute exact path='/manger/password' component={Password} /> */}
@@ -136,21 +136,15 @@ const App = () => {
 					exact
 					path='/employee/dashboard'
 					component={EmployeeDashBoard}
-            />
-            
-           
-         </Switch>
-         
-      </Fragment>
-   
+				/>
+
+
+			</Switch>
+
+		</Fragment>
+
 	)
 }
 export default App
 
-// history.push('/admin/dashboard')
-// 		} else if (res.data.role === 'owner') {
-// 			history.push('/owner/dashboard')
-// 		} else if (res.data.role === 'manger') {
-// 			history.push('/manger/dashboard')
-// 		} else if (res.data.role === 'employee') {
-// 			history.push('/employee/dashboard')
+

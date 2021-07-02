@@ -20,9 +20,9 @@ function ProductsForm({
 	subOptions,
 	showSub,
 	handleBranchChange,
-	
-	
-	
+
+
+
 }) {
 	//destructure
 	const {
@@ -91,7 +91,7 @@ function ProductsForm({
 				</div>
 
 				<div className="form-group ">
-					<Form.Item label="Price" className="text-primary">
+					<Form.Item label="Price with EGP" className="text-primary">
 						<Input
 							type="number"
 							name="price"
@@ -147,7 +147,7 @@ function ProductsForm({
 								// defaultValue={[]}
 								style={{ width: '50%' }}
 								value={subs}
-								
+
 								onChange={(value) => setValues({ ...values, subs: value })}
 							>
 								{subOptions.length &&
@@ -160,37 +160,37 @@ function ProductsForm({
 						</Form.Item>
 					</div>
 				)}
-		<div className="form-group ">
-			<Form.Item label="branch" className="text-primary">
+				{/* <div className="form-group ">
+					<Form.Item label="branch" className="text-primary">
 						<Select
-                    //   mode="multiple"
-                     // showArrow
-                     // defaultValue={[]}
-                     style={{ width: '50%' }}
-                  
-					//  value={branches._id}
-					 name="branch"
-                     onChange={handleBranchChange}
+							//   mode="multiple"
+							// showArrow
+							// defaultValue={[]}
+							style={{ width: '50%' }}
+
+							//  value={branches._id}
+							name="branch"
+							onChange={handleBranchChange}
 						>
 							<option>Please select</option>
-                     {
-                       
-                         branches.length > 0 &&
-                        branches.map((b) =>
-                        (
-                          
-                    	<Option key={b._id}
-                              value={b._id}
-                           >
-                              {b.name}
-						</Option>
-                        )
-                        )}
+							{
+
+								branches.length > 0 &&
+								branches.map((b) =>
+								(
+
+									<Option key={b._id}
+										value={b._id}
+									>
+										{b.name}
+									</Option>
+								)
+								)}
 						</Select>
 					</Form.Item>
 					{branches.length}
-				</div> 
-			
+				</div> */}
+
 
 				<div className="form-group ">
 					<Form.Item label="Quantity" className="text-primary">
@@ -216,7 +216,7 @@ function ProductsForm({
 						</select>
 					</Form.Item>
 				</div>
-				
+
 				<div className="form-group ">
 					<Form.Item label="made In" className="text-primary">
 						<Input

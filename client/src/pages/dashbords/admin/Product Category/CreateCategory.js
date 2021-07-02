@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import AdminNav from '../../../../components/nav/AdminNav'
+import OwnerNav from '../../../../components/nav/OwnerNav'
 import './userdashbord.css'
 import { Layout, Card } from 'antd'
 import CategoryForm from '../../../../components/forms/CategoryForm'
@@ -94,7 +94,7 @@ const CreateCategory = () => {
 					minHeight: '100vh',
 				}}
 			>
-				<AdminNav />
+				<OwnerNav />
 				<Content style={{ margin: '24 16px 0', overflow: 'initial' }}>
 					<div
 						className='site-layout-background'
@@ -106,8 +106,8 @@ const CreateCategory = () => {
 						{!loading ? (
 							<h4 className='text-primary pb-4 pt-5 '>Create New Category</h4>
 						) : (
-                     // <h4 className='text-danger'> loading </h4>
-                        <Spiner/>
+							// <h4 className='text-danger'> loading </h4>
+							<Spiner />
 						)}
 						<CategoryForm
 							handleSubmit={handleSubmit}
@@ -119,25 +119,21 @@ const CreateCategory = () => {
 						{/* step2 and step 3 */}
 						<SearchForm keyword={keyword} setKeyword={setKeyword} />
 						<hr />
-						<span className='font-weight-bold text-primary mb-3'>
-							number of categories {categories.filter(searched(keyword)).length}
-						</span>
-						{/* step 5 */}
-						{categories.filter(searched(keyword)).map((c) => (
-							<>
-								<div className='container'>
-									<div className=' row  text-light bg-dark'>
-										<div className='ant-col-md-4'>
+						<div className='col'>
+							<span className='font-weight-bold text-primary mb-3'>
+								number of categories {categories.filter(searched(keyword)).length}
+							</span>
+							<div className='row'>
+								{categories.filter(searched(keyword)).map((c) => (
+									<>
+
+										<div className='col-md-4'>
 											<Card
-												bordered
+												hoverable
 												key={c._id}
 												style={{
 													width: 300,
-													height: 150,
-													backgroundColor: 'whit',
-													marginBottom: '5px',
-													marginTop: '5px',
-													marginLeft: '5px',
+													backgroundColor: '#AFFF33'
 												}}
 											>
 												<Meta title={c.name} description={c.description} />
@@ -148,7 +144,7 @@ const CreateCategory = () => {
 													>
 														<DeleteOutlined className='text-primary' />
 													</span>
-													<Link to={`/admin/productcategory/${c.slug}`}>
+													<Link to={`/owner/productcategory/${c.slug}`}>
 														<span className='btn btn-sm float-left'>
 															<EditOutlined className='text-warning' />
 														</span>
@@ -156,10 +152,15 @@ const CreateCategory = () => {
 												</div>
 											</Card>
 										</div>
-									</div>
-								</div>
-							</>
-						))}
+
+
+									</>
+								))}
+							</div>
+						</div>
+
+						{/* step 5 */}
+
 					</div>
 					<Footer style={{ textAlign: 'center' }}>
 						Ant Design ©2018 Created by Ant UED

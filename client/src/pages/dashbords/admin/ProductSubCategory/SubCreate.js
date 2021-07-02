@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import AdminNav from '../../../../components/nav/AdminNav'
+import OwnerNav from '../../../../components/nav/OwnerNav'
 import './sub.css'
 import { Layout, Card, Row, Col } from 'antd'
 import CategoryForm from '../../../../components/forms/CategoryForm'
@@ -42,9 +42,9 @@ const SubCreate = () => {
 	}, [])
 
 	const loadCategories = () =>
-		
+
 		getCategories().then((c) => setCategories(c.data))
-	
+
 
 	const loadSubCategories = () => getSubCategories().then((s) => setSub(s.data))
 
@@ -116,7 +116,7 @@ const SubCreate = () => {
 					minHeight: '100vh',
 				}}
 			>
-				<AdminNav />
+				<OwnerNav />
 				<Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
 					<div
 						className="site-layout-background"
@@ -127,11 +127,15 @@ const SubCreate = () => {
 							margin: 0,
 						}}
 					>
-						{!loading ? (
-							<h4 className="text-primary pb-4 pt-5 ">Create New Sub-Category</h4>
-						) : (
-							<h4 className="text-danger"> loading </h4>
-						)}
+						<div className='col'>
+							{!loading ? (
+								<h4 className="text-primary pb-4 pt-5 ">Create New Sub-Category</h4>
+							) : (
+								<h4 className="text-danger"> loading </h4>
+							)}
+
+						</div>
+
 						<div className="form-group ">
 							<Row>
 								<Col span={12} offset={6}>
@@ -178,48 +182,50 @@ const SubCreate = () => {
 						{/* step2 and step 3 */}
 						<SearchForm keyword={keyword} setKeyword={setKeyword} />
 						<hr />
-						<span className="font-weight-bold text-primary mb-3">
-							number of sub-categories {subs.filter(searched(keyword)).length}
-						</span>
-						{/* step 5 */}
-						{subs.filter(searched(keyword)).map((s) => (
-							<div>
-								<div className="container">
-									<div className=" row  text-light bg-dark">
-										<div className="ant-col-md-4">
-											<Card
-												bordered
-												key={s._id}
-												style={{
-													width: 300,
-													height: 150,
-													backgroundColor: 'whit',
-													marginBottom: '5px',
-													marginTop: '5px',
-													marginLeft: '5px',
-												}}
-											>
-												<Meta title={s.name} description={s.description} />
+						<div className='col'>
+							<span className="font-weight-bold text-primary mb-3">
+								number of sub-categories {subs.filter(searched(keyword)).length}
+							</span>
+							<div className='row'>
+								{subs.filter(searched(keyword)).map((s) => (
 
-												<div className="mt-2">
-													<span
-														className="btn btn-sm float-right"
-														onClick={() => handleRemove(s.slug)}
-													>
-														<DeleteOutlined className="text-primary" />
+
+									<div className="col-md-4">
+										<Card
+
+											hoverable
+											key={s._id}
+											style={{
+												width: 240,
+												backgroundColor: '#AFFF33'
+											}}
+										>
+											<Meta title={s.name} description={s.description} />
+
+											<div className="mt-2">
+												<span
+													className="btn btn-sm float-right"
+													onClick={() => handleRemove(s.slug)}
+												>
+													<DeleteOutlined className="text-primary" />
+												</span>
+												<Link to={`/owner/sub/${s.slug}`}>
+													<span className="btn btn-sm float-left">
+														<EditOutlined className="text-warning" />
 													</span>
-													<Link to={`/admin/sub/${s.slug}`}>
-														<span className="btn btn-sm float-left">
-															<EditOutlined className="text-warning" />
-														</span>
-													</Link>
-												</div>
-											</Card>
-										</div>
+												</Link>
+											</div>
+										</Card>
 									</div>
-								</div>
+
+
+
+								))}
 							</div>
-						))}
+						</div>
+
+						{/* step 5 */}
+
 					</div>
 					<Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
 				</Content>

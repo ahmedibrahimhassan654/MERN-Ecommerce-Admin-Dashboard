@@ -9,52 +9,51 @@ const User = require('../models/User')
 //@desc     creat product
 //@route   GET/api/v1/product
 //@access  owner
-exports.create =asyncHandler(
+exports.create = asyncHandler(
 
   async (req, res, next) => {
 
-  const { email } = req.user;
-   
-   
-   // FIND USER FROM OUR DATABASE BY EMAIL
-  const userFromDb = await User.findOne({ email }).exec();
+    const { email } = req.user;
+
+
+    // FIND USER FROM OUR DATABASE BY EMAIL
+    const userFromDb = await User.findOne({ email }).exec();
     // req.body.slug = slugify(req.body.title)
     req.body.cratedBy = userFromDb
-  
-  const newProduct = await new Product(req.body).save()
-  res.json(newProduct)
 
-    
-    
-  
+    const newProduct = await new Product(req.body).save()
+    res.json(newProduct)
+
+
+
   }
 )
 
 
 // '/products/:count'
 
-exports.getAllProducts =asyncHandler(
+exports.getAllProducts = asyncHandler(
 
   async (req, res, next) => {
 
-  const products = await Product.find()
-   .limit(parseInt(req.params.count))
-   .populate('branches')
-   .populate('category')
-   .populate('subs')
-   .populate('cratedBy')
-   .sort()
-   .exec()
-  
+    const products = await Product.find()
+      .limit(parseInt(req.params.count))
+      .populate('branches')
+      .populate('category')
+      .populate('subs')
+      .populate('cratedBy')
+      .sort([["createdAt", "desc"]])
+      .exec()
+
     console.log(products);
-   res.status(200).json({
-   number:products.length,
-   sucess: true,
-   msg: 'get All Products',
-   products
-   
-   })
-  
+    res.status(200).json({
+      number: products.length,
+      sucess: true,
+      msg: 'get All Products',
+      products
+
+    })
+
   }
 )
 

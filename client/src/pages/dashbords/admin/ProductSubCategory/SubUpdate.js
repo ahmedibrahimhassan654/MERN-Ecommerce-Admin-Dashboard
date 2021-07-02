@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import AdminNav from '../../../../components/nav/AdminNav'
+import OwnerNav from '../../../../components/nav/OwnerNav'
 import './sub.css'
 import { Layout } from 'antd'
 import CategoryForm from '../../../../components/forms/CategoryForm'
@@ -24,20 +24,20 @@ const SubUpdate = ({ match, history }) => {
 	const [categories, setCategories] = useState([])
 	const [parent, setParent] = useState('')
 
-   const loadCategories = () =>
-   getCategories().then((c) => setCategories(c.data))
+	const loadCategories = () =>
+		getCategories().then((c) => setCategories(c.data))
 
-const loadSub = () =>
-   getSubCategory(match.params.slug).then((s) => {
-      setName(s.data.name)
-      setDescription(s.data.description)
-      setParent(s.data.parent)
-   })
+	const loadSub = () =>
+		getSubCategory(match.params.slug).then((s) => {
+			setName(s.data.name)
+			setDescription(s.data.description)
+			setParent(s.data.parent)
+		})
 
 	useEffect(() => {
 		loadCategories()
 		loadSub()
-	},[])
+	}, [])
 
 
 	const handleSubmit = (e) => {
@@ -60,7 +60,7 @@ const loadSub = () =>
 				setDescription('')
 				// setParent('')
 				toast.success(`"${res.data.updated.name}" is updated`)
-				history.push('/admin/productSubCategory')
+				history.push('/owner/productSubCategory')
 			})
 			.catch((err) => {
 				console.log(err)
@@ -80,7 +80,7 @@ const loadSub = () =>
 					minHeight: '100vh',
 				}}
 			>
-				<AdminNav />
+				<OwnerNav />
 				<Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
 					<div
 						className='site-layout-background'
@@ -104,10 +104,10 @@ const loadSub = () =>
 								className='form-control'
 								onChange={(e) => setParent(e.target.value)}
 							>
-                        <option>
-                          {/* // Please select */}
-                            {parent.name}
-                           </option>
+								<option>
+									{/* // Please select */}
+									{parent.name}
+								</option>
 								{categories.length > 0 &&
 									categories.map((c) => (
 										<option

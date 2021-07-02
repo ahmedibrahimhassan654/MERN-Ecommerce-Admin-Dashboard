@@ -10,7 +10,7 @@ import {
 	updateCategory,
 } from '../../../../function/productcategory'
 import CategoryForm from '../../../../components/forms/CategoryForm'
-import AdminNav from '../../../../components/nav/AdminNav'
+import OwnerNav from '../../../../components/nav/OwnerNav'
 //import { useParams } from 'react-router-dom'
 const { Content } = Layout
 
@@ -31,8 +31,8 @@ const CategoryUpdate = ({ history, match }) => {
 
 	useEffect(() => {
 		console.log(match)
-		 loadCategory  ()
-	},[])
+		loadCategory()
+	}, [])
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -52,7 +52,7 @@ const CategoryUpdate = ({ history, match }) => {
 				setName('')
 				setDescription('')
 				toast.success(`"${res.data.updated.name}" is updated`)
-				history.push('/admin/productCategory')
+				history.push('/owner/productCategory')
 			})
 			.catch((err) => {
 				console.log(err)
@@ -70,7 +70,7 @@ const CategoryUpdate = ({ history, match }) => {
 					minHeight: '100vh',
 				}}
 			>
-				<AdminNav />
+				<OwnerNav />
 				<Content
 					style={{
 						padding: '25 25px',

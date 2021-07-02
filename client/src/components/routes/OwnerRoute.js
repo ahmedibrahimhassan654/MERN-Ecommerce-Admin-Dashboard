@@ -13,7 +13,6 @@ const OwnerRoute = ({ children, ...rest }) => {
 		if (user && user.token) {
 			currentOwner(user.token)
 				.then((res) => {
-					console.log('current owner response', res)
 					setOk(true)
 				})
 				.catch((err) => {
