@@ -21,11 +21,9 @@ function BranchForm({ handleSubmit, handleChange, validateMessages, values }) {
 		district,
 		country,
 		province,
-		trAvailable,
-		present,
+	
 		presents,
-		images,
-		documents,
+	
 	} = values;
 	return (
 		<Fragment>

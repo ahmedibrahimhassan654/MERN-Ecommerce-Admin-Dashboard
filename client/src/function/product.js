@@ -19,3 +19,5 @@ export const deleteProduct = async (_id, authtoken) =>
       },
       
 	})
+export const getProduct = async (_id, ) =>
+   await axios.get(`${process.env.REACT_APP_API}/product/${_id}`)

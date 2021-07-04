@@ -12,7 +12,7 @@ import FileUpload from '../../../../components/forms/FileUpload'
 import { Layout, Row, Col, } from "antd";
 import { toast } from "react-toastify";
 import ProductsForm from "../../../../components/forms/ProductsForm";
-import branch from "../../../../reducers/branch";
+
 import { LoadingOutlined } from "@ant-design/icons";
 
 const { Content, Footer } = Layout;
@@ -27,14 +27,14 @@ const initialState = {
 	category: '',
 	categories: [],
 	subs: [],
-	branches: [],
-	branch: '',
+
+	
 	quantity: '',
 
 	images: [],
-	shipping: '',
+	shipping: ['Yes','No'],
 	qualities: ['Original', 'Hieght Quality', 'Used'],
-	warrantyAvailable: '',
+	warrantyAvailable: ['Yes','No'],
 	madeIn: '',
 	cratedBy: ''
 
