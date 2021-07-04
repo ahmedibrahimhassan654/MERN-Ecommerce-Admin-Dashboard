@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
 import OwnernNav from '../../../../../src/components/nav/OwnerNav';
-
+import {useParams} from 'react-router-dom'
 
 import { Layout, Row, Col, } from "antd";
 import { toast } from "react-toastify";
@@ -14,13 +14,13 @@ const { Content, Footer } = Layout;
 
 
 
-const UpdateProduct = (props) => {
+const UpdateProduct = ({match}) => {
 
 
 	//redux
 	const { user } = useSelector((state) => ({ ...state }));
-
-
+  
+const{_id} = match.params
 	const currentYear = new Date().getFullYear()
 	return (
 		<Layout
@@ -40,7 +40,7 @@ const UpdateProduct = (props) => {
 			>
             <div className="container">
                <h1>update Product</h1>
-
+               {JSON.stringify(_id)}
             </div>
 				<Footer style={{ textAlign: 'center' }}>Ant Design {currentYear} Created by Ant UED</Footer>
 			</Content>

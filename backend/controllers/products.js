@@ -38,7 +38,7 @@ exports.getAllProducts = asyncHandler(
 
     const products = await Product.find()
       .limit(parseInt(req.params.count))
-      .populate('branches')
+  
       .populate('category')
       .populate('subs')
       .populate('cratedBy')
@@ -63,4 +63,13 @@ exports.remove = asyncHandler(async (req, res, next) => {
    res.json(deletdProduct)
 
    
+})
+exports.read = asyncHandler(async (req, res) => {
+   const product = await Product.findOne({_id: req.params._id})
+      .populate('category')
+      .populate('subs')
+      .populate('cratedBy')
+      .exec()
+   res.json(product)
+
 })
