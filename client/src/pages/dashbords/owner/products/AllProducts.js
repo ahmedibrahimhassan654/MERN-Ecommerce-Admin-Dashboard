@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Layout } from 'antd'
-
+import { toast } from "react-toastify";
 import OwnerNav from '../../../../components/nav/OwnerNav'
-import { getProductByCount } from '../../../../function/product'
+import { getProductByCount,deleteProduct } from '../../../../function/product'
 import OwnerProductCard from '../../../../components/cards/OwnerProductCard'
 
 import { useSelector } from 'react-redux'
@@ -31,7 +31,23 @@ const AllProducts = () => {
 				setLoading(false)
 				console.log(err);
 			})
-	}
+   }
+   const handleReove =  (_id) => {
+      let answer = window.confirm(' Are you shure you want to delete this product')
+      if (answer) {
+         deleteProduct(_id, user.token)
+            .then((res) => {
+               loadAllProducts()
+               toast.error(`Product ${res.data.title} is deleted successfully`)
+            })
+            .catch(err => {
+               if (err.response.status === 400) {
+                  toast.error(err.response.data);
+                  console.log(err);
+               }
+         })
+      }
+   }
 	return (
 		<div>
 			<Layout style={{ minHeight: '100vh' }}>
@@ -49,7 +65,7 @@ const AllProducts = () => {
 								<div className='row'>
 									{products.map(product => (
 										<div className='col-md-4 pb-3 pt-3' key={product._id}>
-											<OwnerProductCard product={product} />
+											<OwnerProductCard handleReove={handleReove} product={product} />
 
 										</div>
 									))}

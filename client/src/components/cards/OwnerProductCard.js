@@ -3,8 +3,8 @@ import { Card } from 'antd';
 import { EditOutlined,DeleteOutlined } from '@ant-design/icons';
 import iamge from '../../components/images/awhite_200319_3944_4.0.0.jpg';
 const { Meta } = Card;
-const OwnerProductCard = ({ product }) => {
-    const { title, description, images } = product
+const OwnerProductCard = ({ product ,handleReove}) => {
+    const { title, description, images ,_id} = product
     return (
         <div className="space-align-container m-5 ">
             <div className="space-align-block ">
@@ -30,7 +30,7 @@ const OwnerProductCard = ({ product }) => {
                 actions={
                    [
                       <EditOutlined className='text-warning'/>,
-                     <DeleteOutlined className="text-danger" />
+                     <DeleteOutlined onClick={()=>handleReove(_id)} className="text-danger" />
                   ]
                } 
                 >

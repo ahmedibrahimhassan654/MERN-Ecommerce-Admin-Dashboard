@@ -57,3 +57,10 @@ exports.getAllProducts = asyncHandler(
   }
 )
 
+exports.remove = asyncHandler(async (req, res, next) => {
+   const deletdProduct = await Product.findOneAndRemove({ _id: req.params._id }).exec();
+
+   res.json(deletdProduct)
+
+   
+})

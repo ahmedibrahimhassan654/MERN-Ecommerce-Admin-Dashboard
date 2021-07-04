@@ -18,7 +18,7 @@ const ProductSchema = new mongoose.Schema(
 		},
 		slug: {
 			type: String,
-			unique: false,
+			unique: true,
 			lowercase: true,
 			index: true,
 		},
