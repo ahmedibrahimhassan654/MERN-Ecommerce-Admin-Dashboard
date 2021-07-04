@@ -98,8 +98,9 @@ return(
     <>
     <div className="row">
         {values.images &&
-          values.images.map((image) => (
-            <Badge
+            values.images.map((image) => (
+             <div className='col-md-4'>
+                  <Badge
               count="X"
               key={image.public_id}
               onClick={() => handleImageRemove(image.public_id)}
@@ -113,6 +114,8 @@ return(
                 className="m-3"
               />
             </Badge>
+             </div>
+            
           ))}
       </div>
 <div className='row'>

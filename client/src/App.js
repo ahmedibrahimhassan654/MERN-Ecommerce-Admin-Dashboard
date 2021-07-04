@@ -33,6 +33,7 @@ import WishList from './pages/dashbords/user/WishList'
 import CreateCategory from './pages/dashbords/admin/Product Category/CreateCategory'
 import CtegoryUpdate from './pages/dashbords/admin/Product Category/CtegoryUpdate'
 import ProductCreate from './pages/dashbords/owner/products/ProductCreate'
+import Products from './pages/dashbords/owner/products/AllProducts'
 import { auth } from './firbase'
 import {
 	useDispatch,
@@ -122,7 +123,7 @@ const App = () => {
 					component={SubCreate}
 				/>
 				<OwnerRoute exact path='/owner/sub/:slug' component={SubUpdate} />
-
+            <OwnerRoute exact path='/owner/products' component={Products} />
 				{/* //manger routes */}
 				{/* <MangerRoute exact path='/manger/password' component={Password} /> */}
 				<MangerRoute

@@ -8,10 +8,13 @@ const OwnerProductCard = ({ product }) => {
             <div className="space-align-block ">
                 <Card
                     hoverable
-                    style={{ width: 240 }}
+                style={{
+                   width: 'auto',
+                   height:'auto'
+                }}
                     cover={
                         <img
-                            className='p-2'
+                            className='p-1'
                             style={{
                                 height: '150px',
                                 objectFit: 'cover'
