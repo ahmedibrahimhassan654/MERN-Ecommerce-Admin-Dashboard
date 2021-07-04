@@ -45,6 +45,7 @@ import SubCreate from './pages/dashbords/admin/ProductSubCategory/SubCreate'
 import SubUpdate from './pages/dashbords/admin/ProductSubCategory/SubUpdate'
 import AlertComp from './pages/AlertComp';
 import CreatBranch from './pages/dashbords/owner/branches/CreatBranch';
+import UpdateProduct from './pages/dashbords/owner/products/UpdateProduct';
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -124,6 +125,7 @@ const App = () => {
 				/>
 				<OwnerRoute exact path='/owner/sub/:slug' component={SubUpdate} />
             <OwnerRoute exact path='/owner/products' component={Products} />
+             <OwnerRoute exact path='/owner/product/:_id' component={UpdateProduct} />
 				{/* //manger routes */}
 				{/* <MangerRoute exact path='/manger/password' component={Password} /> */}
 				<MangerRoute

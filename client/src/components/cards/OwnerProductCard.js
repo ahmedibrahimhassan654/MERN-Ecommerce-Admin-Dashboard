@@ -2,6 +2,7 @@ import React from 'react'
 import { Card } from 'antd';
 import { EditOutlined,DeleteOutlined } from '@ant-design/icons';
 import iamge from '../../components/images/awhite_200319_3944_4.0.0.jpg';
+import { Link } from 'react-router-dom';
 const { Meta } = Card;
 const OwnerProductCard = ({ product ,handleReove}) => {
     const { title, description, images ,_id} = product
@@ -11,7 +12,7 @@ const OwnerProductCard = ({ product ,handleReove}) => {
                 <Card
                     hoverable
                 style={{
-                   width: 'auto',
+                   width: '500',
                    height: 'auto',
                   //  backgroundColor: 'black',
                    border:'5 solid black',
@@ -29,8 +30,20 @@ const OwnerProductCard = ({ product ,handleReove}) => {
                     }
                 actions={
                    [
-                      <EditOutlined className='text-warning'/>,
-                     <DeleteOutlined onClick={()=>handleReove(_id)} className="text-danger" />
+                      <div className='row'>
+                         <div className='col-md-6'>
+                              <Link to={`/owner/product/${_id}`}>
+                              <EditOutlined className='text-warning'/>,
+                              </Link>
+                         </div>
+                             <div className='col-md-6'>
+                            <DeleteOutlined onClick={() => handleReove(_id)} className="text-danger" />
+                         </div>
+                   
+                         
+                      
+                      </div>
+                      
                   ]
                } 
                 >
