@@ -8,6 +8,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 import { getCategories, getSubs } from '../../../../function/productcategory';
 import FileUpload from '../../../../components/forms/FileUpload'
+import ProductsUpdateForm from '../../../../components/forms/ProductUpdateForm'
 import { Layout, Row, Col, } from "antd";
 import { toast } from "react-toastify";
 
@@ -55,8 +56,15 @@ const UpdateProduct = ({ match }) => {
        
       })
    }
-	//redux
+const handleChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
+		// console.log(e.target.name,'-----',e.target.value);
+   };
+   
 
+   const handleSubmit =  (e) => {
+      console.log(e);
+   }
 	const currentYear = new Date().getFullYear()
 	return (
 		<Layout
@@ -76,7 +84,11 @@ const UpdateProduct = ({ match }) => {
 			>
             <div className="container">
                <h1>update Product</h1>
-               {JSON.stringify(values)}
+               <ProductsUpdateForm
+                  handleChange={handleChange}
+						handleSubmit={handleSubmit}
+						values={values}
+						setValues={setValues}/>
             </div>
 				<Footer style={{ textAlign: 'center' }}>Ant Design {currentYear} Created by Ant UED</Footer>
 			</Content>
