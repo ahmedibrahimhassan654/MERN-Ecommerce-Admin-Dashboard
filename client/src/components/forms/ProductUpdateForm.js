@@ -96,8 +96,8 @@ const ProductsUpdateForm=({
 				</div>
 				<div className="form-group ">
 					<Form.Item label="quality" className="text-primary">
-						<select name="quality" className="form-control  w-50" onChange={handleChange}>
-							<option>Please select</option>
+						<select value={quality} name="quality" className="form-control  w-50" onChange={handleChange}>
+							
 							{qualities.map((q) => (
 								<option key={q} value={q}>
 									{q}
@@ -108,8 +108,12 @@ const ProductsUpdateForm=({
 				</div>
 				<div className="form-group ">
 					<Form.Item label="shipping option" className="text-primary">
-						<select name="shipping" className="form-control  w-50" onChange={handleChange}>
-							<option>Please select</option>
+                  <select
+                     value={shipping ==='Yes' ? 'Yes' : 'No'}
+                     name="shipping"
+                     className="form-control  w-50"
+                     onChange={handleChange}>
+							
 							<option value="No">No</option>
 							<option value="Yes">Yes</option>
 						</select>
@@ -136,8 +140,8 @@ const ProductsUpdateForm=({
 
 				<div className="form-group ">
 					<Form.Item label="warranty Available" className="text-primary">
-						<select name="warrantyAvailable" className="form-control  w-50" onChange={handleChange}>
-							<option>Please select</option>
+						<select value={warrantyAvailable} name="warrantyAvailable" className="form-control  w-50" onChange={handleChange}>
+							
 
 							<option value="No">No</option>
 							<option value="Yes">Yes</option>
