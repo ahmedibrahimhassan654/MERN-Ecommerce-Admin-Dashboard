@@ -137,14 +137,7 @@ const Header = () => {
 						>
 							DashBoard
 						</Item>
-						<Item
-							key='username 2'
-							icon={
-								<UserAddOutlined style={{ fontSize: '20px', color: '#08c' }} />
-							}
-						>
-							username 2
-						</Item>
+				
 						<Item
 							icon={
 								<LogoutOutlined style={{ fontSize: '20px', color: '#08c' }} />
