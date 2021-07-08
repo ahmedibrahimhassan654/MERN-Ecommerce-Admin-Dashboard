@@ -12,11 +12,11 @@ import {
 	ProfileOutlined,
 	SmileOutlined,
 } from '@ant-design/icons'
-import { Link ,useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import firebase from 'firebase';
-import { useDispatch ,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 //import { toast } from 'react-toastify';
-const { SubMenu ,Item} = Menu;
+const { SubMenu, Item } = Menu;
 
 
 const Header = () => {
@@ -55,9 +55,9 @@ const Header = () => {
 		console.log(e)
 		if (user.role === 'admin') {
 			history.push('/admin/dashboard')
-			
+
 		}
-		
+
 		else if (user.role === 'employee') {
 			history.push('/employee/dashboard')
 		} else if (user.role === 'owner') {
@@ -137,7 +137,7 @@ const Header = () => {
 						>
 							DashBoard
 						</Item>
-				
+
 						<Item
 							icon={
 								<LogoutOutlined style={{ fontSize: '20px', color: '#08c' }} />

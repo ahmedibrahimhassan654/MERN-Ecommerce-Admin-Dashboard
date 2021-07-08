@@ -11,20 +11,24 @@ const layout = {
 		span: 16,
 	},
 };
-const ProductsUpdateForm=({
+const ProductsUpdateForm = ({
 	handleSubmit,
 	handleChange,
 	values,
 	setValues,
+	handleCategoryChange,
+	subOptions,
+	categories
 
-})=> {
+
+
+}) => {
 	//destructure
 	const {
 		title,
 		description,
 		price,
 		category,
-		categories,
 		subs,
 		quantity,
 		sold,
@@ -34,7 +38,7 @@ const ProductsUpdateForm=({
 		qualities,
 		warrantyAvailable,
 		madeIn,
-	
+
 
 	} = values;
 
@@ -97,7 +101,7 @@ const ProductsUpdateForm=({
 				<div className="form-group ">
 					<Form.Item label="quality" className="text-primary">
 						<select value={quality} name="quality" className="form-control  w-50" onChange={handleChange}>
-							
+
 							{qualities.map((q) => (
 								<option key={q} value={q}>
 									{q}
@@ -108,12 +112,12 @@ const ProductsUpdateForm=({
 				</div>
 				<div className="form-group ">
 					<Form.Item label="shipping option" className="text-primary">
-                  <select
-                     value={shipping ==='Yes' ? 'Yes' : 'No'}
-                     name="shipping"
-                     className="form-control  w-50"
-                     onChange={handleChange}>
-							
+						<select
+							value={shipping === 'Yes' ? 'Yes' : 'No'}
+							name="shipping"
+							className="form-control  w-50"
+							onChange={handleChange}>
+
 							<option value="No">No</option>
 							<option value="Yes">Yes</option>
 						</select>
@@ -122,7 +126,7 @@ const ProductsUpdateForm=({
 
 
 
-				
+
 
 				<div className="form-group ">
 					<Form.Item label="Quantity" className="text-primary">
@@ -141,7 +145,7 @@ const ProductsUpdateForm=({
 				<div className="form-group ">
 					<Form.Item label="warranty Available" className="text-primary">
 						<select value={warrantyAvailable} name="warrantyAvailable" className="form-control  w-50" onChange={handleChange}>
-							
+
 
 							<option value="No">No</option>
 							<option value="Yes">Yes</option>
@@ -159,6 +163,23 @@ const ProductsUpdateForm=({
 							onChange={handleChange}
 						/>
 					</Form.Item>
+				</div>
+				<div className="form-group ">
+					<Form.Item label="Chose Category" className="text-primary">
+						<select name="category" className="form-control" onChange={handleCategoryChange}>
+							<option>{
+								category ? category.name : 'Please select'
+
+							}</option>
+							{categories.length > 0 &&
+								categories.map((c) => (
+									<option key={c._id} value={c._id}>
+										{c.name}
+									</option>
+								))}
+						</select>
+					</Form.Item>
+					{categories.length}
 				</div>
 				<br />
 				<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 7 }}>

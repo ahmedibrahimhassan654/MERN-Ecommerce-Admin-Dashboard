@@ -22,16 +22,16 @@ const initialState = {
 	description: '',
 	price: '',
 	category: '',
-	categories: [],
+
 	subs: [],
 
-	
+
 	quantity: '',
 
 	images: [],
-	shipping: ['Yes','No'],
+	shipping: ['Yes', 'No'],
 	qualities: ['Original', 'Hieght Quality', 'Used'],
-	warrantyAvailable:['Yes','No'],
+	warrantyAvailable: ['Yes', 'No'],
 	madeIn: '',
 	cratedBy: ''
 
@@ -39,32 +39,55 @@ const initialState = {
 
 
 const UpdateProduct = ({ match }) => {
-   	const [values, setValues] = useState(initialState);
+	const [values, setValues] = useState(initialState);
+
+	const [subOptions, setSubOptions] = useState([]);
+	const [categories, setCategories] = useState([])
 	const { user } = useSelector((state) => ({ ...state }));
-  
-   const { _id } = match.params
-   
-   useEffect(() => {
 
-   loadProduct()
-   })
-   
-   const loadProduct = () => {
-      getProduct(_id)
-         .then((res) => {
-            setValues({ ...values, ...res.data})
-       
-      })
-   }
-const handleChange = (e) => {
-		setValues({ ...values, [e.target.name]: e.target.value });
-		// console.log(e.target.name,'-----',e.target.value);
-   };
-   
+	const { _id } = match.params
 
-   const handleSubmit =  (e) => {
-      console.log(e);
-   }
+	useEffect(() => {
+
+		loadProduct()
+		loadCategories()
+	})
+
+	const loadProduct = () => {
+		getProduct(_id)
+			.then((res) => {
+				setValues({ ...values, ...res.data })
+
+			})
+
+
+
+	}
+
+	const loadCategories = () => {
+
+		getCategories().then((c) => { setCategories(c.data) }
+		)
+	}
+
+
+	const handleChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value })
+	};
+	const handleCategoryChange = (e) => {
+		e.preventDefault();
+		console.log('Clicked Category _id', e.target.value);
+		setValues({ ...values, subs: [], category: e.target.value });
+		getSubs(e.target.value).then((res) => {
+			console.log(res);
+			setSubOptions(res.data.subs);
+		});
+
+	};
+
+	const handleSubmit = (e) => {
+		console.log(e);
+	}
 	const currentYear = new Date().getFullYear()
 	return (
 		<Layout
@@ -82,14 +105,20 @@ const handleChange = (e) => {
 					// textAlign: 'center',
 				}}
 			>
-            <div className="container">
-               <h1>update Product</h1>
-               <ProductsUpdateForm
-                  handleChange={handleChange}
+				<div className="container">
+					<h1>update Product</h1>
+					{JSON.stringify(values)}
+					<ProductsUpdateForm
+						handleChange={handleChange}
 						handleSubmit={handleSubmit}
 						values={values}
-						setValues={setValues}/>
-            </div>
+						setValues={setValues}
+						handleCategoryChange={handleCategoryChange}
+						subOptions={subOptions}
+						categories={categories}
+					/>
+
+				</div>
 				<Footer style={{ textAlign: 'center' }}>Ant Design {currentYear} Created by Ant UED</Footer>
 			</Content>
 		</Layout>
