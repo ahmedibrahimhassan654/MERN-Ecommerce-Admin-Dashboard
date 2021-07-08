@@ -28,13 +28,13 @@ const initialState = {
 	categories: [],
 	subs: [],
 
-	
+
 	quantity: '',
 
 	images: [],
-	shipping: ['Yes','No'],
+	shipping: ['Yes', 'No'],
 	qualities: ['Original', 'Hieght Quality', 'Used'],
-	warrantyAvailable: ['Yes','No'],
+	warrantyAvailable: ['Yes', 'No'],
 	madeIn: '',
 	cratedBy: ''
 
@@ -59,7 +59,7 @@ const ProductCreate = (props) => {
 
 
 
-	}, []);
+	});
 
 
 

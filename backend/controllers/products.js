@@ -38,7 +38,7 @@ exports.getAllProducts = asyncHandler(
 
     const products = await Product.find()
       .limit(parseInt(req.params.count))
-  
+
       .populate('category')
       .populate('subs')
       .populate('cratedBy')
@@ -58,18 +58,18 @@ exports.getAllProducts = asyncHandler(
 )
 
 exports.remove = asyncHandler(async (req, res, next) => {
-   const deletdProduct = await Product.findOneAndRemove({ _id: req.params._id }).exec();
+  const deletdProduct = await Product.findOneAndRemove({ _id: req.params._id }).exec();
 
-   res.json(deletdProduct)
+  res.json(deletdProduct)
 
-   
+
 })
 exports.read = asyncHandler(async (req, res) => {
-   const product = await Product.findOne({_id: req.params._id})
-      .populate('category')
-      .populate('subs')
-      .populate('cratedBy')
-      .exec()
-   res.json(product)
+  const product = await Product.findOne({ _id: req.params._id })
+    .populate('category')
+    .populate('subs')
+    .populate('cratedBy')
+    .exec()
+  res.json(product)
 
 })

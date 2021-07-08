@@ -18,7 +18,9 @@ const ProductsUpdateForm = ({
 	setValues,
 	handleCategoryChange,
 	subOptions,
-	categories
+	categories,
+	arrayOfSubIds,
+	setArrayOfSubIds
 
 
 
@@ -180,6 +182,25 @@ const ProductsUpdateForm = ({
 						</select>
 					</Form.Item>
 					{categories.length}
+				</div>
+				<div className="form-group ">
+					<Form.Item label="Chose Sub Category" className="text-primary">
+						<Select
+							mode="multiple"
+							allowClear
+							style={{ width: '50%' }}
+							value={arrayOfSubIds}
+
+							onChange={(value) => setArrayOfSubIds(value)}
+						>
+							{subOptions.length &&
+								subOptions.map((sub) => (
+									<Option key={sub._id} value={sub._id}>
+										{sub.name}
+									</Option>
+								))}
+						</Select>
+					</Form.Item>
 				</div>
 				<br />
 				<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 7 }}>

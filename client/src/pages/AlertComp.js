@@ -3,7 +3,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect}from 'react-redux'
+import { connect } from 'react-redux'
 // import { Alert } from 'antd';
 
 const AlertComp = ({ alerts }) =>
@@ -12,17 +12,17 @@ const AlertComp = ({ alerts }) =>
    alerts.map(alert => (
       <div key={alert.id} className={`alert alert-${alert.alertType}`}>
          {alert.msg}
-   </div>
-    
-   ))
-   
+      </div>
 
-   AlertComp.propTypes = {
-   alerts: PropTypes.array.isRequired 
+   ))
+
+
+AlertComp.propTypes = {
+   alerts: PropTypes.array.isRequired
 
 }
 
 const mapStateToProps = state => ({
-   alerts:state.alert
+   alerts: state.alert
 })
-export default connect(mapStateToProps) (AlertComp)
+export default connect(mapStateToProps)(AlertComp)

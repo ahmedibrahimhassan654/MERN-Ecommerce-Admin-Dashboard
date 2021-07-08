@@ -1,16 +1,16 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import OwnernNav from '../../../../../src/components/nav/OwnerNav';
 
 import { getProduct } from '../../../../function/product'
 
-import { LoadingOutlined } from "@ant-design/icons";
+//import { LoadingOutlined } from "@ant-design/icons";
 
 import { getCategories, getSubs } from '../../../../function/productcategory';
-import FileUpload from '../../../../components/forms/FileUpload'
+//import FileUpload from '../../../../components/forms/FileUpload'
 import ProductsUpdateForm from '../../../../components/forms/ProductUpdateForm'
-import { Layout, Row, Col, } from "antd";
-import { toast } from "react-toastify";
+import { Layout } from "antd";
+//import { toast } from "react-toastify";
 
 
 const { Content, Footer } = Layout;
@@ -43,20 +43,31 @@ const UpdateProduct = ({ match }) => {
 
 	const [subOptions, setSubOptions] = useState([]);
 	const [categories, setCategories] = useState([])
+	const [arrayOfSubIds, setArrayOfSubIds] = useState([])
+
 	const { user } = useSelector((state) => ({ ...state }));
 
 	const { _id } = match.params
 
-	useEffect(() => {
-
-		loadProduct()
-		loadCategories()
-	})
 
 	const loadProduct = () => {
 		getProduct(_id)
-			.then((res) => {
-				setValues({ ...values, ...res.data })
+			.then((p) => {
+				//1 load single product
+				setValues({ ...values, ...p.data })
+
+				// // //2 load single product category subs
+				getSubs(p.data.category._id).then(res => {
+					//console.log(res);
+					setSubOptions(res.data.subs)// on first load show default subs
+				})
+				//3 prepare array of sub ids to show as default sub values in antd Select 
+				let arr = []
+				p.data.subs.map((s) => {
+					return arr.push(s._id)
+				})
+				console.log('ARR', arr);
+				setArrayOfSubIds((prev) => arr)//this is required for ant designe to work
 
 			})
 
@@ -66,7 +77,9 @@ const UpdateProduct = ({ match }) => {
 
 	const loadCategories = () => {
 
-		getCategories().then((c) => { setCategories(c.data) }
+		getCategories().then((c) => {
+			setCategories(c.data)
+		}
 		)
 	}
 
@@ -74,12 +87,13 @@ const UpdateProduct = ({ match }) => {
 	const handleChange = (e) => {
 		setValues({ ...values, [e.target.name]: e.target.value })
 	};
+
 	const handleCategoryChange = (e) => {
 		e.preventDefault();
 		console.log('Clicked Category _id', e.target.value);
-		setValues({ ...values, subs: [], category: e.target.value });
+		setValues({ ...values, subs: [] });
 		getSubs(e.target.value).then((res) => {
-			console.log(res);
+			//	console.log(res);
 			setSubOptions(res.data.subs);
 		});
 
@@ -88,6 +102,14 @@ const UpdateProduct = ({ match }) => {
 	const handleSubmit = (e) => {
 		console.log(e);
 	}
+
+
+	useEffect(() => {
+
+		loadProduct()
+		loadCategories()
+	})
+
 	const currentYear = new Date().getFullYear()
 	return (
 		<Layout
@@ -116,6 +138,8 @@ const UpdateProduct = ({ match }) => {
 						handleCategoryChange={handleCategoryChange}
 						subOptions={subOptions}
 						categories={categories}
+						arrayOfSubIds={arrayOfSubIds}
+						setArrayOfSubIds={setArrayOfSubIds}
 					/>
 
 				</div>
