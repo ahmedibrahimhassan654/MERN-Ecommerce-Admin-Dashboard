@@ -59,12 +59,12 @@ const UpdateProduct = ({ match }) => {
 				// // //2 load single product category subs
 				getSubs(p.data.category._id).then(res => {
 					//console.log(res);
-					setSubOptions(res.data.subs)// on first load show default subs
+					setSubOptions(res.data.subs)// on first load show default subs from backend api
 				})
 				//3 prepare array of sub ids to show as default sub values in antd Select 
 				let arr = []
 				p.data.subs.map((s) => {
-					return arr.push(s._id)
+					arr.push(s._id)
 				})
 				console.log('ARR', arr);
 				setArrayOfSubIds((prev) => arr)//this is required for ant designe to work
@@ -75,6 +75,11 @@ const UpdateProduct = ({ match }) => {
 
 	}
 
+	useEffect(() => {
+
+		loadProduct()
+		loadCategories()
+	})
 	const loadCategories = () => {
 
 		getCategories().then((c) => {
@@ -104,11 +109,6 @@ const UpdateProduct = ({ match }) => {
 	}
 
 
-	useEffect(() => {
-
-		loadProduct()
-		loadCategories()
-	})
 
 	const currentYear = new Date().getFullYear()
 	return (

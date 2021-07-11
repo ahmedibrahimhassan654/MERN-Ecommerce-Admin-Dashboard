@@ -4,7 +4,5 @@
    "editor.autoIndent": "advanced",
    "window.zoomLevel": 0,
    "git.ignoreLimitWarning": true,
-
- 
-
+   "terminal.integrated.experimentalRefreshOnResume": true,
 }
