@@ -73,3 +73,10 @@ exports.read = asyncHandler(async (req, res) => {
   res.json(product)
 
 })
+
+exports.update = asyncHandler(async (req, res) => {
+  const updated = await Product.findByIdAndUpdate({ _id: req.params._id }, req.body, { new: true }).exec()
+
+  res.json(updated)
+
+})

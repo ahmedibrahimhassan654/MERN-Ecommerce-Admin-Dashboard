@@ -10,6 +10,7 @@ import {
 	SafetyCertificateOutlined,
 	SubnodeOutlined,
 	SelectOutlined,
+	UnorderedListOutlined,
 } from '@ant-design/icons'
 import { Menu, Layout } from 'antd'
 import { useSelector } from 'react-redux'
@@ -128,7 +129,15 @@ const OwnerNav = () => {
 							<Link className='nav-link' to='/owner/create-product'></Link>
 						</Menu.Item>
 
+						<Menu.Item
+							key='All Products'
+							icon={<UnorderedListOutlined />}
+							title='roducts'
+						>
 
+							products
+							<Link className='nav-link' to='/owner/products'></Link>
+						</Menu.Item>
 					</SubMenu>
 					<SubMenu key='sub1' icon={<UserOutlined />} title='profile'>
 
