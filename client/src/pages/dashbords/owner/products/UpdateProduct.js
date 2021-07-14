@@ -44,11 +44,16 @@ const UpdateProduct = ({ match }) => {
 	const [subOptions, setSubOptions] = useState([]);
 	const [categories, setCategories] = useState([])
 	const [arrayOfSubIds, setArrayOfSubIds] = useState([])
-
+	const [selectedCategory, setSelectedCategory] = useState("");
 	const { user } = useSelector((state) => ({ ...state }));
 
 	const { _id } = match.params
 
+	useEffect(() => {
+
+		loadProduct()
+		loadCategories()
+	})
 
 	const loadProduct = () => {
 		getProduct(_id)
@@ -75,11 +80,7 @@ const UpdateProduct = ({ match }) => {
 
 	}
 
-	useEffect(() => {
 
-		loadProduct()
-		loadCategories()
-	})
 	const loadCategories = () => {
 
 		getCategories().then((c) => {
@@ -97,10 +98,21 @@ const UpdateProduct = ({ match }) => {
 		e.preventDefault();
 		console.log('Clicked Category _id', e.target.value);
 		setValues({ ...values, subs: [] });
+		setSelectedCategory(e.target.value);
+
 		getSubs(e.target.value).then((res) => {
 			//	console.log(res);
 			setSubOptions(res.data.subs);
 		});
+		console.log("EXISTING CATEGORY values.category", values.category);
+
+		// if user clicks back to the original category
+		// show its sub categories in default
+		if (values.category._id === e.target.value) {
+			loadProduct();
+		}
+		// clear old sub category ids
+		setArrayOfSubIds([]);
 
 	};
 
