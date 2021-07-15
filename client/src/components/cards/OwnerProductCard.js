@@ -7,6 +7,7 @@ const { Meta } = Card;
 const OwnerProductCard = ({ product, handleReove }) => {
     const { title, description, images, _id } = product
     return (
+
         <div className="space-align-container m-5 ">
             <div className="space-align-block ">
                 <Card
