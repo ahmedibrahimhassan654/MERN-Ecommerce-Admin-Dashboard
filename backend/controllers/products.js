@@ -80,3 +80,16 @@ exports.update = asyncHandler(async (req, res) => {
   res.json(updated)
 
 })
+
+
+exports.list = asyncHandler(async (req, res) => {
+  const { sort, order, limit } = req.body
+  const products = await Product.find({})
+    .populate('category')
+    .populate('subs')
+    .sort([[sort, order]])
+    .limit(limit)
+    .exec()
+  res.json(products)
+
+})
