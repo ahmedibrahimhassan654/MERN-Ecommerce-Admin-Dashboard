@@ -2,13 +2,9 @@ const mongoose = require('mongoose');
 
 
 const ProductSchema = new mongoose.Schema(
-	{	
-		branches:{	
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Branch',
-				
-			},
-	
+	{
+
+
 		title: {
 			type: String,
 			required: [true, 'please add product name '],
@@ -30,10 +26,10 @@ const ProductSchema = new mongoose.Schema(
 			text: true, //used when use search
 			trim: true,
 		},
-	
+
 		quantity: {
 			type: Number,
-				},
+		},
 		price: {
 			type: Number,
 			required: true,
@@ -51,14 +47,14 @@ const ProductSchema = new mongoose.Schema(
 				ref: 'ProductSub',
 			},
 		],
-		
+
 
 
 		images: {
-		 type:Array,
+			type: Array,
 		},
 
-	
+
 		shipping: {
 			type: String,
 			enum: ['Yes', 'No'],
@@ -80,7 +76,7 @@ const ProductSchema = new mongoose.Schema(
 		cratedBy: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
-		
+
 		},
 	},
 	{ timestamps: true }

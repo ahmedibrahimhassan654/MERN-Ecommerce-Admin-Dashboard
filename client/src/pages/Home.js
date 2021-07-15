@@ -1,52 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import ProductCard from '../components/cards/ProductCard';
-import { getProductByCount } from '../function/product';
+import React from 'react';
 import Jumptrone from '../components/cards/Jumptrone';
-import LoadingCard from '../components/cards/LoadingCard';
-
-
+import NewArrivals from '../components/Home/NewArrivals'
 const Home = () => {
 
 
-  const [products, setProducts] = useState([])
-  const [loading, setloadind] = useState(false)
 
-  useEffect(() => {
-    loadAllProducts()
-  }, [])
 
-  const loadAllProducts = () => {
-    setloadind(true)
-    getProductByCount(3).then((res) => {
-      setProducts(res.data.products)
-    })
-    setloadind(false)
-  }
+
   return (
     <>
       <div className='jumbotron text-danger text-center font-weight-bold h1'>
         <Jumptrone text={['latest products', "New Arrivals", 'Best Sellers']} />
       </div>
 
-      <div className='container'>
 
-        {loading ? <LoadingCard
+      <h1 className='jumbotron text-danger  text-center p-3 mt-5 mb-5'>New Arrivals</h1>
 
-          count={3}
+      <NewArrivals />
 
-        /> : <div className="row">
-
-          {products.map((product) => (
-            <div key={product._id} className='col-md-4'>
-              <ProductCard product={product} />
-            </div>
-
-          ))}
-
-        </div>}
-
-
-      </div>
     </>
   );
 };
