@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/cards/ProductCard';
 import { getProductByCount } from '../function/product';
-import Jumptrone from '../components/cards/Jumptrone'
-
+import Jumptrone from '../components/cards/Jumptrone';
+import LoadingCard from '../components/cards/LoadingCard';
 
 
 const Home = () => {
@@ -30,7 +30,11 @@ const Home = () => {
 
       <div className='container'>
 
-        <div className="row">
+        {loading ? <LoadingCard
+
+          count={3}
+
+        /> : <div className="row">
 
           {products.map((product) => (
             <div key={product._id} className='col-md-4'>
@@ -39,7 +43,7 @@ const Home = () => {
 
           ))}
 
-        </div>
+        </div>}
 
 
       </div>

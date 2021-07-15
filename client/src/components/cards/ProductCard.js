@@ -3,12 +3,13 @@ import { Card } from 'antd';
 import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import iamge from '../../components/images/awhite_200319_3944_4.0.0.jpg';
 import { Link } from 'react-router-dom';
-
+import LoadingCard from '../cards/LoadingCard'
 const { Meta } = Card;
 const ProductCard = ({ product }) => {
     const { title, description, images, _id } = product
     return (
         <>
+
             <Card
                 hoverable
                 style={{ width: 300 }}
