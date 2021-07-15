@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/cards/ProductCard';
-import { getProductByCount } from '../function/product'
-
+import { getProductByCount } from '../function/product';
+import Jumptrone from '../components/cards/Jumptrone'
 
 
 
@@ -24,8 +24,8 @@ const Home = () => {
   }
   return (
     <>
-      <div className='jumbotron'>
-        {loading ? (<h4>Loading ...</h4>) : (<h4 className='primary '>All Products</h4>)}
+      <div className='jumbotron text-danger text-center font-weight-bold h1'>
+        <Jumptrone text={['latest products', "New Arrivals", 'Best Sellers']} />
       </div>
 
       <div className='container'>
