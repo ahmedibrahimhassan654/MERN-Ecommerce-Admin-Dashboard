@@ -93,3 +93,10 @@ exports.list = asyncHandler(async (req, res) => {
   res.json(products)
 
 })
+exports.productsCount = asyncHandler(async (req, res) => {
+  const total = await Product.find({}).estimatedDocumentCount().exec()
+
+  res.json(total)
+
+
+})
