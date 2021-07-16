@@ -47,9 +47,9 @@ exports.getAllProducts = asyncHandler(
 
     console.log(products);
     res.status(200).json({
-      number: products.length,
-      sucess: true,
-      msg: 'get All Products',
+      // number: products.length,
+      // sucess: true,
+      // msg: 'get All Products',
       products
 
     })
@@ -82,17 +82,38 @@ exports.update = asyncHandler(async (req, res) => {
 })
 
 
+// exports.list = asyncHandler(async (req, res) => {
+//   const { sort, order, limit } = req.body
+//   const products = await Product.find({})
+//     .populate('category')
+//     .populate('subs')
+//     .sort([[sort, order]])
+//     .limit(limit)
+//     .exec()
+//   res.json(products)
+
+// })
+
+
+
+//with pagination
+
 exports.list = asyncHandler(async (req, res) => {
-  const { sort, order, limit } = req.body
+  const { sort, order, page } = req.body
+  const currentPage = page || 1;
+  const perPage = 3;
+
   const products = await Product.find({})
+    .skip((currentPage - 1) * perPage)
     .populate('category')
     .populate('subs')
     .sort([[sort, order]])
-    .limit(limit)
+    .limit(perPage)
     .exec()
   res.json(products)
 
 })
+
 exports.productsCount = asyncHandler(async (req, res) => {
   const total = await Product.find({}).estimatedDocumentCount().exec()
 
