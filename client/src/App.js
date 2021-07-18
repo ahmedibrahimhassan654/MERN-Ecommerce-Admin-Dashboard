@@ -34,6 +34,7 @@ import CreateCategory from './pages/dashbords/admin/Product Category/CreateCateg
 import CtegoryUpdate from './pages/dashbords/admin/Product Category/CtegoryUpdate'
 import ProductCreate from './pages/dashbords/owner/products/ProductCreate'
 import Products from './pages/dashbords/owner/products/AllProducts'
+import Product from './pages/Product'
 import { auth } from './firbase'
 import {
 	useDispatch,
@@ -93,6 +94,7 @@ const App = () => {
 				<Route exact path='/owner' component={Owner} />
 				<Route exact path='/register/complete' component={RegisterComplete} />
 				<Route exact path='/forgot/password' component={Forgotpassword} />
+				<Route exact path='/product/:_id' component={Product} />
 				{/* //user routes */}
 				<UserRoute exact path='/user/dashboard' component={UserDashBord} />
 				<UserRoute exact path='/user/password' component={Password} />
@@ -124,8 +126,10 @@ const App = () => {
 					component={SubCreate}
 				/>
 				<OwnerRoute exact path='/owner/sub/:slug' component={SubUpdate} />
-            <OwnerRoute exact path='/owner/products' component={Products} />
-             <OwnerRoute exact path='/owner/product/:_id' component={UpdateProduct} />
+				<OwnerRoute exact path='/owner/products' component={Products} />
+				<OwnerRoute exact path='/owner/product/:_id' component={UpdateProduct} />
+
+
 				{/* //manger routes */}
 				{/* <MangerRoute exact path='/manger/password' component={Password} /> */}
 				<MangerRoute

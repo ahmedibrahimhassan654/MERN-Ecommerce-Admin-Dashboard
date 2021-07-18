@@ -10,12 +10,12 @@ const {
    read,
    update,
    list,
-   productsCount
+   getProductsCount
 
 } = require('../controllers/products')
 
 router.post('/product', authCheck, ownerCheck, create)
-router.get('/products/total', productsCount)
+router.get('/products/total', getProductsCount)
 router.get('/products/:count', getAllProducts) //product/100
 router.delete('/product/:_id', authCheck, ownerCheck, remove)
 router.get('/product/:_id', read)

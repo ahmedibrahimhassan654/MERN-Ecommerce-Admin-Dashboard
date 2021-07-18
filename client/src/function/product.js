@@ -19,7 +19,7 @@ export const deleteProduct = async (_id, authtoken) =>
 		},
 
 	})
-export const getProduct = async (_id,) =>
+export const getProduct = async (_id) =>
 	await axios.get(`${process.env.REACT_APP_API}/product/${_id}`)
 
 
@@ -33,11 +33,16 @@ export const updateProduct = async (_id, product, authtoken) =>
 	})
 
 
-export const getProducts = async (sort, order, limit) =>
+export const getProducts = async (sort, order, page) =>
 	await axios.post(`${process.env.REACT_APP_API}/products`, {
 		sort,
 		order,
-		limit
+		page
 
 
 	})
+
+export const getProductsCount = async () =>
+	await axios.get(`${process.env.REACT_APP_API}/products/total`)
+
+
