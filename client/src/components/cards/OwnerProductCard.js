@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, PicRightOutlined } from '@ant-design/icons';
 import iamge from '../../components/images/awhite_200319_3944_4.0.0.jpg';
 import { Link } from 'react-router-dom';
 const { Meta } = Card;
@@ -25,14 +25,20 @@ const OwnerProductCard = ({ product, handleReove }) => {
                     }
                     actions={
                         [
-                            <div className='row'>
-                                <div className='col-md-6'>
+                            <div className='row text-center'>
+                                <div className='col-md-3'>
                                     <Link to={`/owner/product/${_id}`}>
                                         <EditOutlined className='text-warning' />,
                                     </Link>
                                 </div>
-                                <div className='col-md-6'>
+                                <div className='col-md-3'>
                                     <DeleteOutlined onClick={() => handleReove(_id)} className="text-danger" />
+                                </div>
+                                <div className='col-md-3 '>
+                                    <Link to={`/product/${_id}`}>
+
+                                        <PicRightOutlined className='text-primary' />
+                                    </Link>
                                 </div>
 
 

@@ -36,13 +36,13 @@ const NewArrivals = () => {
         <>
 
 
-            <div className='container'>
+            <div className='container  justify-content-center'>
 
                 {loading ? <LoadingCard
 
                     count={3}
 
-                /> : <div className="row">
+                /> : <div className="row ">
 
                     {products.map((product) => (
                         <div key={product._id} className='col-md-4'>

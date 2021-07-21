@@ -50,15 +50,16 @@ const BestSold = () => {
                             {product.sold > 0 ?
 
                                 <div key={product._id} className='col-md-4 pt-5'>
-                                    <div className=' ' >
-                                        <Badge count={product.sold}>
-                                            <a href="#" className="m-3 text-center mt-2 mb-3 text-primary" >
-                                                sold
-                                            </a>
-                                        </Badge>
-                                    </div>
 
-                                    <ProductCard product={product} />
+
+
+
+
+
+                                    <Badge.Ribbon text={`sold ${product.sold} times`} color="magenta" >
+
+                                        <ProductCard product={product} />
+                                    </Badge.Ribbon>
                                 </div> : ''}
 
                         </>
@@ -73,6 +74,7 @@ const BestSold = () => {
             <div className='row'>
                 <nav className='col-md-4 offset-md-4 text-center pt-4 p-4'>
                     <Pagination
+                        products={products}
                         current={page}
                         //(productsCount / 3)where 3 for total number per page 
                         total={(productsCount / 3) * 10}

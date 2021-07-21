@@ -20,12 +20,13 @@ const Home = () => {
 
 
       <h1 className='jumbotron text-primary  text-center p-3 mt-5 mb-5'>New Arrivals</h1>
+      <div className='container  justify-content-center'>
+        <NewArrivals />
 
-      <NewArrivals />
+        <h1 className='jumbotron text-danger  text-center p-3 mt-5 mb-5'>Best Sold</h1>
 
-      <h1 className='jumbotron text-danger  text-center p-3 mt-5 mb-5'>Best Sold</h1>
-
-      <BestSold />
+        <BestSold />
+      </div>
       <Footer style={{ textAlign: 'center' }}>we are almost there  {currentYear} Created by Ahmed Ibrahim</Footer>
 
     </>

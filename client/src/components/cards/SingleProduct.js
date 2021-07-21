@@ -1,8 +1,11 @@
 import React from 'react'
-import { Skeleton, Switch, Card, Avatar } from 'antd';
-import { EditOutlined, EllipsisOutlined, HeartOutlined, SettingOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { Card } from 'antd';
+import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+import Laptop from '../../components/images/awhite_200319_3944_4.0.0.jpg'
+import ProductListItems from './ProductListItems';
 const { Meta } = Card;
 
 const SingleProduct = ({ product }) => {
@@ -10,9 +13,26 @@ const SingleProduct = ({ product }) => {
     return (
         <>
             <div className='col-md-7 p-3 mb-2  '>
-                iamge product carosol
+                {images && images.length ? (<Carousel
+                    autoPlay={true}
+                    infiniteLoop={true}
+
+
+                >
+                    {images && images.map((i) => <img src={i.url} key={i.public_id} />)}
+                </Carousel>) : (
+                    <Card cover={
+                        <img
+                            src={Laptop}
+                            className='mb-3 card-image'
+                        />
+                    }>
+
+                    </Card>
+                )}
             </div>
             <div className='col-md-5 p-3 mb-2  '>
+
                 <Card
                     style={{ width: '100%' }}
                     hoverable
@@ -32,12 +52,8 @@ const SingleProduct = ({ product }) => {
                         </div>
                     ]}
                 >
-
-                    <Meta
-
-                        title={title}
-                        description={description}
-                    />
+                    <h1 className='text-center text-white p-3 mb-2 bg-success '>{title}</h1>
+                    <ProductListItems product={product} />
 
                 </Card>
             </div>
