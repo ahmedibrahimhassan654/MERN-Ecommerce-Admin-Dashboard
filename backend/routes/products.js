@@ -10,7 +10,8 @@ const {
    read,
    update,
    list,
-   getProductsCount
+   getProductsCount,
+   productStar
 
 } = require('../controllers/products')
 
@@ -21,6 +22,9 @@ router.delete('/product/:_id', authCheck, ownerCheck, remove)
 router.get('/product/:_id', read)
 router.put('/product/:_id', authCheck, ownerCheck, update)
 router.post('/products', list)
+
+//rating
+router.put('/product/star/:productId', authCheck, productStar)
 
 //for owner 
 

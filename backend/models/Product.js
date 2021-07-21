@@ -82,6 +82,17 @@ const ProductSchema = new mongoose.Schema(
 			ref: 'User',
 
 		},
+		ratings: [
+			{
+				star: Number,
+				postedBy: {
+					type: mongoose.Schema.Types.ObjectId,
+					ref: 'User',
+				},
+				advantages: String,
+				disAdvantages: String
+			}
+		]
 	},
 	{ timestamps: true }
 );

@@ -121,3 +121,57 @@ exports.getProductsCount = asyncHandler(async (req, res) => {
 
 
 })
+
+
+//product rating /product/star/:productId
+
+exports.productStar = asyncHandler(async (req, res) => {
+
+
+  const product = await Product.findById(req.params.productId).exec()
+
+  const user = await User.findOne({ email: req.user.emeail }).exec()
+
+  const { star, advantages, disAdvantages } = req.body
+
+  //who is updaing review in the product model
+  //check if the curent loged in user is already added review to the product 
+
+  let existingRatingObject = product.find(
+    ele => { ele.postedBy == user._id }
+  );
+
+  //if user havent rating yet push it 
+  if (existingRatingObject === undefined) {
+    let ratingAdded = await Product.findByIdAndUpdate(
+      product._id,
+      {
+        $push: {
+          ratings: { star, postedBy: user._id, advantages, disAdvantages }
+        }
+      },
+      { new: true }
+    ).exec()
+    console.log('ratingAdded', ratingAdded);
+
+    res.json(ratingAdded)
+  } else {
+    //if the user rate befour update it 
+    const ratingUpdated = await Product.updateOne(
+      { ratings: { $elemMatch: existingRatingObject } },
+      {
+        $set: {
+          'ratings.$.start': star,
+          'ratings.$.advantages': advantages,
+          'ratings.$.disAdvantages': disAdvantages
+        }
+      },
+      { new: true }
+
+    ).exec()
+
+    console.log('ratingUpdated', ratingUpdated);
+    res.json(ratingUpdated)
+  }
+
+})

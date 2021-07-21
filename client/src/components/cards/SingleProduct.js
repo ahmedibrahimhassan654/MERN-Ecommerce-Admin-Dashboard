@@ -9,7 +9,7 @@ import ProductListItems from './ProductListItems';
 
 const { TabPane } = Tabs;
 const SingleProduct = ({ product }) => {
-    const { title, description, images, _id, reviews } = product
+    const { title, description, images, _id, ratings } = product
     return (
         <>
             <div className='col-md-7 p-3 mb-2  '>
@@ -36,7 +36,7 @@ const SingleProduct = ({ product }) => {
                         {description && description}
                     </TabPane>
                     <TabPane tab="Reviews" key="2" className='text-center'>
-                        {reviews ? reviews : 'there is no review yet for this product'}
+                        {ratings ? ratings : 'there is no review yet for this product'}
                     </TabPane>
 
                 </Tabs>,
