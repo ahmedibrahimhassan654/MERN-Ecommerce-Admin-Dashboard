@@ -70,12 +70,12 @@ const Header = () => {
 	}
 
 	return (
-		<Menu onClick={handleClick} selectedKeys={[current]} mode='horizontal'>
+		<Menu onClick={handleClick} selectedKeys={[current]} mode='horizontal' >
 			<Item
 				key='home'
 				icon={<GroupOutlined style={{ fontSize: '20px', color: '#08c' }} />}
 			>
-				<Link to='/'>Home</Link>
+				<Link to='/'>Home </Link>
 			</Item>
 			{!user && (
 				<Item
@@ -94,14 +94,14 @@ const Header = () => {
 					icon={<IdcardOutlined style={{ fontSize: '20px', color: '#08c' }} />}
 					title="Register It's Free"
 				>
-					<Item
+					{/* <Item
 						key='owner'
 						icon={
 							<UserAddOutlined style={{ fontSize: '20px', color: '#08c' }} />
 						}
 					>
 						<Link to='/owner'>Register as owner</Link>
-					</Item>
+					</Item> */}
 					<Item
 						key='customer'
 						icon={<TeamOutlined style={{ fontSize: '20px', color: '#08c' }} />}

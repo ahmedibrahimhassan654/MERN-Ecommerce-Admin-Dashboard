@@ -1,15 +1,15 @@
 import React from 'react'
-import { Card } from 'antd';
+import { Card, Tabs } from 'antd';
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import Laptop from '../../components/images/awhite_200319_3944_4.0.0.jpg'
 import ProductListItems from './ProductListItems';
-const { Meta } = Card;
 
+const { TabPane } = Tabs;
 const SingleProduct = ({ product }) => {
-    const { title, description, images, _id } = product
+    const { title, description, images, _id, reviews } = product
     return (
         <>
             <div className='col-md-7 p-3 mb-2  '>
@@ -30,6 +30,16 @@ const SingleProduct = ({ product }) => {
 
                     </Card>
                 )}
+
+                <Tabs type="card" className='container'>
+                    <TabPane tab="Description" key="1" className='text-center'>
+                        {description && description}
+                    </TabPane>
+                    <TabPane tab="Reviews" key="2" className='text-center'>
+                        {reviews ? reviews : 'there is no review yet for this product'}
+                    </TabPane>
+
+                </Tabs>,
             </div>
             <div className='col-md-5 p-3 mb-2  '>
 

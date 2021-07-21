@@ -11,33 +11,37 @@ const ProductCard = ({ product }) => {
         <>
 
             <Badge.Ribbon text={`${price} Egp`} color="purple">
-                <Card
-                    hoverable
-                    style={{ width: 300 }}
-                    cover={
-                        <img
-                            alt={title}
-                            src={images && images.length ? images[0].url : iamge}
+                <Link to={`/product/${_id}`}>
+                    <Card
+                        hoverable
+                        style={{ width: 300 }}
+                        cover={
+                            <img
+                                alt={title}
+                                src={images && images.length ? images[0].url : iamge}
+                            />
+
+                        }
+                        actions={[
+                            <div className='row'>
+                                <div className='col-md-6'>
+                                    <Link to={`/product/${_id}`}>
+                                        <EyeOutlined className='text-success' /><br /> View Product
+                                    </Link>
+                                </div>
+                                <div className='col-md-6'>
+                                    < ShoppingCartOutlined className="text-danger" /><br /> Add To Cart
+                                </div>
+                            </div>
+                        ]}
+                    >
+                        <Meta
+                            title={title}
+                            description={description}
                         />
-                    }
-                    actions={[
-                        <div className='row'>
-                            <div className='col-md-6'>
-                                <Link to={`/product/${_id}`}>
-                                    <EyeOutlined className='text-success' /><br /> View Product
-                                </Link>
-                            </div>
-                            <div className='col-md-6'>
-                                < ShoppingCartOutlined className="text-danger" /><br /> Add To Cart
-                            </div>
-                        </div>
-                    ]}
-                >
-                    <Meta
-                        title={title}
-                        description={description}
-                    />
-                </Card>
+                    </Card>
+                </Link>
+
             </Badge.Ribbon>
         </>
     )
