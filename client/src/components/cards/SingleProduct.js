@@ -7,6 +7,7 @@ import { Carousel } from 'react-responsive-carousel';
 import Laptop from '../../components/images/awhite_200319_3944_4.0.0.jpg'
 import ProductListItems from './ProductListItems';
 import StarRatings from 'react-star-ratings';
+import RatingModal from '../modal/RatingModal';
 const { TabPane } = Tabs;
 const SingleProduct = ({ product }) => {
     const { title, description, images, _id, ratings } = product
@@ -48,31 +49,37 @@ const SingleProduct = ({ product }) => {
                     hoverable
                     actions={[
                         <div className='row'>
-                            <div className='col-md-6'>
+                            <div className='col-md-4'>
 
                                 <ShoppingCartOutlined className='text-success' /><br /> Add To Cart
 
                             </div>
-                            <div className='col-md-6'>
+                            <div className='col-md-4'>
                                 <Link>
                                     < HeartOutlined className="text-danger" /><br /> Add To Whishlist
 
                                 </Link>
                             </div>
+                            <div className='col-md-4'>
+                                <RatingModal>
+                                    <StarRatings
+                                        rating={3}
+                                        starRatedColor="blue"
+                                        changeRating={(newRating, name) => {
+                                            console.log('new rating', newRating, "name", name);
+                                        }}
+                                        numberOfStars={5}
+                                        name={_id}
+                                        isSelectable={true}
+                                    />
+                                </RatingModal>
+                            </div>
                         </div>
                     ]}
                 >
                     <h1 className='text-center text-white p-3 mb-2 bg-success '>{title}</h1>
-                    <StarRatings
-                        rating={3}
-                        starRatedColor="blue"
-                        changeRating={(newRating, name) => {
-                            console.log('new rating', newRating, "name", name);
-                        }}
-                        numberOfStars={5}
-                        name={_id}
-                        isSelectable={true}
-                    />
+
+
                     <ProductListItems product={product} />
 
                 </Card>
