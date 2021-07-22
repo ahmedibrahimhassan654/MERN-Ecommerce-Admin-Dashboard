@@ -120,20 +120,20 @@ const CreateCategory = () => {
 						<SearchForm keyword={keyword} setKeyword={setKeyword} />
 						<hr />
 						<div className='col'>
-							<span className='font-weight-bold text-primary mb-3'>
+							<span className='font-weight-bold text-primary mb-3 text-center'>
 								number of categories {categories.filter(searched(keyword)).length}
 							</span>
 							<div className='row'>
 								{categories.filter(searched(keyword)).map((c) => (
 									<>
 
-										<div className='col-md-4'>
+										<div className='col-md-4 mt-4 text-center'>
 											<Card
 												hoverable
 												key={c._id}
 												style={{
 													width: 300,
-													backgroundColor: '#AFFF33'
+													backgroundColor: '#F0F8FF	'
 												}}
 											>
 												<Meta title={c.name} description={c.description} />

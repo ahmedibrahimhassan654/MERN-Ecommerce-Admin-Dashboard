@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { StarOutlined } from '@ant-design/icons'
 import { useHistory, useParams } from 'react-router-dom';
 
-const { TextArea } = Input;
+
 const RatingModal = ({ children }) => {
 
     const { user } = useSelector((state) => ({ ...state }))
@@ -51,8 +51,7 @@ const RatingModal = ({ children }) => {
                 onCancel={() => setModalVisible(false)}
             >
                 {children}
-                <TextArea className='mt-3' rows={4} placeholder="Say the advatage for this product" />
-                <TextArea className='mt-3' rows={4} placeholder="Say the disAdvatage for this product to avoid that " />
+
             </Modal>
         </>
     )

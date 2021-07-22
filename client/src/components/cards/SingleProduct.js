@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Tabs } from 'antd';
+import { Card, Tabs, Input, Form } from 'antd';
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -9,7 +9,8 @@ import ProductListItems from './ProductListItems';
 import StarRatings from 'react-star-ratings';
 import RatingModal from '../modal/RatingModal';
 const { TabPane } = Tabs;
-const SingleProduct = ({ product }) => {
+const { TextArea } = Input;
+const SingleProduct = ({ product, onstarClicke, star, advantage, disAdvantage, handleChange, handledisadvantage }) => {
     const { title, description, images, _id, ratings } = product
     return (
         <>
@@ -64,15 +65,39 @@ const SingleProduct = ({ product }) => {
                                 <RatingModal product={product}>
                                     <StarRatings
 
-                                        rating={3}
-                                        starRatedColor="blue"
-                                        changeRating={(newRating, name) => {
-                                            console.log('new rating', newRating, "name", name);
-                                        }}
+                                        rating={star}
+                                        starRatedColor="gold"
+                                        changeRating={onstarClicke}
                                         numberOfStars={5}
                                         name={_id}
                                         isSelectable={true}
                                     />
+                                    <Form.Item >
+                                        <Input.TextArea
+                                            className='mt-3'
+                                            rows={4}
+                                            placeholder="Say the advatage for this product"
+                                            type='text'
+                                            value={advantage}
+                                            onChange={handleChange}
+                                            autoFocus
+                                        />
+                                    </Form.Item>
+
+                                    <Form.Item >
+                                        <Input.TextArea
+                                            className='mt-3'
+                                            rows={4}
+                                            placeholder="Say the disAdvatage for this product to avoid that"
+                                            type='text'
+                                            value={disAdvantage}
+                                            onChange={handledisadvantage}
+
+                                            autoFocus
+                                        />
+                                    </Form.Item>
+                                    {/* <TextArea className='mt-3' rows={4} placeholder="Say the advatage for this product" /> */}
+                                    {/* // <TextArea className='mt-3' rows={4} placeholder="Say the disAdvatage for this product to avoid that " /> */}
                                 </RatingModal>
                             </div>
                         </div>

@@ -130,14 +130,16 @@ exports.productStar = asyncHandler(async (req, res) => {
 
   const product = await Product.findById(req.params.productId).exec()
 
-  const user = await User.findOne({ email: req.user.emeail }).exec()
+  const user = await User.findOne({ email: req.user.email }).exec()
 
-  const { star, advantages, disAdvantages } = req.body
+  const { star, advantage, disAdvantage } = req.body
 
   //who is updaing review in the product model
   //check if the curent loged in user is already added review to the product 
 
-  let existingRatingObject = product.find(
+  console.log('start', star, 'advantage', advantage, 'disAdvantage', disAdvantage);
+
+  let existingRatingObject = product.ratings.find(
     ele => { ele.postedBy == user._id }
   );
 
@@ -147,7 +149,7 @@ exports.productStar = asyncHandler(async (req, res) => {
       product._id,
       {
         $push: {
-          ratings: { star, postedBy: user._id, advantages, disAdvantages }
+          ratings: { star, postedBy: user._id, advantage, disAdvantage }
         }
       },
       { new: true }
@@ -162,8 +164,8 @@ exports.productStar = asyncHandler(async (req, res) => {
       {
         $set: {
           'ratings.$.start': star,
-          'ratings.$.advantages': advantages,
-          'ratings.$.disAdvantages': disAdvantages
+          'ratings.$.advantage': advantage,
+          'ratings.$.disAdvantage': disAdvantage
         }
       },
       { new: true }

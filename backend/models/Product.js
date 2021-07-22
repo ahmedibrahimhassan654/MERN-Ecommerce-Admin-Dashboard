@@ -89,8 +89,8 @@ const ProductSchema = new mongoose.Schema(
 					type: mongoose.Schema.Types.ObjectId,
 					ref: 'User',
 				},
-				advantages: String,
-				disAdvantages: String
+				advantage: String,
+				disAdvantage: String
 			}
 		]
 	},

@@ -167,7 +167,7 @@ const SubCreate = () => {
 										</select>
 									</Form.Item>
 
-									{JSON.stringify(category)}
+
 								</Col>
 							</Row>
 						</div>
@@ -182,25 +182,33 @@ const SubCreate = () => {
 						{/* step2 and step 3 */}
 						<SearchForm keyword={keyword} setKeyword={setKeyword} />
 						<hr />
-						<div className='col'>
-							<span className="font-weight-bold text-primary mb-3">
+						<div className='row'>
+							<span className="font-weight-bold text-primary mb-3 text-center">
 								number of sub-categories {subs.filter(searched(keyword)).length}
 							</span>
 							<div className='row'>
 								{subs.filter(searched(keyword)).map((s) => (
 
 
-									<div className="col-md-4">
+									<div className="col-md-4 mt-4 text-center">
+
 										<Card
 
 											hoverable
 											key={s._id}
 											style={{
-												width: 240,
-												backgroundColor: '#AFFF33'
+												width: 300,
+												backgroundColor: '#F0F8FF	'
 											}}
 										>
-											<Meta title={s.name} description={s.description} />
+											{/* <Meta
+												title={s.name}
+												description={s.description}
+
+											/> */}
+											<h4>Name:<span>{s.name}</span></h4>
+											<h5>description:{s.name}</h5>
+											<h6>	category:{s.parent.name}</h6>
 
 											<div className="mt-2">
 												<span
