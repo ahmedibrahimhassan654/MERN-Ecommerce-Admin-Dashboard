@@ -54,15 +54,16 @@ const SingleProduct = ({ product }) => {
                                 <ShoppingCartOutlined className='text-success' /><br /> Add To Cart
 
                             </div>
-                            <div className='col-md-4'>
+                            <div className='col-md-4 border-left border-danger border-right  '>
                                 <Link>
                                     < HeartOutlined className="text-danger" /><br /> Add To Whishlist
 
                                 </Link>
                             </div>
                             <div className='col-md-4'>
-                                <RatingModal>
+                                <RatingModal product={product}>
                                     <StarRatings
+
                                         rating={3}
                                         starRatedColor="blue"
                                         changeRating={(newRating, name) => {
