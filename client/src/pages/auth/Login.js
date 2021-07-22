@@ -3,7 +3,7 @@ import { auth, googleAuthProvider } from '../../firbase'
 import { useDispatch, useSelector } from 'react-redux'
 // import { redirectBasedOnRole } from '../../function/redirectBasedOnRole'
 import { toast } from 'react-toastify'
-import { Button ,Form,Input} from 'antd'
+import { Button, Form, Input } from 'antd'
 import {
 	DollarCircleTwoTone,
 	LoadingOutlined,
@@ -18,28 +18,43 @@ const Login = ({ history }) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [loading, setloading] = useState(false)
+	const { user } = useSelector((state) => ({ ...state }))
 
-	const redirectBasedOnRole = (res) => {
-		if (res.data.role === 'admin') {
-			history.push('/admin/dashboard')
-		} else if (res.data.role === 'owner') {
-			history.push('/owner/dashboard')
-		} else if (res.data.role === 'manger') {
-			history.push('/manger/dashboard')
-		} else if (res.data.role === 'employee') {
-			history.push('/employee/dashboard')
+	useEffect(() => {
+		let intended = history.location.state
+		if (intended) {
+			return
 		} else {
-			history.push('/user/history')
+			if (user && user.token && user.role) history.push('/')
 		}
+
+	}, [user, history])
+	const redirectBasedOnRole = (res) => {
+
+		let intended = history.location.state
+		if (intended) {
+			history.push(intended.from)
+		} else {
+
+			if (res.data.role === 'admin') {
+				history.push('/admin/dashboard')
+			} else if (res.data.role === 'owner') {
+				history.push('/owner/dashboard')
+			} else if (res.data.role === 'manger') {
+				history.push('/manger/dashboard')
+			} else if (res.data.role === 'employee') {
+				history.push('/employee/dashboard')
+			} else {
+				history.push('/user/history')
+			}
+		}
+
 	}
 
 	let dispatch = useDispatch()
 
-	const { user } = useSelector((state) => ({ ...state }))
 
-	useEffect(() => {
-		if (user && user.token && user.role) history.push('/')
-	}, [user, history])
+
 
 	const loginWithGoogle = async () => {
 		auth
@@ -60,8 +75,8 @@ const Login = ({ history }) => {
 								picture: res.data.picture,
 								_id: res.data._id,
 							},
-                  })
-                  
+						})
+
 						redirectBasedOnRole(res)
 					})
 					.catch((err) => console.log(err))
@@ -125,27 +140,27 @@ const Login = ({ history }) => {
 				autoFocus
 			/> */}
 			<Form.Item
-      
-        name="password"
-        rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
-        className='mx-auto '
-      
-      >
-        <Input.Password 
-        placeholder='Enter  Password'
-        type='password'
-        className='form-control '
-        onChange={(e)=>setPassword(e.target.value)}
-        disabled={loading}
-		value={password}
-		autoFocus
-        />
-      </Form.Item>
+
+				name="password"
+				rules={[
+					{
+						required: true,
+						message: 'Please input your password!',
+					},
+				]}
+				className='mx-auto '
+
+			>
+				<Input.Password
+					placeholder='Enter  Password'
+					type='password'
+					className='form-control '
+					onChange={(e) => setPassword(e.target.value)}
+					disabled={loading}
+					value={password}
+					autoFocus
+				/>
+			</Form.Item>
 			<Button
 				onClick={handelSubmit}
 				className='mt-3'
