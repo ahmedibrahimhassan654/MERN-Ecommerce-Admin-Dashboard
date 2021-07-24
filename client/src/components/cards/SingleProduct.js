@@ -8,8 +8,10 @@ import Laptop from '../../components/images/awhite_200319_3944_4.0.0.jpg'
 import ProductListItems from './ProductListItems';
 import StarRatings from 'react-star-ratings';
 import RatingModal from '../modal/RatingModal';
-import { productStar } from '../../function/product'
+import { getProduct, productStar } from '../../function/product'
 import { useSelector } from 'react-redux';
+import { List } from 'antd/lib/form/Form';
+import Product from '../../pages/Product';
 
 
 const { TabPane } = Tabs;
@@ -22,11 +24,13 @@ const SingleProduct = ({ product, onstarClicke, star, }) => {
 
     const { user } = useSelector((state) => ({ ...state }));
 
-
+    const loadSingleProduct = () => {
+        getProduct(_id)
+    }
     const handleSubmitRatin = () => {
         productStar(_id, star, advantage, disAdvantage, user.token).then((res) => {
             console.log("rating clicked", res.data);
-            //  loadSingleProduct(); // if you want to show updated rating in real time
+            loadSingleProduct(); // if you want to show updated rating in real time
         });
     }
     return (
@@ -55,8 +59,25 @@ const SingleProduct = ({ product, onstarClicke, star, }) => {
                         {description && description}
                     </TabPane>
                     <TabPane tab="Reviews" key="2" className='text-center'>
-                        {/* {product.ratings.length == 0 ? ratings : (<h1>No reziews</h1>)} */}
-                        {/* {JSON.stringify(product.ratings.length)} */}
+
+                        {ratings ? ratings.map((r) =>
+                        (
+                            <div className='col-md-6'>
+                                <ul key={r._id} class="list-group">
+                                    <li className="list-group-item" >   <StarRatings
+
+                                        rating={r.star}
+                                        starRatedColor="gold"
+                                    /></li>
+                                    <li className="list-group-item">{r.advantage}</li>
+                                    <li className="list-group-item">{r.disAdvantage}</li>
+
+                                </ul>
+                            </div>
+
+                        )
+
+                        ) : 'no rating'}
                     </TabPane>
 
                 </Tabs>,
