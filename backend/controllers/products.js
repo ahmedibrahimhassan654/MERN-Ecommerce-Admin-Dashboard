@@ -127,53 +127,43 @@ exports.getProductsCount = asyncHandler(async (req, res) => {
 
 exports.productStar = asyncHandler(async (req, res) => {
 
+  const product = await Product.findById(req.params.productId).exec();
+  const user = await User.findOne({ email: req.user.email }).exec();
+  const { star, advantage, disAdvantage } = req.body;
 
-  const product = await Product.findById(req.params.productId).exec()
-
-  const user = await User.findOne({ email: req.user.email }).exec()
-
-  const { star, advantage, disAdvantage } = req.body
-
-  //who is updaing review in the product model
-  //check if the curent loged in user is already added review to the product 
-
-  console.log('start', star, 'advantage', advantage, 'disAdvantage', disAdvantage);
-
+  // who is updating?
+  // check if currently logged in user have already added rating to this product?
   let existingRatingObject = product.ratings.find(
-    ele => { ele.postedBy == user._id }
+    (ele) => ele.postedBy.toString() === user._id.toString()
   );
 
-  //if user havent rating yet push it 
+  // if user haven't left rating yet, push it
   if (existingRatingObject === undefined) {
     let ratingAdded = await Product.findByIdAndUpdate(
       product._id,
       {
-        $push: {
-          ratings: { star, postedBy: user._id, advantage, disAdvantage }
-        }
+        $push: { ratings: { star, postedBy: user._id, advantage, disAdvantage } },
       },
       { new: true }
-    ).exec()
-    console.log('ratingAdded', ratingAdded);
-
-    res.json(ratingAdded)
+    ).exec();
+    console.log("ratingAdded", ratingAdded);
+    res.json(ratingAdded);
   } else {
-    //if the user rate befour update it 
+    // if user have already left rating, update it
     const ratingUpdated = await Product.updateOne(
-      { ratings: { $elemMatch: existingRatingObject } },
+      {
+        ratings: { $elemMatch: existingRatingObject },
+      },
       {
         $set: {
-          'ratings.$.start': star,
-          'ratings.$.advantage': advantage,
-          'ratings.$.disAdvantage': disAdvantage
+          "ratings.$.star": star,
+          "ratings.$.advantage": advantage,
+          "ratings.$.disAdvantage": disAdvantage
         }
       },
       { new: true }
-
-    ).exec()
-
-    console.log('ratingUpdated', ratingUpdated);
-    res.json(ratingUpdated)
+    ).exec();
+    console.log("ratingUpdated", ratingUpdated);
+    res.json(ratingUpdated);
   }
-
 })

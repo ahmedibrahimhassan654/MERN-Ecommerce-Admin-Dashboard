@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, Tabs, Input, Form } from 'antd';
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -8,10 +8,27 @@ import Laptop from '../../components/images/awhite_200319_3944_4.0.0.jpg'
 import ProductListItems from './ProductListItems';
 import StarRatings from 'react-star-ratings';
 import RatingModal from '../modal/RatingModal';
+import { productStar } from '../../function/product'
+import { useSelector } from 'react-redux';
+
+
 const { TabPane } = Tabs;
 const { TextArea } = Input;
-const SingleProduct = ({ product, onstarClicke, star, advantage, disAdvantage, handleChange, handledisadvantage }) => {
+
+const SingleProduct = ({ product, onstarClicke, star, }) => {
     const { title, description, images, _id, ratings } = product
+    const [advantage, setAdvantage] = useState('')
+    const [disAdvantage, setDisAdvantage] = useState('')
+
+    const { user } = useSelector((state) => ({ ...state }));
+
+
+    const handleSubmitRatin = () => {
+        productStar(_id, star, advantage, disAdvantage, user.token).then((res) => {
+            console.log("rating clicked", res.data);
+            //  loadSingleProduct(); // if you want to show updated rating in real time
+        });
+    }
     return (
         <>
             <div className='col-md-7 p-3 mb-2  '>
@@ -38,7 +55,8 @@ const SingleProduct = ({ product, onstarClicke, star, advantage, disAdvantage, h
                         {description && description}
                     </TabPane>
                     <TabPane tab="Reviews" key="2" className='text-center'>
-                        {ratings ? ratings : 'there is no review yet for this product'}
+                        {/* {product.ratings.length == 0 ? ratings : (<h1>No reziews</h1>)} */}
+                        {/* {JSON.stringify(product.ratings.length)} */}
                     </TabPane>
 
                 </Tabs>,
@@ -62,7 +80,14 @@ const SingleProduct = ({ product, onstarClicke, star, advantage, disAdvantage, h
                                 </Link>
                             </div>
                             <div className='col-md-4'>
-                                <RatingModal product={product}>
+                                <RatingModal
+                                    product={product}
+                                    handleSubmitRatin={handleSubmitRatin}
+                                >
+
+
+
+
                                     <StarRatings
 
                                         rating={star}
@@ -72,14 +97,23 @@ const SingleProduct = ({ product, onstarClicke, star, advantage, disAdvantage, h
                                         name={_id}
                                         isSelectable={true}
                                     />
+
+
                                     <Form.Item >
-                                        <Input.TextArea
+                                        <TextArea
                                             className='mt-3'
                                             rows={4}
                                             placeholder="Say the advatage for this product"
                                             type='text'
                                             value={advantage}
-                                            onChange={handleChange}
+                                            onChange={(e) => {
+                                                //    console.log('e', e.target.value);
+                                                e.preventDefault()
+                                                setAdvantage(e.target.value)
+                                                console.log('advantage change', advantage);
+                                                // //setAdvantage(e.taget.value)
+                                                // setAdvantage(e.target.value);
+                                            }}
                                             autoFocus
                                         />
                                     </Form.Item>
@@ -91,11 +125,20 @@ const SingleProduct = ({ product, onstarClicke, star, advantage, disAdvantage, h
                                             placeholder="Say the disAdvatage for this product to avoid that"
                                             type='text'
                                             value={disAdvantage}
-                                            onChange={handledisadvantage}
+                                            onChange={(e) => {
+                                                e.preventDefault()
+                                                setDisAdvantage(e.target.value)
+                                                console.log('disadvantage change', disAdvantage);
+                                                //setAdvantage(e.taget.value)
+                                                // setAdvantage(e.target.value);
+                                            }}
 
                                             autoFocus
                                         />
                                     </Form.Item>
+
+
+
                                     {/* <TextArea className='mt-3' rows={4} placeholder="Say the advatage for this product" /> */}
                                     {/* // <TextArea className='mt-3' rows={4} placeholder="Say the disAdvatage for this product to avoid that " /> */}
                                 </RatingModal>
@@ -109,7 +152,7 @@ const SingleProduct = ({ product, onstarClicke, star, advantage, disAdvantage, h
                     <ProductListItems product={product} />
 
                 </Card>
-            </div>
+            </div >
         </>
 
     )
