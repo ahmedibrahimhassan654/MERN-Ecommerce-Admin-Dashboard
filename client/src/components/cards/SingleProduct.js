@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Tabs, Input, Form } from 'antd';
+import { Card, Tabs, Input, Form, Button } from 'antd';
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -13,6 +13,8 @@ import { useSelector } from 'react-redux';
 import { List } from 'antd/lib/form/Form';
 import Product from '../../pages/Product';
 import Meta from 'antd/lib/card/Meta';
+
+
 
 
 const { TabPane } = Tabs;
@@ -31,8 +33,19 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
 
 
 
-
-
+    const handleshare = () => {
+        const url = window.document.location.href
+        const title = window.document.title
+        if (navigator.share) {
+            navigator.share({
+                url: `${url}`,
+                title: `${title}`
+            }).then(() => {
+                console.log(`Thanks for sharing ${url} with title ${title}`);
+            })
+                .catch(console.error)
+        }
+    }
 
     const handleSubmitRatin = () => {
         productStar(_id, star, advantage, disAdvantage, user.token).then((res) => {
@@ -123,6 +136,8 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
                     hoverable
                     actions={[
                         <div className='row'>
+
+
                             <div className='col-md-4'>
 
                                 <ShoppingCartOutlined className='text-success' /><br /> Add To Cart
@@ -193,6 +208,14 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
                                     {/* <TextArea className='mt-3' rows={4} placeholder="Say the advatage for this product" /> */}
                                     {/* // <TextArea className='mt-3' rows={4} placeholder="Say the disAdvatage for this product to avoid that " /> */}
                                 </RatingModal>
+
+                            </div>
+
+                            <div className='mt-4'>
+                                <Button onClick={handleshare} type="primary" >
+                                    share the product
+                                </Button>
+
                             </div>
                         </div>
                     ]}

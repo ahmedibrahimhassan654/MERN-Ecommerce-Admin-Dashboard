@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const {transliterate  ,slugify} = require('transliteration')
+const { transliterate, slugify } = require('transliteration')
 
 const productCategorySchema = new mongoose.Schema(
 	{
@@ -9,7 +9,7 @@ const productCategorySchema = new mongoose.Schema(
 			required: [true, 'please add an category name'],
 			minlength: [3, 'too short'],
 			maxlength: [100, 'Too Long'],
-			unique:true
+			unique: true
 		},
 		description: {
 			type: String,
@@ -24,7 +24,7 @@ const productCategorySchema = new mongoose.Schema(
 			index: true,
 			unique: true,
 		},
-		
+
 	},
 	{ timestamps: true },
 )
