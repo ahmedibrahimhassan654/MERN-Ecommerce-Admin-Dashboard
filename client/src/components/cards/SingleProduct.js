@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Tabs, Input, Form } from 'antd';
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -12,21 +12,28 @@ import { getProduct, productStar } from '../../function/product'
 import { useSelector } from 'react-redux';
 import { List } from 'antd/lib/form/Form';
 import Product from '../../pages/Product';
+import Meta from 'antd/lib/card/Meta';
 
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
 
-const SingleProduct = ({ product, onstarClicke, star, }) => {
+const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar }) => {
     const { title, description, images, _id, ratings } = product
     const [advantage, setAdvantage] = useState('')
     const [disAdvantage, setDisAdvantage] = useState('')
 
     const { user } = useSelector((state) => ({ ...state }));
+    useEffect(() => {
+        loadSingleProduct()
+    }, [_id])
 
-    const loadSingleProduct = () => {
-        getProduct(_id)
-    }
+
+
+
+
+
+
     const handleSubmitRatin = () => {
         productStar(_id, star, advantage, disAdvantage, user.token).then((res) => {
             console.log("rating clicked", res.data);
@@ -59,29 +66,56 @@ const SingleProduct = ({ product, onstarClicke, star, }) => {
                         {description && description}
                     </TabPane>
                     <TabPane tab="Reviews" key="2" className='text-center'>
+                        {ratings && ratings.length ? (
+                            <ul className="list-group">
+                                {ratings && ratings.map(
 
-                        {ratings ? ratings.map((r) =>
-                        (
-                            <div className='col-md-6'>
-                                <ul key={r._id} class="list-group">
-                                    <li className="list-group-item" >   <StarRatings
+                                    (r) =>
+                                        <>
+                                            <div className='container'>
+                                                <div class="mgb-40 padb-30 auto-invert line-b-4 align-center">
+                                                    <h5 class="font-cond-b fg-text-d lts-md fs-300 fs-300-xs no-mg" contenteditable="false">Read Customer Reviews</h5>
+                                                </div>
+                                                <div className='col-md-5' >
+                                                    <Card
+                                                        hoverable
+                                                        key={r._id}
+                                                        className='m-5'
+                                                    >
+                                                        <StarRatings
 
-                                        rating={r.star}
-                                        starRatedColor="gold"
-                                    /></li>
-                                    <li className="list-group-item">{r.advantage}</li>
-                                    <li className="list-group-item">{r.disAdvantage}</li>
+                                                            rating={r.star}
+                                                            starRatedColor="gold"
 
-                                </ul>
-                            </div>
+                                                        />
 
-                        )
+                                                        <Meta title="Advantage" description={r.advantage} />
+                                                        <Meta title="Disadvantage" description={r.disAdvantage} />
 
-                        ) : 'no rating'}
+                                                    </Card>,
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </>
+
+
+                                )
+
+                                }
+
+
+                            </ul>) : (
+                            <h1 >
+                                this device not rated yet
+                            </h1>
+                        )}
                     </TabPane>
 
                 </Tabs>,
-            </div>
+            </div >
             <div className='col-md-5 p-3 mb-2  '>
 
                 <Card
@@ -105,10 +139,6 @@ const SingleProduct = ({ product, onstarClicke, star, }) => {
                                     product={product}
                                     handleSubmitRatin={handleSubmitRatin}
                                 >
-
-
-
-
                                     <StarRatings
 
                                         rating={star}

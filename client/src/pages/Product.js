@@ -3,6 +3,7 @@ import { getProduct, productStar } from '../function/product'
 import SingleProduct from '../components/cards/SingleProduct'
 import { useSelector } from "react-redux";
 import { Card, Tabs, Input, Form } from 'antd';
+import starRatings from 'react-star-ratings/build/star-ratings';
 const Product = ({ match }) => {
 
     //redux
@@ -12,9 +13,13 @@ const Product = ({ match }) => {
     const [product, setProduct] = useState({})
     const [star, setStar] = useState(0)
 
+
     useEffect(() => {
         loadSingleProduct()
     }, [_id])
+
+
+
 
     const loadSingleProduct = () => {
         getProduct(_id).then(res => {
@@ -24,22 +29,9 @@ const Product = ({ match }) => {
     }
 
 
-    const onstarClicke = (
-        newRating,
-        // name
-
-    ) => {
-
-
+    const onstarClicke = (newRating) => {
         setStar(newRating)
         console.log('star change', newRating);
-        //setAdvantage(e.target.value)
-        // productStar(name, newRating, advantage, disAdvantage, user.token)
-        //     // console.log("name", name, 'star', star, 'advantage', advantage, 'disAdvantage', disAdvantage);
-        //     .then(res => {
-        //         console.log('rating clicked', res.data);
-        //         loadSingleProduct() //if you want to see updated rationg in real time
-        //     })
 
     }
     return (
@@ -49,7 +41,8 @@ const Product = ({ match }) => {
                     product={product}
                     onstarClicke={onstarClicke}
                     star={star}
-
+                    setStar={setStar}
+                    loadSingleProduct={loadSingleProduct}
                 />
 
             </div>
