@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { List } from 'antd/lib/form/Form';
 import Product from '../../pages/Product';
 import Meta from 'antd/lib/card/Meta';
+import Avatar from 'antd/lib/avatar/avatar';
 
 
 
@@ -24,13 +25,16 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
     const { title, description, images, _id, ratings } = product
     const [advantage, setAdvantage] = useState('')
     const [disAdvantage, setDisAdvantage] = useState('')
-
+    const [userimage, setUserImage] = useState('')
     const { user } = useSelector((state) => ({ ...state }));
     useEffect(() => {
         loadSingleProduct()
+        userinfo()
     }, [_id])
 
-
+    const userinfo = () => {
+        setUserImage(user.picture)
+    }
 
 
     const handleshare = () => {
@@ -104,6 +108,7 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
 
                                                         <Meta title="Advantage" description={r.advantage} />
                                                         <Meta title="Disadvantage" description={r.disAdvantage} />
+                                                        {<Avatar src={userimage} className='mt-3' />}
 
                                                     </Card>,
 
