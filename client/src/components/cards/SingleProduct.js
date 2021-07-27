@@ -14,27 +14,45 @@ import { List } from 'antd/lib/form/Form';
 import Product from '../../pages/Product';
 import Meta from 'antd/lib/card/Meta';
 import Avatar from 'antd/lib/avatar/avatar';
-
-
+import { showAverage } from '../../function/rating'
+import { getuser } from '../../function/auth'
 
 
 const { TabPane } = Tabs;
 const { TextArea } = Input;
 
 const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar }) => {
+    const { user } = useSelector((state) => ({ ...state }));
     const { title, description, images, _id, ratings } = product
     const [advantage, setAdvantage] = useState('')
     const [disAdvantage, setDisAdvantage] = useState('')
-    const [userimage, setUserImage] = useState('')
-    const { user } = useSelector((state) => ({ ...state }));
+    // const [userData, setuserData] = useState('')
+
     useEffect(() => {
         loadSingleProduct()
-        userinfo()
+        // handlereviewer()
+
     }, [_id])
 
-    const userinfo = () => {
-        setUserImage(user.picture)
-    }
+
+
+
+    // const handlereviewer = () => {
+    //     if (ratings) {
+    //         ratings.map((r) => {
+    //             console.log('reviviewd by ', r.postedBy);
+    //             getuser(r.postedBy).then((u) => {
+    //                 // setuserimg(u.data)
+
+    //                 setuserData(u.data);
+    //                 console.log('userdata', userData);
+    //             })
+    //         })
+    //     }
+
+
+    // }
+
 
 
     const handleshare = () => {
@@ -52,6 +70,7 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
     }
 
     const handleSubmitRatin = () => {
+
         productStar(_id, star, advantage, disAdvantage, user.token).then((res) => {
             console.log("rating clicked", res.data);
             loadSingleProduct(); // if you want to show updated rating in real time
@@ -60,6 +79,7 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
     return (
         <>
             <div className='col-md-7 p-3 mb-2  '>
+
                 {images && images.length ? (<Carousel
                     autoPlay={true}
                     infiniteLoop={true}
@@ -85,36 +105,53 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
                     <TabPane tab="Reviews" key="2" className='text-center'>
                         {ratings && ratings.length ? (
                             <ul className="list-group">
+                                <div className="mgb-40 padb-30 auto-invert line-b-4 align-center">
+                                    <h5 className="font-cond-b fg-text-d lts-md fs-300 fs-300-xs no-mg" contenteditable="false">Read Customer Reviews</h5>
+                                </div>
                                 {ratings && ratings.map(
 
                                     (r) =>
                                         <>
-                                            <div className='container'>
-                                                <div class="mgb-40 padb-30 auto-invert line-b-4 align-center">
-                                                    <h5 class="font-cond-b fg-text-d lts-md fs-300 fs-300-xs no-mg" contenteditable="false">Read Customer Reviews</h5>
-                                                </div>
-                                                <div className='col-md-5' >
-                                                    <Card
-                                                        hoverable
-                                                        key={r._id}
-                                                        className='m-5'
-                                                    >
-                                                        <StarRatings
-
-                                                            rating={r.star}
-                                                            starRatedColor="gold"
-
-                                                        />
-
-                                                        <Meta title="Advantage" description={r.advantage} />
-                                                        <Meta title="Disadvantage" description={r.disAdvantage} />
-                                                        {<Avatar src={userimage} className='mt-3' />}
-
-                                                    </Card>,
 
 
-                                                </div>
+                                            <div className='row' >
+
+                                                <Card
+                                                    hoverable
+                                                    key={r._id}
+                                                    className='m-2 '
+                                                >
+                                                    {/* <Avatar
+                                                        size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+
+                                                        src={userimage} className='m-5' /> */}
+                                                    {/* <h5 className='mb-5 text-primary'>{userName}</h5> */}
+
+                                                    <div className='row'>
+                                                        <div className='col-md-4  border-primary border-right'>
+                                                            <StarRatings
+
+                                                                rating={r.star}
+                                                                starRatedColor="gold"
+
+                                                            />
+                                                        </div>
+                                                        <div className='col-md-4 ml-3'>
+                                                            {/* <Avatar src={userData.picture} className='m-2' />
+                                                            <h5 className='text-primary'>{userData.name}</h5> */}
+                                                            <Meta title="Advantage" description={r.advantage} className='mb-3' />
+                                                            <Meta title="Disadvantage" description={r.disAdvantage} className='mt-3' />
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                                </Card>,
+
+
                                             </div>
+
 
 
                                         </>
@@ -135,6 +172,9 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
                 </Tabs>,
             </div >
             <div className='col-md-5 p-3 mb-2  '>
+
+
+
 
                 <Card
                     style={{ width: '100%' }}
@@ -225,7 +265,10 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
                         </div>
                     ]}
                 >
+
                     <h1 className='text-center text-white p-3 mb-2 bg-success '>{title}</h1>
+
+                    {product && product.ratings && product.ratings.length > 0 ? (showAverage(product)) : 'no rating yet '}
 
 
                     <ProductListItems product={product} />
