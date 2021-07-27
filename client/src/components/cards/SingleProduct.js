@@ -268,7 +268,10 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
 
                     <h1 className='text-center text-white p-3 mb-2 bg-success '>{title}</h1>
 
-                    {product && product.ratings && product.ratings.length > 0 ? (showAverage(product)) : 'no rating yet '}
+                    {product && product.ratings && product.ratings.length > 0 ? (showAverage(product)) :
+                        <div className='text-center pt-1 pb-3 text-info'>
+                            No Rating Yet
+                        </div>}
 
 
                     <ProductListItems product={product} />

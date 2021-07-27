@@ -3,6 +3,7 @@ import { Card } from 'antd';
 import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import iamge from '../../components/images/awhite_200319_3944_4.0.0.jpg';
 import { Link } from 'react-router-dom';
+import { showAverage } from '../../function/rating'
 import { Badge } from 'antd';
 const { Meta } = Card;
 const ProductCard = ({ product }) => {
@@ -10,8 +11,12 @@ const ProductCard = ({ product }) => {
     return (
         <>
 
-            <Badge.Ribbon text={`${price} Egp`} color="purple">
+            <Badge.Ribbon text={`${price} Egp`} color="purple" offset={[10, 10]} >
+
+
+
                 <Link to={`/product/${_id}`}>
+
                     <Card
                         hoverable
                         style={{ width: 300 }}
@@ -35,14 +40,19 @@ const ProductCard = ({ product }) => {
                             </div>
                         ]}
                     >
+                        {product && product.ratings && product.ratings.length > 0 ? (showAverage(product)) :
+                            <div className='text-center pt-1 pb-3 text-info'>
+                                No Rating Yet
+                            </div>}
                         <Meta
                             title={title}
                             description={description}
+
                         />
                     </Card>
                 </Link>
 
-            </Badge.Ribbon>
+            </Badge.Ribbon >
         </>
     )
 }
