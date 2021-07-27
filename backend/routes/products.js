@@ -11,7 +11,8 @@ const {
    update,
    list,
    getProductsCount,
-   productStar
+   productStar,
+   listeRelated
 
 } = require('../controllers/products')
 
@@ -26,7 +27,8 @@ router.post('/products', list)
 //rating
 router.put('/product/star/:productId', authCheck, productStar)
 
-//for owner 
+//related
+router.get('/product/related/:productId', listeRelated)
 
 
 module.exports = router
