@@ -46,10 +46,10 @@ const NewArrivals = () => {
 
                     {products.map((product) => (
                         <div key={product._id} className='col-md-4'>
-                            <Badge.Ribbon text={`${product.price} Egp`} color="purple" >
+                            {/* <Badge.Ribbon text={`${product.price} Egp`} color="purple" > */}
 
-                                <ProductCard product={product} />
-                            </Badge.Ribbon>
+                            <ProductCard product={product} />
+                            {/* </Badge.Ribbon> */}
                         </div>
 
                     ))}

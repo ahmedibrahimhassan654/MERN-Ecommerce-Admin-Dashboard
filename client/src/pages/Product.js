@@ -51,7 +51,7 @@ const Product = ({ match }) => {
 
             </div>
 
-            <div className='row  ' >
+            <div className='row container  justify-content-center ' >
                 <div className='col text-center pt-5 pb-5  '>
                     <hr />
                     <h4 > Related products</h4>
@@ -61,10 +61,10 @@ const Product = ({ match }) => {
                     {related.length ? (
                         related.map((p) => (
                             <div key={p._id} className='col-md-4'>
-                                <Badge.Ribbon text={`${p.price} Egp`} color="purple" >
+                                {/* <Badge.Ribbon text={`${p.price} Egp`} color="purple" > */}
 
-                                    <ProductCard product={p} />
-                                </Badge.Ribbon>
+                                <ProductCard product={p} />
+                                {/* </Badge.Ribbon> */}
                             </div>
                         ))
                     ) : (
