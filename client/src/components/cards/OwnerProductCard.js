@@ -51,8 +51,10 @@ const OwnerProductCard = ({ product, handleReove }) => {
                         ]
                     }
                 >
-                    <Meta title={title}
-                        description={`${description && description.substring(0, 20)}...`} />
+                    <Meta
+                        title={title}
+                        description={`${description && description.substring(0, 20)}...`}
+                    />
                 </Card>,
             </div>
 

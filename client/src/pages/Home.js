@@ -4,6 +4,7 @@ import BestSold from '../components/Home/BestSold';
 import NewArrivals from '../components/Home/NewArrivals'
 
 import { Layout, } from "antd";
+import CategoryList from '../components/category/CategoryList';
 const { Footer } = Layout;
 
 const Home = () => {
@@ -26,6 +27,9 @@ const Home = () => {
         <h1 className='jumbotron text-danger  text-center p-3 mt-5 mb-5'>Best Sold</h1>
 
         <BestSold />
+        <h1 className='jumbotron text-info  text-center p-3 mt-5 mb-5'>Categories</h1>
+
+        <CategoryList />
       </div>
       <Footer style={{ textAlign: 'center' }}>we are almost there  {currentYear} Created by Ahmed Ibrahim</Footer>
 

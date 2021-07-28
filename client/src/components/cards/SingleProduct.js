@@ -114,11 +114,11 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
                                         <>
 
 
-                                            <div className='row' >
+                                            <div className='row' key={r._id}>
 
                                                 <Card
                                                     hoverable
-                                                    key={r._id}
+
                                                     className='m-2 '
                                                 >
                                                     {/* <Avatar
@@ -141,6 +141,7 @@ const SingleProduct = ({ product, onstarClicke, star, loadSingleProduct, setStar
                                                             <h5 className='text-primary'>{userData.name}</h5> */}
                                                             <Meta title="Advantage" description={r.advantage} className='mb-3' />
                                                             <Meta title="Disadvantage" description={r.disAdvantage} className='mt-3' />
+
                                                         </div>
                                                     </div>
 
