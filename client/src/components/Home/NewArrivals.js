@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../../components/cards/ProductCard';
 import { getProducts, getProductsCount } from '../../function/product';
-import { Pagination } from 'antd';
+import { Badge, Pagination } from 'antd';
 import LoadingCard from '../../components/cards/LoadingCard';
 
 const NewArrivals = () => {
@@ -46,7 +46,10 @@ const NewArrivals = () => {
 
                     {products.map((product) => (
                         <div key={product._id} className='col-md-4'>
-                            <ProductCard product={product} />
+                            <Badge.Ribbon text={`${product.price} Egp`} color="purple" >
+
+                                <ProductCard product={product} />
+                            </Badge.Ribbon>
                         </div>
 
                     ))}

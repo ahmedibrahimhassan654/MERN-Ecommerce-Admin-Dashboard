@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { getProduct, productStar } from '../function/product'
+import { getProduct, productStar, getRelated } from '../function/product'
 import SingleProduct from '../components/cards/SingleProduct'
 import { useSelector } from "react-redux";
-import { Card, Tabs, Input, Form } from 'antd';
+import { Card, Tabs, Input, Form, Badge } from 'antd';
 import starRatings from 'react-star-ratings/build/star-ratings';
+import ProductCard from '../components/cards/ProductCard';
 const Product = ({ match }) => {
 
     //redux
@@ -12,7 +13,7 @@ const Product = ({ match }) => {
 
     const [product, setProduct] = useState({})
     const [star, setStar] = useState(0)
-
+    const [related, setRelted] = useState([])
 
     useEffect(() => {
         loadSingleProduct()
@@ -23,8 +24,11 @@ const Product = ({ match }) => {
 
     const loadSingleProduct = () => {
         getProduct(_id).then(res => {
+            setProduct(res.data);
 
-            setProduct(res.data)
+            getRelated(res.data._id).then(res =>
+                setRelted(res.data)
+            )
         })
     }
 
@@ -47,11 +51,26 @@ const Product = ({ match }) => {
 
             </div>
 
-            <div className='row p-5 ' >
+            <div className='row  ' >
                 <div className='col text-center pt-5 pb-5  '>
                     <hr />
                     <h4 > Related products</h4>
                     <hr />
+                </div>
+                <div className='row m-5'>
+                    {related.length ? (
+                        related.map((p) => (
+                            <div key={p._id} className='col-md-4'>
+                                <Badge.Ribbon text={`${p.price} Egp`} color="purple" >
+
+                                    <ProductCard product={p} />
+                                </Badge.Ribbon>
+                            </div>
+                        ))
+                    ) : (
+                        <div className='text-center col'>
+                            No Product found
+                        </div>)}
                 </div>
 
             </div >
