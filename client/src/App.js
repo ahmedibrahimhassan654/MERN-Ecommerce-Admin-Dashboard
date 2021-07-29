@@ -47,6 +47,7 @@ import SubUpdate from './pages/dashbords/admin/ProductSubCategory/SubUpdate'
 import AlertComp from './pages/AlertComp';
 import CreatBranch from './pages/dashbords/owner/branches/CreatBranch';
 import UpdateProduct from './pages/dashbords/owner/products/UpdateProduct';
+import CategoryHome from './pages/category/CategoryHome'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -95,6 +96,7 @@ const App = () => {
 				<Route exact path='/register/complete' component={RegisterComplete} />
 				<Route exact path='/forgot/password' component={Forgotpassword} />
 				<Route exact path='/product/:_id' component={Product} />
+				<Route exact path='/category/:slug' component={CategoryHome} />
 				{/* //user routes */}
 				<UserRoute exact path='/user/dashboard' component={UserDashBord} />
 				<UserRoute exact path='/user/password' component={Password} />

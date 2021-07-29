@@ -5,6 +5,7 @@ const { transliterate, slugify } = require('transliteration')
 
 const ProductCategory = require('../models/ProductCategory')
 const ProductSub = require('../models/ProductSub');
+const Product = require('../models/Product')
 //@desc     create  Product Category
 //@route    Post/api/v1/productcategory
 //@access   private
@@ -35,11 +36,19 @@ exports.list = asyncHandler(async (req, res, next) => {
 //@route    get/api/v1/productcategory/:slug
 //@access   private,puplic
 exports.read = asyncHandler(async (req, res, next) => {
-	res.status(201).json(
-		await ProductCategory.findOne({
-			slug: req.params.slug,
-		}).exec(),
-	)
+
+	const category = await ProductCategory.findOne({ slug: req.params.slug }).exec()
+
+	const products = await Product.find({ category })
+		.populate('category')
+		.populate('subs')
+		.populate('cratedBy')
+		.exec()
+
+	res.json({
+		category,
+		products
+	})
 })
 
 //@desc     update  Product Category
@@ -71,16 +80,16 @@ exports.remove = asyncHandler(async (req, res, next) => {
 //@desc     get product subs acording to category id 
 //@route   GET /productcategory/subs/:_id
 //@access   private
-exports.getsubs=asyncHandler(async (req, res, next) => {
+exports.getsubs = asyncHandler(async (req, res, next) => {
 	const subs = await ProductSub.find(
 		{ parent: req.params._id }
 	)
-		//.exec((err, subs) => {
-		//if (err) console.log(err);
-		 res.status(200).json({
-				message: `ProductSubs for category parent ${req.params._id} is equal ${subs.length}`,
-				subs,
-			});
-		// res.json(subs);
+	//.exec((err, subs) => {
+	//if (err) console.log(err);
+	res.status(200).json({
+		message: `ProductSubs for category parent ${req.params._id} is equal ${subs.length}`,
+		subs,
 	});
+	// res.json(subs);
+});
 //})
