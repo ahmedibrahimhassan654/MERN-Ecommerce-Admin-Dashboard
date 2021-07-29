@@ -13,8 +13,9 @@ const ProductCard = ({ product }) => {
 
             <Badge.Ribbon text={`${price} Egp`} color="purple"  >
                 <Card
+                    size='small'
                     hoverable
-                    style={{ width: 300 }}
+                    // style={{ width: 300 }}
                     cover={
                         <img
                             alt={title}

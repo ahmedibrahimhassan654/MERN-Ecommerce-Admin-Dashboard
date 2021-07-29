@@ -86,6 +86,8 @@ function ProductsForm({
 							className="form-control  "
 							value={description}
 							onChange={handleChange}
+							rows={6}
+
 						/>
 					</Form.Item>
 				</div>
