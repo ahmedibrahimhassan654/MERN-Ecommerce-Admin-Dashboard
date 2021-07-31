@@ -4,12 +4,14 @@ const { transliterate, slugify } = require('transliteration')
 // const slugify =require('slugify')
 
 const ProductSub = require('../models/ProductSub')
+const Product = require('../models/Product')
+
 
 //@desc     create  Product Category
 //@route    Post/api/v1/productcategory
 //@access   private
 exports.create = asyncHandler(async (req, res) => {
-	
+
 	const { name, description, parent } = req.body;
 
 	res.json(
@@ -36,7 +38,17 @@ exports.read = asyncHandler(async (req, res, next) => {
 	let sub = await ProductSub.findOne({
 		slug: req.params.slug,
 	}).exec()
-	res.status(201).json(sub)
+	const products = await Product.find({ subs: sub })
+		.populate('category')
+
+		.populate('cratedBy')
+		.exec()
+
+	res.json({
+		sub,
+		products
+	})
+
 })
 
 //@desc     update  Product subCategory

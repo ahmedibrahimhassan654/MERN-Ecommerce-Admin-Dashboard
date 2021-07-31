@@ -186,3 +186,23 @@ exports.listeRelated = asyncHandler(async (req, res) => {
   res.json(related)
 
 })
+
+//search/filter
+const handlquery = async (req, res, query) => {
+  const products = await Product.find({ $text: { $search: query } })
+    .populate('category', '_id name')
+    .populate('subs', '_id name')
+    .populate('cratedBy', '_id name email')
+    .exec()
+
+  res.json(products)
+}
+
+exports.searchFilters = asyncHandler(async (req, res) => {
+  const { query } = req.body
+  if (query) {
+    console.log(query);
+    await handlquery(req, res, query)
+  }
+
+})

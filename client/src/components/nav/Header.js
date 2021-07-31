@@ -15,6 +15,7 @@ import {
 import { Link, useHistory } from 'react-router-dom';
 import firebase from 'firebase';
 import { useDispatch, useSelector } from "react-redux";
+import SearchComp from '../forms/SearchComp';
 //import { toast } from 'react-toastify';
 const { SubMenu, Item } = Menu;
 
@@ -71,57 +72,53 @@ const Header = () => {
 
 	return (
 		<Menu onClick={handleClick} selectedKeys={[current]} mode='horizontal' >
+
+
 			<Item
 				key='home'
-				icon={<GroupOutlined style={{ fontSize: '20px', color: '#08c' }} />}
+				icon={<GroupOutlined />}
 			>
 				<Link to='/'>Home </Link>
 			</Item>
-			{!user && (
-				<Item
-					className='float-right'
-					key='login'
-					icon={<LoginOutlined style={{ fontSize: '20px', color: '#08c' }} />}
-				>
-					<Link to='/login'>Login</Link>
-				</Item>
-			)}
+
+
+
 
 			{!user && (
-				<SubMenu
-					className='float-right'
-					key="Register It's Free"
-					icon={<IdcardOutlined style={{ fontSize: '20px', color: '#08c' }} />}
-					title="Register It's Free"
-				>
-					{/* <Item
-						key='owner'
-						icon={
-							<UserAddOutlined style={{ fontSize: '20px', color: '#08c' }} />
-						}
-					>
-						<Link to='/owner'>Register as owner</Link>
-					</Item> */}
+				<>
+
 					<Item
+						className="float-end"
+						key='login'
+						icon={<LoginOutlined />}
+					>
+						<Link to='/login'>Login</Link>
+					</Item>
+
+					<Item
+						className="float-end"
 						key='customer'
-						icon={<TeamOutlined style={{ fontSize: '20px', color: '#08c' }} />}
+						icon={<TeamOutlined />}
 					>
 						<Link to='/register'>Register</Link>
 					</Item>
-				</SubMenu>
+
+				</>
 			)}
+
+
 
 			{user && (
 				<>
 					<SubMenu
 						key='User Name'
-						className='float-right '
+						// className='float-right '
 						icon={
 							<Avatar
-								style={{ backgroundColor: '#87d068' }}
+
 								icon={<UserOutlined />}
 								src={user.picture}
-								className='mr-2 mt-2 m-2'
+								className='mr-2 mt-2 m-2 '
 								size={40}
 							/>
 						}
@@ -149,7 +146,10 @@ const Header = () => {
 					</SubMenu>
 				</>
 			)}
+			<SearchComp />
 		</Menu>
+
+
 	)
 };
 

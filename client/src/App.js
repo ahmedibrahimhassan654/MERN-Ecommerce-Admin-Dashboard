@@ -44,10 +44,11 @@ import {
 import { currentuser } from './function/auth'
 import SubCreate from './pages/dashbords/admin/ProductSubCategory/SubCreate'
 import SubUpdate from './pages/dashbords/admin/ProductSubCategory/SubUpdate'
-import AlertComp from './pages/AlertComp';
+// import AlertComp from './pages/AlertComp';
 import CreatBranch from './pages/dashbords/owner/branches/CreatBranch';
 import UpdateProduct from './pages/dashbords/owner/products/UpdateProduct';
 import CategoryHome from './pages/category/CategoryHome'
+import SubHome from './pages/subcategory/SubHome'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -84,7 +85,7 @@ const App = () => {
 
 			<Header />
 			<ToastContainer />
-			<AlertComp />
+
 			<Switch>
 
 
@@ -97,6 +98,10 @@ const App = () => {
 				<Route exact path='/forgot/password' component={Forgotpassword} />
 				<Route exact path='/product/:_id' component={Product} />
 				<Route exact path='/category/:slug' component={CategoryHome} />
+				<Route exact path='/sub/:slug' component={SubHome} />
+
+
+
 				{/* //user routes */}
 				<UserRoute exact path='/user/dashboard' component={UserDashBord} />
 				<UserRoute exact path='/user/password' component={Password} />

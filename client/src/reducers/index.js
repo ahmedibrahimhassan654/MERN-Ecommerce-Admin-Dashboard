@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux'
 import { userReducer } from './userReducer'
-import alert from './alert'
+import { searchReducer } from './searchReducer'
+
 //import branch from './branch'
 export const rootReducer = combineReducers({
 
    user: userReducer,
-   alert,
+   search: searchReducer
    // branch
 
 })
