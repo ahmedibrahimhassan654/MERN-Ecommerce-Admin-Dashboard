@@ -49,16 +49,11 @@ const BestSold = () => {
                         <>
                             {product.sold > 0 ?
 
-                                <div key={product._id} className='col-md-4 pt-5'>
-
-
-
-
-
+                                <div className='col-md-4 pt-5'>
 
                                     <Badge.Ribbon text={`sold ${product.sold} times`} color="magenta" >
 
-                                        <ProductCard product={product} />
+                                        <ProductCard key={product._id} product={product} />
                                     </Badge.Ribbon>
                                 </div> : ''}
 

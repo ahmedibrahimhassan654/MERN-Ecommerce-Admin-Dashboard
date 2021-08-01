@@ -4,8 +4,7 @@ import { Menu, Avatar, notification } from 'antd'
 import {
 	GroupOutlined,
 	TeamOutlined,
-	IdcardOutlined,
-	UserAddOutlined,
+
 	UserOutlined,
 	LoginOutlined,
 	LogoutOutlined,
@@ -114,7 +113,7 @@ const Header = () => {
 
 							<Item
 								className="p-3 mb-2 ml-5  text-black "
-								key='customer'
+								key='register'
 								icon={<TeamOutlined style={{ fontSize: '16px', color: '#08c' }} />}
 							>
 								<Link to='/register'>Register</Link>
