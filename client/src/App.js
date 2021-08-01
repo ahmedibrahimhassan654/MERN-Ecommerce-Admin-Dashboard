@@ -49,6 +49,7 @@ import CreatBranch from './pages/dashbords/owner/branches/CreatBranch';
 import UpdateProduct from './pages/dashbords/owner/products/UpdateProduct';
 import CategoryHome from './pages/category/CategoryHome'
 import SubHome from './pages/subcategory/SubHome'
+import Shop from './pages/Shop'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -99,6 +100,7 @@ const App = () => {
 				<Route exact path='/product/:_id' component={Product} />
 				<Route exact path='/category/:slug' component={CategoryHome} />
 				<Route exact path='/sub/:slug' component={SubHome} />
+				<Route exact path='/shop' component={Shop} />
 
 
 

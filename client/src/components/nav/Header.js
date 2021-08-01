@@ -11,6 +11,7 @@ import {
 	LogoutOutlined,
 	ProfileOutlined,
 	SmileOutlined,
+	ShopOutlined,
 } from '@ant-design/icons'
 import { Link, useHistory } from 'react-router-dom';
 import firebase from 'firebase';
@@ -53,7 +54,7 @@ const Header = () => {
 		history.push('/')
 	}
 	const redirectToRoleDashbord = (e) => {
-		console.log(e)
+
 		if (user.role === 'admin') {
 			history.push('/admin/dashboard')
 
@@ -71,84 +72,103 @@ const Header = () => {
 	}
 
 	return (
-		<Menu onClick={handleClick} selectedKeys={[current]} mode='horizontal' >
+		<>
 
-
-			<Item
-				key='home'
-				icon={<GroupOutlined />}
-			>
-				<Link to='/'>Home </Link>
-			</Item>
+			<Menu onClick={handleClick} selectedKeys={[current]} mode='horizontal' type="flex">
 
 
 
 
-			{!user && (
-				<>
+				<Item
+					className="p-3 mb-2 ml-5  mr-5 text-black "
+					key='home'
+					icon={<GroupOutlined style={{ fontSize: '16px', color: '#08c' }} />}
+				>
+					<Link to='/'>Home </Link>
+				</Item>
 
-					<Item
-						className="float-end"
-						key='login'
-						icon={<LoginOutlined />}
-					>
-						<Link to='/login'>Login</Link>
-					</Item>
-
-					<Item
-						className="float-end"
-						key='customer'
-						icon={<TeamOutlined />}
-					>
-						<Link to='/register'>Register</Link>
-					</Item>
-
-				</>
-			)}
+				<Item
+					className="p-3 mb-2 ml-5  mr-5 text-black "
+					key='Shop'
+					icon={<ShopOutlined style={{ fontSize: '16px', color: '#08c' }} />}
+				>
+					<Link to='/shop'>Shop </Link>
+				</Item>
 
 
 
-			{user && (
-				<>
-					<SubMenu
-						key='User Name'
-						// className='float-right '
-						icon={
-							<Avatar
 
-								icon={<UserOutlined />}
-								src={user.picture}
-								className='mr-2 mt-2 m-2 '
-								size={40}
-							/>
-						}
-						// title={user.email && user.email.split('@')[0]}
-						title={user.name}
-					>
-						<Item
-							key='username 1'
-							icon={
-								<ProfileOutlined style={{ fontSize: '20px', color: '#08c' }} />
-							}
-							onClick={redirectToRoleDashbord}
-						>
-							DashBoard
-						</Item>
+				{
+					!user && (
+						<>
 
-						<Item
-							icon={
-								<LogoutOutlined style={{ fontSize: '20px', color: '#08c' }} />
-							}
-							onClick={logout}
-						>
-							logout
-						</Item>
-					</SubMenu>
-				</>
-			)}
-			<SearchComp />
-		</Menu>
+							<Item
+								// className="float-end"
+								className="p-3 mb-2  ml-5 text-black "
 
+								key='login'
+								icon={<LoginOutlined style={{ fontSize: '16px', color: '#08c' }} />}
+							>
+								<Link to='/login'>Login</Link>
+							</Item>
+
+							<Item
+								className="p-3 mb-2 ml-5  text-black "
+								key='customer'
+								icon={<TeamOutlined style={{ fontSize: '16px', color: '#08c' }} />}
+							>
+								<Link to='/register'>Register</Link>
+							</Item>
+
+						</>
+					)
+				}
+
+
+
+				{
+					user && (
+						<>
+							<SubMenu
+								key='User Name'
+								className='p-3 mb-2 '
+								icon={
+									<Avatar
+
+										icon={<UserOutlined />}
+										src={user.picture}
+										className='mr-2 mt-2 m-2 '
+										size={50}
+									/>
+								}
+								// title={user.email && user.email.split('@')[0]}
+								title={user.name}
+							>
+								<Item
+									key='username 1'
+									icon={
+										<ProfileOutlined style={{ fontSize: '30px', color: '#08c' }} />
+									}
+									onClick={redirectToRoleDashbord}
+								>
+									DashBoard
+								</Item>
+
+								<Item
+									icon={
+										<LogoutOutlined style={{ fontSize: '30px', color: '#08c' }} />
+									}
+									onClick={logout}
+								>
+									logout
+								</Item>
+							</SubMenu>
+						</>
+					)
+				}
+				<SearchComp className='mr-2 mt-2 ' />
+			</Menu >
+		</>
 
 	)
 };

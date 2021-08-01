@@ -2,7 +2,7 @@
    "editor.fontSize": 14,
    "editor.formatOnSave": true,
    "editor.autoIndent": "advanced",
-   "window.zoomLevel": 0,
+   "window.zoomLevel": 1,
    "git.ignoreLimitWarning": true,
    "terminal.integrated.experimentalRefreshOnResume": true,
 }
