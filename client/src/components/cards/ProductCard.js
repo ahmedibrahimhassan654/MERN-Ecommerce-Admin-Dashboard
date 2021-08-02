@@ -12,44 +12,46 @@ const ProductCard = ({ product }) => {
         <>
 
             <Badge.Ribbon text={`${price} Egp`} color="purple"  >
-                <Card
-                    size='small'
-                    hoverable
-                    // style={{ width: 300 }}
-                    cover={
-                        <img
-                            alt={title}
-                            src={images && images.length ? images[0].url : iamge}
+                <Link to={`/product/${_id}`}>
+
+                    <Card
+                        size='small'
+                        hoverable
+                        // style={{ width: 300 }}
+                        cover={
+                            <img
+                                alt={title}
+                                src={images && images.length ? images[0].url : iamge}
+                            />
+
+                        }
+                        actions={[
+                            <div className='row'>
+                                <div className='col-md-6'>
+                                    <Link to={`/product/${_id}`}>
+                                        <EyeOutlined className='text-success' /><br /> View Product
+                                    </Link>
+                                </div>
+                                <div className='col-md-6'>
+                                    < ShoppingCartOutlined className="text-danger" /><br /> Add To Cart
+                                </div>
+                            </div>
+                        ]}
+                    >
+                        {product && product.ratings && product.ratings.length > 0 ? (showAverage(product)) :
+                            <div className='text-center pt-1 pb-3 text-info'>
+                                No Rating Yet
+                            </div>}
+                        <Meta
+                            title={title}
+                            //                            description={description}
+                            description={`${description && description.substring(0, 20)}...`}
+
+
                         />
+                    </Card>
 
-                    }
-                    actions={[
-                        <div className='row'>
-                            <div className='col-md-6'>
-                                <Link to={`/product/${_id}`}>
-                                    <EyeOutlined className='text-success' /><br /> View Product
-                                </Link>
-                            </div>
-                            <div className='col-md-6'>
-                                < ShoppingCartOutlined className="text-danger" /><br /> Add To Cart
-                            </div>
-                        </div>
-                    ]}
-                >
-                    {product && product.ratings && product.ratings.length > 0 ? (showAverage(product)) :
-                        <div className='text-center pt-1 pb-3 text-info'>
-                            No Rating Yet
-                        </div>}
-                    <Meta
-                        title={title}
-                        //                            description={description}
-                        description={`${description && description.substring(0, 20)}...`}
-
-
-                    />
-                </Card>
-
-
+                </Link>
             </Badge.Ribbon >
         </>
     )

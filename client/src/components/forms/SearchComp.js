@@ -39,6 +39,9 @@ const SearchComp = () => {
                     value={text}
                     className="form-control mr-sm-2"
                     placeholder="Search"
+                    style={{
+                        width: 300,
+                    }}
                 />
                 <SearchOutlined onClick={handleSubmit} style={{ cursor: "pointer" }} />
             </form>
