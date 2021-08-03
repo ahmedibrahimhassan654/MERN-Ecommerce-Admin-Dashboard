@@ -203,12 +203,57 @@ const handlquery = async (req, res, query) => {
   }
 
 }
+//price filter
+
+const handlPrice = async (req, res, price) => {
+  try {
+
+    let products = await Product.find({
+      price: {
+        $gte: price[0],
+        $lte: price[1]
+      }
+    })
+      .populate("category", "_id name")
+      .populate("subs", "_id name")
+      .populate("cratedBy", "_id name")
+      .exec();
+    res.json(products)
+  } catch (err) {
+    console.log(err);
+  }
+}
+const handlCategory = async (req, res, category) => {
+  try {
+
+    let products = await Product.find({
+      category
+    })
+      .populate("category", "_id name")
+      .populate("subs", "_id name")
+      .populate("cratedBy", "_id name")
+      .exec();
+    res.json(products)
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 exports.searchFilters = asyncHandler(async (req, res) => {
-  const { query } = req.body
+  const { query, price, category } = req.body
   if (query) {
     console.log("handle query fucntion is called", query);
     await handlquery(req, res, query)
+  }
+  if (price && price !== undefined) {
+    console.log("price value", price);
+    await handlPrice(req, res, price)
+
+
+  }
+  if (category) {
+    console.log("category value", category);
+    await handlCategory(req, res, category)
   }
 
 })

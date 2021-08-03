@@ -43,7 +43,7 @@ const ProductSchema = new mongoose.Schema(
 		category: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'ProductCategory',
-			autopopulate: { select: '_id name ', maxDepth: 1 },
+
 		},
 		subs: [
 			{
