@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch, createSelectorHook } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getProductByCount, fetchProductsByFilter } from '../function/product'
 import { getCategories } from '../function/productcategory'
 import ProductCard from "../components/cards/ProductCard";
 import { Slider, Space, Spin, Checkbox } from 'antd';
-
+import Star from '../components/forms/Star'
 import { Menu } from 'antd';
 import { DollarCircleOutlined, SafetyCertificateOutlined, SettingOutlined } from '@ant-design/icons';
 
@@ -15,6 +15,9 @@ const Shop = () => {
     const [price, setPrice] = useState([])
     const [ok, setOk] = useState(false)
     const [categories, setcategories] = useState([])
+    const [categoriyIds, setCategoryIds] = useState([])
+    const [star, setStar] = useState('')
+
     let dispatch = useDispatch()
     let { search } = useSelector(state => ({ ...state }))
 
@@ -26,7 +29,7 @@ const Shop = () => {
         //to get all categories
         getCategories().then(res => {
             setcategories(res.data)
-            console.log(res.data);
+
         }
         )
     }, []);
@@ -80,12 +83,15 @@ const Shop = () => {
             type: 'SEARCH_QUERY',
             payload: { text: '' }
         })
+
         setPrice(value)
+        setCategoryIds([])
         setTimeout(() => {
             setOk(!ok)
         }, 300)
 
     }
+
 
     // 4 load products based on category
     //show category in check box
@@ -95,12 +101,82 @@ const Shop = () => {
             <Checkbox
                 className='pb-2 pl-4 pr-4 '
                 value={c._id}
-                name='Category'>{<span className='text-secondary'> {c.name}</span>}
+                name='category'
+                onChange={onChange}
+                checked={categoriyIds.includes(c._id)}
+            >
+                {c.name}
             </Checkbox>
             <br />
         </div>)
         )
+    const onChange = (e) => {
+        dispatch({
+            type: 'SEARCH_QUERY',
+            payload: { text: '' }
+        })
+        setPrice([0, 0])
+        let jsutChecked = e.target.value
+        let inTheState = [...categoriyIds]
+        let foundInTheState = inTheState.indexOf(jsutChecked)
+        //if foundInTheState equal -1 it means doesn't found in the array so
+        //we will push it inTheState Array
+        if (foundInTheState === -1) {
+            inTheState.push(jsutChecked)
+        } else {
+            // if foundInTheState not equal -1 it means found in the array so
+            //we will pull it from inTheState Array
+            inTheState.splice(foundInTheState, 1)
+        }
+        setCategoryIds(inTheState)
+        fetchProducts({ category: inTheState })
 
+        // console.log('in the state', inTheState);
+
+    }
+
+
+    // 5 handle star
+    const handleStarClicked = (number) => {
+        // console.log(number);
+        dispatch({
+            type: 'SEARCH_QUERY',
+            payload: { text: '' }
+        })
+        setPrice([0, 0])
+        setCategoryIds([])
+        // setStar(number)
+        fetchProducts({ stars: number })
+
+    }
+
+    const showStars = () => (
+        <div className='pb-2 pl-4 pr-2 '>
+            <Star
+                numberOfStars={5}
+                starClick={handleStarClicked}
+            />
+            <Star
+                numberOfStars={4}
+                starClick={handleStarClicked}
+            />
+            <Star
+                numberOfStars={3}
+                starClick={handleStarClicked}
+            />
+            <Star
+                numberOfStars={2}
+                starClick={handleStarClicked}
+            />
+            <Star
+                numberOfStars={1}
+                starClick={handleStarClicked}
+            />
+
+
+        </div>
+
+    )
 
     return (
         <div className='container-fluid'>
@@ -108,16 +184,18 @@ const Shop = () => {
                 <div className='col-md-3 border-end border-3 pt-3 '>
                     <h1 className='text-primary text-center '>Search/Filter Menues</h1>
                     <Menu
-                        // onClick={this.handleClick}
-                        style={{ width: 256 }}
-                        defaultSelectedKeys={['sub1', 'sub2']}
-                        defaultOpenKeys={['sub1', 'sub2']}
+                        // // onClick={this.handleClick}
+                        style={{ ' background- color': 'blue' }}
+
+                        defaultSelectedKeys={['sub1', 'sub2', 'sub3']}
+                        defaultOpenKeys={['sub1', 'sub2', 'sub3']}
                         mode="inline"
-                        className='sticky-top'
+                        className='sticky-top '
                     >
+                        {/* Menu price */}
                         <SubMenu key="sub1"
                             icon={<DollarCircleOutlined
-                                style={{ fontSize: '20px', color: 'gold' }}
+                                style={{ fontSize: '20px', color: 'green' }}
 
                             />}
                             title={
@@ -132,10 +210,11 @@ const Shop = () => {
 
                                 range
                                 onChange={handleslider}
-                                max='100000'
+                                max='60000'
                             />
 
                         </SubMenu>
+                        {/* Menu Category */}
                         <SubMenu key="sub2"
                             icon={<SafetyCertificateOutlined
                                 style={{ fontSize: '20px', color: 'red' }}
@@ -149,7 +228,20 @@ const Shop = () => {
                             {showCategories()}
 
                         </SubMenu>
-                        <SubMenu key="sub4" icon={<SettingOutlined />} title="Navigation Three">
+                        <SubMenu key="sub3"
+                            icon={<SafetyCertificateOutlined
+                                style={{ fontSize: '20px', color: 'gold' }}
+
+                            />}
+                            title={
+                                <span className='h6 '>Ratings</span >
+
+                            }
+
+                        >
+                            <div style={{ marginTop: '-10px' }}>
+                                {showStars()}
+                            </div>
 
                         </SubMenu>
                     </Menu>

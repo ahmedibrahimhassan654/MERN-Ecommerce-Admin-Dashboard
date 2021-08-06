@@ -75,7 +75,8 @@ exports.read = asyncHandler(async (req, res) => {
 })
 
 exports.update = asyncHandler(async (req, res) => {
-  const updated = await Product.findByIdAndUpdate({ _id: req.params._id }, req.body, { new: true }).exec()
+  const updated = await Product.findByIdAndUpdate({ _id: req.params._id },
+    req.body, { new: true }).exec()
 
   res.json(updated)
 
@@ -238,9 +239,38 @@ const handlCategory = async (req, res, category) => {
     console.log(err);
   }
 }
+const handleStars = (req, res, stars) => {
+  Product.aggregate([
+    {
+      $project: {
+        document: '$$ROOT',
+        floorAverage: {
+          $floor: { $avg: '$ratings.star' }
+        }
+      }
+    },
+    {
+      $match: { floorAverage: stars }
+    }
+  ])
+    .limit(12)
+    .exec((err, aggregates) => {
+      if (err) {
+        console.log('aggrgate error', err);
+      }
+      Product.find({ _id: aggregates })
+        .populate("category", "_id name")
+        .populate("subs", "_id name")
+        .populate("cratedBy", "_id name")
+        .exec((err, products) => {
+          if (err) console.log('products aggregate error', err);
+          res.json(products)
+        });
+    })
+}
 
 exports.searchFilters = asyncHandler(async (req, res) => {
-  const { query, price, category } = req.body
+  const { query, price, category, stars } = req.body
   if (query) {
     console.log("handle query fucntion is called", query);
     await handlquery(req, res, query)
@@ -254,6 +284,10 @@ exports.searchFilters = asyncHandler(async (req, res) => {
   if (category) {
     console.log("category value", category);
     await handlCategory(req, res, category)
+  }
+  if (stars) {
+    console.log("stars value", stars);
+    await handleStars(req, res, stars)
   }
 
 })
