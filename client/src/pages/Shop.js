@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { getProductByCount, fetchProductsByFilter } from '../function/product'
 import { getCategories } from '../function/productcategory'
+import { getSubCategories } from '../function/productSubCategory'
 import ProductCard from "../components/cards/ProductCard";
 import { Slider, Space, Spin, Checkbox } from 'antd';
 import Star from '../components/forms/Star'
 import { Menu } from 'antd';
-import { DollarCircleOutlined, SafetyCertificateOutlined, SettingOutlined } from '@ant-design/icons';
+import { DollarCircleOutlined, SafetyCertificateOutlined, StarOutlined, SubnodeOutlined, } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 const Shop = () => {
@@ -16,7 +17,7 @@ const Shop = () => {
     const [ok, setOk] = useState(false)
     const [categories, setcategories] = useState([])
     const [categoriyIds, setCategoryIds] = useState([])
-    const [star, setStar] = useState('')
+    const [subs, setSubs] = useState([])
 
     let dispatch = useDispatch()
     let { search } = useSelector(state => ({ ...state }))
@@ -31,7 +32,12 @@ const Shop = () => {
             setcategories(res.data)
 
         }
+
         )
+
+        getSubCategories().then(res => {
+            setSubs(res.data)
+        })
     }, []);
 
     const fetchProducts = (arg) => {
@@ -177,6 +183,21 @@ const Shop = () => {
         </div>
 
     )
+    const showSubs = () =>
+        subs.map((c) =>
+        (<div key={c._id}>
+            <Checkbox
+                className='pb-2 pl-4 pr-4 '
+                value={c._id}
+                name='category'
+                onChange={onChange}
+                checked={categoriyIds.includes(c._id)}
+            >
+                {c.name}
+            </Checkbox>
+            <br />
+        </div>)
+        )
 
     return (
         <div className='container-fluid'>
@@ -187,8 +208,8 @@ const Shop = () => {
                         // // onClick={this.handleClick}
                         style={{ ' background- color': 'blue' }}
 
-                        defaultSelectedKeys={['sub1', 'sub2', 'sub3']}
-                        defaultOpenKeys={['sub1', 'sub2', 'sub3']}
+                        defaultSelectedKeys={['sub1', 'sub2', 'sub3', 'sub4']}
+                        defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4']}
                         mode="inline"
                         className='sticky-top '
                     >
@@ -229,8 +250,11 @@ const Shop = () => {
 
                         </SubMenu>
                         <SubMenu key="sub3"
-                            icon={<SafetyCertificateOutlined
-                                style={{ fontSize: '20px', color: 'gold' }}
+
+
+
+                            icon={<StarOutlined
+                                style={{ fontSize: '25px', color: 'gold' }}
 
                             />}
                             title={
@@ -241,6 +265,26 @@ const Shop = () => {
                         >
                             <div style={{ marginTop: '-10px' }}>
                                 {showStars()}
+                            </div>
+
+                        </SubMenu>
+
+                        <SubMenu key="sub4"
+
+
+
+                            icon={<SubnodeOutlined
+                                style={{ fontSize: '25px', color: 'purple ' }}
+
+                            />}
+                            title={
+                                <span className='h6 '>Subs</span >
+
+                            }
+
+                        >
+                            <div style={{ marginTop: '-10px' }}>
+                                {showSubs()}
                             </div>
 
                         </SubMenu>
@@ -255,7 +299,7 @@ const Shop = () => {
                         </Space>
                     </>) : (
                         <h4 className='text-danger m-5'>
-                            <u> {products.length} Products</u>
+                            <u> {products.length} Product{products.length > 1 ? "s" : ''}</u>
                         </h4>
 
                     )}
