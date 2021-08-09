@@ -284,9 +284,53 @@ const handleSub = async (req, res, sub) => {
     console.log(err);
   }
 }
+const handleShipping = async (req, res, shipping) => {
+  try {
 
+    let products = await Product.find({
+      shipping
+    })
+      .populate("category", "_id name")
+      .populate("subs", "_id name")
+      .populate("cratedBy", "_id name")
+      .exec();
+    res.json(products)
+  } catch (err) {
+    console.log(err);
+  }
+}
+const handleQuality = async (req, res, quality) => {
+  try {
+
+    let products = await Product.find({
+      quality
+    })
+      .populate("category", "_id name")
+      .populate("subs", "_id name")
+      .populate("cratedBy", "_id name")
+      .exec();
+    res.json(products)
+  } catch (err) {
+    console.log(err);
+  }
+}
+const handleWarrantyAvailable = async (req, res, warrantyAvailable) => {
+  try {
+
+    let products = await Product.find({
+      warrantyAvailable
+    })
+      .populate("category", "_id name")
+      .populate("subs", "_id name")
+      .populate("cratedBy", "_id name")
+      .exec();
+    res.json(products)
+  } catch (err) {
+    console.log(err);
+  }
+}
 exports.searchFilters = asyncHandler(async (req, res) => {
-  const { query, price, category, stars, sub } = req.body
+  const { query, price, category, stars, sub, shipping, quality, warrantyAvailable } = req.body
   if (query) {
     console.log("handle query fucntion is called", query);
     await handlquery(req, res, query)
@@ -306,8 +350,21 @@ exports.searchFilters = asyncHandler(async (req, res) => {
     await handleStars(req, res, stars)
   }
   if (sub) {
-    console.log("stars value", sub);
+    console.log("sub value", sub);
     await handleSub(req, res, sub)
   }
+  if (shipping) {
+    console.log("shipping value", shipping);
+    await handleShipping(req, res, shipping)
+  }
+  if (quality) {
+    console.log("quality value", quality);
+    await handleQuality(req, res, quality)
+  }
+  if (warrantyAvailable) {
+    console.log("warrantyAvailable value", warrantyAvailable);
+    await handleWarrantyAvailable(req, res, warrantyAvailable)
+  }
+
 
 })

@@ -4,10 +4,10 @@ import { getProductByCount, fetchProductsByFilter } from '../function/product'
 import { getCategories } from '../function/productcategory'
 import { getSubCategories } from '../function/productSubCategory'
 import ProductCard from "../components/cards/ProductCard";
-import { Slider, Space, Spin, Checkbox } from 'antd';
+import { Slider, Space, Spin, Checkbox, Radio } from 'antd';
 import Star from '../components/forms/Star'
 import { Menu } from 'antd';
-import { DollarCircleOutlined, SafetyCertificateOutlined, StarOutlined, SubnodeOutlined, } from '@ant-design/icons';
+import { DiffOutlined, DollarCircleOutlined, SafetyCertificateOutlined, StarOutlined, SubnodeOutlined, } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 const Shop = () => {
@@ -18,7 +18,9 @@ const Shop = () => {
     const [categories, setcategories] = useState([])
     const [categoriyIds, setCategoryIds] = useState([])
     const [subs, setSubs] = useState([])
-
+    const [sub, setSub] = useState('')
+    const [qualities, setQualities] = useState(['Original', 'Hieght Quality', 'Used'])
+    const [quality, setQuality] = useState('')
     let dispatch = useDispatch()
     let { search } = useSelector(state => ({ ...state }))
 
@@ -92,6 +94,8 @@ const Shop = () => {
 
         setPrice(value)
         setCategoryIds([])
+        setSub('')
+        setQuality('')
         setTimeout(() => {
             setOk(!ok)
         }, 300)
@@ -122,6 +126,8 @@ const Shop = () => {
             payload: { text: '' }
         })
         setPrice([0, 0])
+        setSub('')
+        setQuality('')
         let jsutChecked = e.target.value
         let inTheState = [...categoriyIds]
         let foundInTheState = inTheState.indexOf(jsutChecked)
@@ -151,7 +157,8 @@ const Shop = () => {
         })
         setPrice([0, 0])
         setCategoryIds([])
-        // setStar(number)
+        setSub('')
+        setQuality('')
         fetchProducts({ stars: number })
 
     }
@@ -183,22 +190,61 @@ const Shop = () => {
         </div>
 
     )
+    // sub category 
     const showSubs = () =>
-        subs.map((c) =>
-        (<div key={c._id}>
-            <Checkbox
-                className='pb-2 pl-4 pr-4 '
-                value={c._id}
-                name='category'
-                onChange={onChange}
-                checked={categoriyIds.includes(c._id)}
-            >
-                {c.name}
-            </Checkbox>
+        subs.map((s) =>
+        (<div key={s._id}
+            onClick={() => handleSub(s)}
+            className='p-1 m-1 badge badge-primary'
+            style={{ cursor: 'pointer' }}
+        >
+
+            {s.name}
+
             <br />
         </div>)
         )
+    const handleSub = (s) => {
+        setSub(s)
+        dispatch({
+            type: 'SEARCH_QUERY',
+            payload: { text: '' }
+        })
+        setPrice([0, 0])
+        setCategoryIds([])
+        // setStar(number)
+        fetchProducts({ sub: s })
 
+    }
+
+    //handle quality 
+    const showQuality = () =>
+        qualities.map((q) => (
+            <Radio
+                value={q}
+                name={q}
+                checked={q === quality}
+                onChange={handleQuality}
+                className='pb-1 pt-1 pr-4'
+            >{q}
+            </Radio>
+
+
+        ))
+
+    const handleQuality = (e) => {
+
+        setQuality(e.target.value)
+
+        // set(s)
+        dispatch({
+            type: 'SEARCH_QUERY',
+            payload: { text: '' }
+        })
+        setPrice([0, 0])
+        setCategoryIds([])
+        fetchProducts({ quality: e.target.value })
+    }
     return (
         <div className='container-fluid'>
             <div className='row'>
@@ -208,8 +254,8 @@ const Shop = () => {
                         // // onClick={this.handleClick}
                         style={{ ' background- color': 'blue' }}
 
-                        defaultSelectedKeys={['sub1', 'sub2', 'sub3', 'sub4']}
-                        defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4']}
+                        defaultSelectedKeys={['sub1', 'sub2', 'sub3', 'sub4', 'sub5']}
+                        defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4', 'sub5']}
                         mode="inline"
                         className='sticky-top '
                     >
@@ -283,8 +329,27 @@ const Shop = () => {
                             }
 
                         >
-                            <div style={{ marginTop: '-10px' }}>
+                            <div style={{ marginTop: '-10px' }} className='p-1 m-1' >
                                 {showSubs()}
+                            </div>
+
+                        </SubMenu>
+                        <SubMenu key="sub5"
+
+
+
+                            icon={<DiffOutlined
+                                style={{ fontSize: '25px', color: 'fuchsia  ' }}
+
+                            />}
+                            title={
+                                <span className='h6 '>quality</span >
+
+                            }
+
+                        >
+                            <div style={{ marginTop: '-10px' }} className='p-1 m-1' >
+                                {showQuality()}
                             </div>
 
                         </SubMenu>
